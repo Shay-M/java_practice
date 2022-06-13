@@ -24,7 +24,7 @@ public class Ex4 {
 //        private Boy b; // cannot find symbol
 
         public Circle() {
-//            b = new Boy();
+//            b = new Boy();  // cannot find symbol
             System.out.println("it’s a Boy");
         }
 
@@ -33,3 +33,9 @@ public class Ex4 {
         }
     }
 }
+
+
+    /*      YAA its cool
+            I don’t like java
+            it’s a Boy
+    */

@@ -21,7 +21,7 @@ public class Queue<T> {
         } else {
             Node<T> temp = new Node<T>(x);
             this.end.setNext(temp);
-            this.end = this.end.getNext();
+            this.end = temp;
 
         }
 
@@ -31,34 +31,44 @@ public class Queue<T> {
 
     }
 
+    public T pop() {
+        T x = this.first.getValue();
+        this.first = this.first.getNext();
+        return x;
+    }
+
     public T remove() {
         if (!isEmpty()) {
+
             T x = this.first.getValue();
             if (this.first.hasNext())
                 this.first = this.first.getNext();
-
+            else
+                first = null;
             return x;
-        } else return null;
+
+        } else {
+
+            return null;
+        }
     }
 
     public T head() {
-
-        return this.first.getValue();
-
+        return this.end.getValue();
     }
 
     public String toString() {
 
         if (this.isEmpty())
-            return ">> >>";
+            return "<- <-";
 
-        String str = ">> ";
+        String str = "<- ";
         Node<T> pos = this.first;
         while (pos.hasNext()) {
-            str = str + pos.getValue() + ",";
+            str = str + pos.getValue() + " , ";
             pos = pos.getNext();
         }
-        str = str + pos.getValue() + " >>";
+        str = str + pos.getValue() + " <-";
         return str;
     }
 

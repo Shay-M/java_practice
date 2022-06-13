@@ -53,22 +53,4 @@ public class Ex3 {
         System.out.println(Arrays.deepToString(func(n1)));
     }
 
-
-//    int **list_to_powers_of_two (Item *lst, int *rows_num)
-//    {
-//        int **arr, i, j, size = list_size(lst);
-//        arr = (int **)calloc(size, sizeof(int *));
-//        for (i=0; i<size; i++)
-//        {
-//            arr[i] = (int *)calloc(lst->data+1, sizeof(int));
-//            arr[i][0] = 1;
-//            for (j=1; j < lst->data; j++)
-//                arr[i][j] = arr[i][j-1]*2;
-//            arr[i][j] = 0;
-//            lst = lst->next;
-//        }
-//	*rows_num = size;
-//        return arr;
-//    }
-
 }
