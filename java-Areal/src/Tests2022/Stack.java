@@ -39,7 +39,7 @@ public class Stack<T> {
         return str;
     }
 
-    public int size() {
+    /*public int size() {
         int counter = 0;
         Node<T> temp = this.first;
         while (temp != null) {
@@ -48,5 +48,5 @@ public class Stack<T> {
         }
         System.out.println("size:");
         return counter;
-    }
+    }*/
 }
