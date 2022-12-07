@@ -1,0 +1,37 @@
+(1) Write a function that receives an array of strings arrStrings and a string toRemove.
+The function returns a new array of Strings that is the same as the input array arrStrings except that all strings that were equal to toRemove are removed.
+
+example: 
+For strings array { "abc", "def", "hij", "yariv", "abc", "hij", "abc", "def" } and the string value "abc" the function will
+return the array { "def", "hij", "yariv", "hij", "def" }
+
+If arrStrings does not contain the string toRemove at all - throw an exception.
+
+(2) Write a function that receives an array of integers and returns a sorted array
+private static int[] printSorted(int[] arr) {
+	...
+}
+
+int[] a1 = { 5, 12, 1, 8, 4 };
+int[] sorted = printSorted(a1);
+for (int val : sorted) {
+	logger.log(Level.INFO, String.valueOf(val);
+}
+
+
+Will output:
+1
+4
+5
+8
+12
+
+Recommendation: Begin by writing a function for an array with only 2 numbers, then for an array with only 3 numbers, etc.
+
+(3) Change the one-out-of-three program to use arrays
+
+(4) What will the program ArraysAndChange.java print?
+TRY AND DECIDE WITH OUT EXECUTING!
+Use a memory drawing!!!
+
+

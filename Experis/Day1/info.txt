@@ -1,0 +1,50 @@
+C:\Users\shay>cd Desktop
+
+C:\Users\shay\Desktop>"C:\Users\shay\.jdks\openjdk-16.0.1\bin\javac.exe" HelloMe.java
+error: file not found: HelloMe.java
+Usage: javac <options> <source files>
+use --help for a list of possible options
+
+C:\Users\shay\Desktop>dir *.java
+ Volume in drive C is Windows
+ Volume Serial Number is 6C6E-ADB3
+
+ Directory of C:\Users\shay\Desktop
+
+File Not Found
+
+C:\Users\shay\Desktop>cd day
+
+C:\Users\shay\Desktop\Day>dir
+ Volume in drive C is Windows
+ Volume Serial Number is 6C6E-ADB3
+
+ Directory of C:\Users\shay\Desktop\Day
+
+12/04/2022  02:30 PM    <DIR>          .
+12/04/2022  02:30 PM    <DIR>          ..
+12/04/2022  02:28 PM               459 HelloMe.java
+12/04/2022  02:10 PM               302 HelloSecureWorld.java
+               2 File(s)            761 bytes
+               2 Dir(s)  149,507,981,312 bytes free
+
+C:\Users\shay\Desktop\Day>"C:\Users\shay\.jdks\openjdk-16.0.1\bin\javac.exe" HelloMe.java
+
+C:\Users\shay\Desktop\Day>dir
+ Volume in drive C is Windows
+ Volume Serial Number is 6C6E-ADB3
+
+ Directory of C:\Users\shay\Desktop\Day
+
+12/04/2022  02:37 PM    <DIR>          .
+12/04/2022  02:37 PM    <DIR>          ..
+12/04/2022  02:37 PM             1,276 HelloMe.class
+12/04/2022  02:28 PM               459 HelloMe.java
+12/04/2022  02:37 PM               641 HelloSecureWorld.class
+12/04/2022  02:10 PM               302 HelloSecureWorld.java
+               4 File(s)          2,678 bytes
+               2 Dir(s)  149,507,969,024 bytes free
+
+C:\Users\shay\Desktop\Day>"C:\Users\shay\.jdks\openjdk-16.0.1\bin\java.exe" HelloMe
+π÷ε╫ 04, 2022 2:38:19 ατΣ╪÷ HelloMe main
+INFO: What is your name?
