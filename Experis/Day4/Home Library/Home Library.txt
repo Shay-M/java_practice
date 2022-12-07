@@ -1,0 +1,234 @@
+Home Library‏
+yariv tal experis 2
+
+I want an app on my computer to keep track of books and cds that I have and loan to friends.
+
+When I run the program, I get this menu:
+1) List all books & cds
+2) Print details for books and cds
+3) Add a book
+4) Add a cd
+5) Mark book or cd as loaned
+6) Mark book or cd as returned
+
+The program then let's me enter a number for my choice.
+
+When (1) is selected a list of the NAMES of all my books and cds is printed to the screen, with a '*' near those that are loaned out to someone.
+
+When (2) is selected I will be asked for the start of a name of a book or cd.
+The program will print the details (as given when the book/cd was added) of each book and cd that BEGINS with what I typed, non-case sensitive.
+I.e. if I have the book "Jungle Book" and the cd "Jungle Fever", typing "jung" (+enter) will print the details of both of them (because they both start with "jung").
+Note that if a book/cd is loaned the details should include the name of the loaner.
+ 
+When (3) is selected I will be asked questions about the book I want to add:
+- What is the book's title (aka name)?
+- Who is the books author?
+The book will then be added to the collection.
+
+When (4) is selected I will be asked questions about the cdI want to add:
+- What is the cd's title (aka name)?
+- Is this an original cd (y/n)?
+- Who is the band/singer?
+The cd will then be added to the collection.
+
+When (5) is selected I will be asked for the start of a name of a book or cd.
+The program will print the details (as given when the book/cd was added) of each book and cd that is NOT loaned AND that BEGINS with what I typed, non-case sensitive, with a number near the name.
+I.e. if I have the book "Jungle Book" and the cd "Jungle Fever", typing "jung" (+enter) then I will see something like:
+1) Jungle Book
+2) Jungle Fever
+I can then select a number to mark the book/cd as loaned.
+The book/cd is then marked as loaned.
+
+For (6) - the same as (5) but only LOANED books will be printed out and selecting a book marks it as not-loaned.
+
+
+
+SAMPLE SESSION:
+> java HomeLib
+1) List all books & cds
+2) Print details for books and cds
+3) Add a book
+4) Add a cd
+5) Mark book or cd as loaned
+6) Mark book or cd as returned
+3
+What is the title? 
+Harry Potter
+Who is the author? 
+J.K Rawling
+Book added
+
+1) List all books & cds
+2) Print details for books and cds
+3) Add a book
+4) Add a cd
+5) Mark book or cd as loaned
+6) Mark book or cd as returned
+
+4
+What is the cd's title (aka name)? 
+Jungle Fever
+Is this an original cd?
+y
+Who is the band/singer?
+mix
+
+1) List all books & cds
+2) Print details for books and cds
+3) Add a book
+4) Add a cd
+5) Mark book or cd as loaned
+6) Mark book or cd as returned
+
+1
+Your collection:
+  Harry Potter
+  Jungle Fever
+
+1) List all books & cds
+2) Print details for books and cds
+3) Add a book
+4) Add a cd
+5) Mark book or cd as loaned
+6) Mark book or cd as returned
+
+2
+Type the begining of the book/cd name: 
+Jun
+Jungle Fever (mix) [copy]
+
+1) List all books & cds
+2) Print details for books and cds
+3) Add a book
+4) Add a cd
+5) Mark book or cd as loaned
+6) Mark book or cd as returned
+
+5
+Type the begining of the book/cd name:
+harr
+(1) Harry Potter
+Select book/cd: 
+1
+
+1) List all books & cds
+2) Print details for books and cds
+3) Add a book
+4) Add a cd
+5) Mark book or cd as loaned
+6) Mark book or cd as returned
+
+1
+* Harry Potter
+  Jungle Fever
+
+1) List all books & cds
+2) Print details for books and cds
+3) Add a book
+4) Add a cd
+5) Mark book or cd as loaned
+6) Mark book or cd as returned
+
+2
+Type the begining of the book/cd name:
+har
+HarryPotter / J.K. Rawling {*loaned}
+
+שיעורי בית יום 4 - ספריה ביתית - דוגמת הרצה.txt‏
+Text‏
+תגובות בכיתה
+העבודה שלך
+הוקצתה
+תגובות פרטיות
+1) List all books & cds
+2) Print details for books and cds
+3) Add a book
+4) Add a cd
+5) Mark book or cd as loaned
+6) Mark book or cd as returned
+3
+What is the book's title?
+Jungle Book
+Who is the auther?
+Kipling
+Book added!
+
+1) List all books & cds
+2) Print details for books and cds
+3) Add a book
+4) Add a cd
+5) Mark book or cd as loaned
+6) Mark book or cd as returned
+1
+Your collection:
+  Jungle Book
+
+1) List all books & cds
+2) Print details for books and cds
+3) Add a book
+4) Add a cd
+5) Mark book or cd as loaned
+6) Mark book or cd as returned
+4
+What is the cd's title?
+The Wall
+Is this an original cd (y/n)?
+y
+Who is the band/singer?
+Pink Floyd
+CD added!
+
+1) List all books & cds
+2) Print details for books and cds
+3) Add a book
+4) Add a cd
+5) Mark book or cd as loaned
+6) Mark book or cd as returned
+1
+Your collection:
+  Jungle Book
+  The Wall
+
+1) List all books & cds
+2) Print details for books and cds
+3) Add a book
+4) Add a cd
+5) Mark book or cd as loaned
+6) Mark book or cd as returned
+4
+What is the cd's title?
+Jungle Fever
+Is this an original cd (y/n)?
+n
+Who is the band/singer?
+Boom Chaka Laka
+CD added!
+
+1) List all books & cds
+2) Print details for books and cds
+3) Add a book
+4) Add a cd
+5) Mark book or cd as loaned
+6) Mark book or cd as returned
+5
+What does the book/cd start with?
+jung
+Choose one:
+1) Jungle Book
+2) Jungle Fever
+1
+Jungle Book is loaned.
+
+1) List all books & cds
+2) Print details for books and cds
+3) Add a book
+4) Add a cd
+5) Mark book or cd as loaned
+6) Mark book or cd as returned
+1
+Your Collection:
+* Jungle Book
+  Jungle Fever
+  The Wall
+שיעורי בית יום 4 - ספריה ביתית - דוגמת הרצה.txt
+המערכת מציגה את שיעורי בית יום 4 - ספריה ביתית - דוגמת הרצה.txt.
