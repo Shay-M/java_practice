@@ -1,0 +1,20 @@
+java Surprise 1
+Why did the chicken cross the road? To get to the other side!
+
+java Surprise 2
+Enter a number:
+42
+Result of 42 + 1 is 43
+
+java Susprise 3
+An IllegalArgumentException wad thrown ...... 
+
+
+YOU ARE NOT ALLOWED TO USE IF, SWITCH, WHILE, OR ANYTHING THAT USES A CONDITION!
+
+
+...
+Surprise[] surprises = new Surprise[3];
+...
+
+suprises[selectedSuprise]. ...
