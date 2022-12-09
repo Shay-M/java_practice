@@ -19,26 +19,19 @@ public final class HomeLibrary {
 		library[0] = new Book ("bookTitle" , "bookAuthor" , 0);
 		library[1]  = new Cd ("cdTitle" , false , "bandOrSinger" , 1); 
 		
-		int command;
-		
 		while(true){
-			command = -1;
+			
 	        printManu();
 			
 	        try {
-	            command = Integer.valueOf(System.console().readLine());
-	
-	        } catch (NumberFormatException ex) {
-	            logger.log(Level.INFO, "Exit!");
-				return;
-	        }
-			
-	        switch (command) {
+	           final int command = Integer.valueOf(System.console().readLine());
+			   
+			   switch (command) {
 	            case 1:
-	                printAllBooksAndCds(library);
+	                printAllItmes(library);
 	                break;
 	            case 2:
-	                PrintDetailsForBooksAndCds(library);
+	                PrintDetailsForItmes(library);
 	                break;
 	            case 3:
 	                AddBook(library);
@@ -55,14 +48,20 @@ public final class HomeLibrary {
 	            default:
 	               logger.log(Level.INFO, "Exit!");
 				   return;
-	        }
+	        	}
 	
+	        } catch (NumberFormatException ex) {
+	            logger.log(Level.INFO, "Exit!");
+				return;
+	        }
+			
+
 	        logger.log(Level.INFO, "\n--------------------------\n");
 		}
 
     }
 	
-	public static final void printAllBooksAndCds(IRentable[] library) {
+	private static final void printAllItmes(IRentable[] library) {
 		logger.log(Level.INFO, "\n");
 		
 		String outPut = "\n\n";
@@ -83,7 +82,7 @@ public final class HomeLibrary {
 	}
 	
 	
-	public static final IRentable getItmeByUser(IRentable[] library) {
+	private static final IRentable getItmeByUser(IRentable[] library) {
 	
 		logger.log(Level.INFO, "\nType the begining of the book/cd name:");
 		String itemTitle = System.console().readLine().toLowerCase();
@@ -117,12 +116,12 @@ public final class HomeLibrary {
 		logger.log(Level.INFO, outPut + "command: " + command);
 		return library[itmesIds[command  - 1]];
 	}
-	public static final void PrintDetailsForBooksAndCds(IRentable[] library) {
+	private static final void PrintDetailsForItmes(IRentable[] library) {
 	
 		logger.log(Level.INFO, "\n\n\tItme Details: " + getItmeByUser(library).getDetails() + "\n");		
 	}
 	
-	public static final void AddBook(IRentable[] library) {
+	private static final void AddBook(IRentable[] library) {
 		
 		logger.log(Level.INFO, "\nWhat is the book title?");
 		String bookTitle = System.console().readLine();
@@ -140,7 +139,7 @@ public final class HomeLibrary {
 
 	}
 	
-	public static final void AddCD(IRentable[] library) {
+	private static final void AddCD(IRentable[] library) {
 	
 		logger.log(Level.INFO, "\nWhat is the cd title?");
 		String cdTitle = System.console().readLine();
@@ -155,23 +154,23 @@ public final class HomeLibrary {
 		// (String title, boolean isOriginal , String bandOrSinger)
 		library[numOfBooksAndCds] = new Cd (cdTitle , cdOriginal , bandOrSinger , numOfBooksAndCds++);
 		
-		logger.log(Level.INFO, "\tBook Added !\n");
+		logger.log(Level.INFO, "\tCd Added !\n");
 	}
 	
-		public static final void MarkBookOrCdAsLoaned(IRentable[] library) {
+	private static final void MarkBookOrCdAsLoaned(IRentable[] library) {
+	
+		getItmeByUser(library).setLoaned(true);
 		
-			getItmeByUser(library).setLoaned(true);
-			
-			logger.log(Level.INFO, "\n\tBook is loaned! ");	
-		}
+		logger.log(Level.INFO, "\n\tBook is loaned! ");	
+	}
+	
+	private static final void MarkBookOrCdAsReturned(IRentable[] library) {
+		getItmeByUser(library).setLoaned(false);
 		
-		public static final void MarkBookOrCdAsReturned(IRentable[] library) {
-			getItmeByUser(library).setLoaned(false);
-			
-			logger.log(Level.INFO, "\n\tBook is return! ");	
-		}
+		logger.log(Level.INFO, "\n\tBook is return! ");	
+	}
 
-    public static final void printManu() {
+    private static final void printManu() {
 
         String[] menuCommands = new String[NUM_COMMANDS];
         String outPut = "\n";

@@ -7,12 +7,11 @@ public final class Cd extends Media implements IRentable {
 	private final boolean _isOriginal;
 	
 
-    public Cd (String title, boolean isOriginal , String bandOrSinger, int id) {
+    public Cd (String title, boolean isOriginal , String bandOrSinger) {
 	
         _title = title;
 		_isOriginal = isOriginal;
         _bandOrSinger = bandOrSinger;
-		_id = id;
 		
         _loaned = false;
     }

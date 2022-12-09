@@ -8,6 +8,10 @@ public abstract class Media{
 		return _id;
 	}
 
+    public void setId(int id){
+		_id = id;
+	}
+
     public boolean getLoaned() {
         return _loaned;
     }

@@ -4,5 +4,5 @@ public interface IRentable {
 	String toString();
 	String getDetails();
 	int getId();
-
+	void setId(int id);
 }

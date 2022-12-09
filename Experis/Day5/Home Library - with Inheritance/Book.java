@@ -5,10 +5,9 @@ public final class Book extends Media implements IRentable {
 
     private final String _author;
 	
-    public Book(String title, String author, int id) {
+    public Book(String title, String author) {
         _title = title;
         _author = author;
-		_id = id;
 		
         _loaned = false;
     }
