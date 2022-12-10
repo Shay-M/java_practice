@@ -6,7 +6,6 @@ public final class HomeLibrary {
     private static final Logger logger = Logger.getLogger(HomeLibrary.class.getCanonicalName());
 
     private static final int NUM_COMMANDS = 6;
-    private static final int NUM_Of_ITMES = 10;
 	
 	private static final String YES = "y";
 
@@ -16,9 +15,7 @@ public final class HomeLibrary {
     public static void main(final String[] args) {
 		
 		// mediaCollection = new MediaCollection(); //?
-		
-		final IRentable[] library = new IRentable[NUM_Of_ITMES]; // todo calss
-		
+				
 		mediaCollection.add(new Book ("bookTitle" , "bookAuthor"));
 		mediaCollection.add(new Cd ("cdTitle" , false , "bandOrSinger"));
 		
@@ -40,13 +37,13 @@ public final class HomeLibrary {
 	                AddBook();
 	                break;
 	            case 4:
-	                AddCD(library);
+	                AddCD();
 	                break;
 	            case 5:
-	                MarkBookOrCdAsLoaned(library);
+	                MarkBookOrCdAsLoaned();
 	                break;
 	            case 6:
-	                MarkBookOrCdAsReturned(library);
+	                MarkBookOrCdAsReturned();
 	                break;
 	            default:
 	               logger.log(Level.INFO, "Exit!");
@@ -73,36 +70,47 @@ public final class HomeLibrary {
 		logger.log(Level.INFO, "Who is the author?");
 		String bookAuthor = System.console().readLine();
 		
+		try {
 		mediaCollection.add(new Book (bookTitle , bookAuthor));
+		} catch (NullPointerException ex) {
+			logger.log(Level.INFO, "\n" + ex.getMessage() + "\n");
+			return;
+		}
 		
 		logger.log(Level.INFO, "\tBook: " + bookTitle + " Added !\n");
 
 	}
 	
-	private static final void AddCD(IRentable[] library) {
+	private static final void AddCD() {
 	
 		logger.log(Level.INFO, "\nWhat is the cd title?");
 		String cdTitle = System.console().readLine();
 		
-		logger.log(Level.INFO, "Is this an original cd?");
+		logger.log(Level.INFO, "Is this an original cd? (y/n)");
 		
 		boolean cdOriginal = System.console().readLine().equals(YES) ? true : false; //todo
 		
 		logger.log(Level.INFO, "Who is the band/singer?");
 		String bandOrSinger = System.console().readLine();
 		
-		mediaCollection.add(new Cd (cdTitle , cdOriginal , bandOrSinger));
+		try {
+			mediaCollection.add(new Cd (cdTitle , cdOriginal , bandOrSinger));
+		} catch (NullPointerException ex) {
+			logger.log(Level.INFO, "\n" + ex.getMessage() + "\n");
+			return;
+		}
+
 		logger.log(Level.INFO, "\tCd: " + cdTitle + " Added !\n");
 	}
 	
-	private static final void MarkBookOrCdAsLoaned(IRentable[] library) {
+	private static final void MarkBookOrCdAsLoaned() {
 		
 		mediaCollection.getItemByUser().setLoaned(true);
 		
 		logger.log(Level.INFO, "\n\tBook is loaned! ");	
 	}
 	
-	private static final void MarkBookOrCdAsReturned(IRentable[] library) {
+	private static final void MarkBookOrCdAsReturned() {
 		mediaCollection.getItemByUser().setLoaned(false);
 		
 		logger.log(Level.INFO, "\n\tBook is return! ");	
@@ -111,7 +119,7 @@ public final class HomeLibrary {
     private static final void printMenu() {
 
         String[] menuCommands = new String[NUM_COMMANDS];
-        String outPut = "\n";
+        String outPut = "\nChoose one of the options (1-"+ NUM_COMMANDS +"), any other key to exit.\n";
 
         int indexCommands = 0;
         menuCommands[indexCommands++] = "List all books & cds";

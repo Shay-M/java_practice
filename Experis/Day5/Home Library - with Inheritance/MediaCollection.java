@@ -34,8 +34,20 @@ public final class MediaCollection{
 
         logger.log(Level.INFO, outPut);
     }
+    private final boolean contains(final String itemName){
+
+        for (IRentable item : _itemsArr) {
+            if (item.toString().toLowerCase().equals(itemName.toLowerCase())) {
+               return true;
+            }
+        }
+         return false;
+    }
 
     public final void add(final IRentable newItem){
+        if (this.contains(newItem.toString())) {
+            throw new IllegalStateException("Item: " + newItem +" already exists!");
+        }
         int oldLength = _itemsArr.length;
         newItem.setId(oldLength);
         final IRentable[] newItemsArr = new IRentable[oldLength + 1]; 
@@ -45,20 +57,22 @@ public final class MediaCollection{
     }
 
     public final void PrintDetail() {
+        try {
 		logger.log(Level.INFO, "\n\n\tItem Details: " + getItemByUser().getDetails() + "\n");		
+
+        } catch (NullPointerException ex){
+           logger.log(Level.INFO, "\n no Item found!\n");		
+        }
     }
     
     /* public final IRentable getItemByid(int id) {
-	
-	
     } */
 
-    // public final int getItemsMenu() {
     public final IRentable getItemByUser() {
 
         int itemsArraylength = _itemsArr.length;
 
-         if (itemsArraylength == 0) {
+        if (itemsArraylength == 0) {
             return null;
         }
 
