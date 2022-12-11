@@ -1,0 +1,46 @@
+FUNCTIONAL PROPERTIES
+Does it work correctly?
+....
+....
+
+NON-FUNCTIONAL PROPERTIES
+Is the code secure?
+
+Is it good code?
+**** Maintainability - the ability to change existing code
+Readability - saves time, helps others understand
+Reusability - saves time
+Efficiency - good for customer, good for advertising, good for sales
+Uses modern technologies - saves time, sometimes required, 
+Zero bugs - no such thing?
+Less bugs
+Short
+
+The BAD Habits
+WET - Write Everything Twice / We Enjoy Typing / Waste Everyone's Time
+Spaghetti Code - global variables, static variables
+
+The GOOD Principles for Maintainability
+DRY - Don't Repeat Yourself
+Avoid Spaghetti Code
+    - No global/static variables (except for logger)
+    - Single responsibility
+OOP Object Oriented Programming
+    - Abstraction
+    - Encapsulation - private member variables
+    - Polymorphism - היכולת להתיחס להרבה טיפוסים כאילו כולם אותו הטיפוס \ ושיש התנהגות שונה
+    - (Inheritance)
+SOLID
+    - Single responsibility: לדוגמה ההדפסות בתוך הקלאס לא שייך לו
+    - Open/closed principle: open for extension close to change	פתוח להרחבות וסגור לשינוים : מקסימום תחזיקית מושגת עם אף פעם לא שצריך שינוים רק להוסיף לו ולא לשנות 
+    - Liskov substitution principle
+    - Interface Segragation
+    - Dependency inversion
+	
+	overloading: פונקציה מובחנות דרך השם וגם דרך האורגמנטים ששולחים
+
+
+
+
+
+
