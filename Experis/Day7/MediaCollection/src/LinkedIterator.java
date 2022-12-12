@@ -3,11 +3,11 @@ import java.util.Optional;
 public final class LinkedIterator implements Iterator {
 
     // private MediaNode m_head;
-    private Optional<MediaNode> m_head;
+    private Optional<ObjNode> m_head;
     //private MediaNode pointer;
 
-    public LinkedIterator(MediaNode mediaNode) {
-        m_head = Optional.of(mediaNode);
+    public LinkedIterator(ObjNode objNode) {
+        m_head = Optional.of(objNode);
         //pointer = m_head;
     }
 
@@ -17,9 +17,9 @@ public final class LinkedIterator implements Iterator {
     }
 
     @Override
-    public Media next() {
+    public Object next() {
 
-        Media returnedMedia = m_head.get().getMedia();
+        Object returnedObject = m_head.get().getObject();
 
         if (m_head.get().getNext().isPresent()) {
             m_head = m_head.get().getNext();
@@ -27,7 +27,7 @@ public final class LinkedIterator implements Iterator {
             m_head = Optional.empty();
         }
 
-        return returnedMedia;
+        return returnedObject;
     }
 
 

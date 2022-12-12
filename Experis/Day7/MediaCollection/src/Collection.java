@@ -1,46 +1,15 @@
-/*
-public abstract class MediaCollection {
-
-
-    public void add(Media media) {
-
-    }
-
-    public void insert(Media media) { // like add but at beginning
-
-    }
-
-    public void removeAt(int idx) {
-
-    }
-
-    public Media at(int idx) {
-        return null;
-    }
-
-    public int count() {
-        return 0;
-    }
-
-    public MediaIterator iterator() {
-        return null;
-    }
-
-}*/
-
-
 public interface Collection {
 
-    public void add(Media media);
+    void add(Object object);
 
-    public void insert(Media media);
+    void insert(Object object);
 
-    public void removeAt(int idx);
+    void removeAt(int idx);
 
-    public Media at(int idx);
+    Object at(int idx);
 
-    public int count();
+    int count();
 
-    public Iterator iterator();
+    Iterator iterator();
 
 }

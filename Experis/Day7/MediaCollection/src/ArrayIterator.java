@@ -1,9 +1,9 @@
 public final class ArrayIterator implements Iterator {
 
-    private Media[] m_array;
+    private Object[] m_array;
     private int courant = 0;
 
-    public ArrayIterator(Media[] array) {
+    public ArrayIterator(Object[] array) {
         m_array = array;
     }
 
@@ -13,10 +13,10 @@ public final class ArrayIterator implements Iterator {
     }
 
     @Override
-    public Media next() {
-        Media returnedMedia = m_array[courant];
+    public Object next() {
+        Object returnedObject = m_array[courant];
         ++courant;
-        return returnedMedia;
+        return returnedObject;
     }
 
 }

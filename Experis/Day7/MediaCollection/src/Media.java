@@ -1,4 +1,3 @@
-
 public class Media {
 
     private final String name;

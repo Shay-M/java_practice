@@ -2,14 +2,14 @@ import java.util.Optional;
 
 public final class LinkedCollection implements Collection {
     // private MediaNode m_head;
-    private Optional<MediaNode> m_head = Optional.empty();
-    private Optional<MediaNode> m_tail = Optional.empty();
+    private Optional<ObjNode> m_head = Optional.empty();
+    private Optional<ObjNode> m_tail = Optional.empty();
     private int m_length = 0;
 
 
     @Override
-    public void add(Media media) {
-        final MediaNode newNode = new MediaNode(media);
+    public void add(Object object) {
+        final ObjNode newNode = new ObjNode(object);
 
         if (m_head.isEmpty()) {
             m_head = Optional.of(newNode);
@@ -25,8 +25,8 @@ public final class LinkedCollection implements Collection {
     }
 
     @Override
-    public void insert(Media media) {
-        final MediaNode newNode = new MediaNode(media);
+    public void insert(Object object) {
+        final ObjNode newNode = new ObjNode(object);
 
         if (m_head.isEmpty()) {
             m_head = Optional.of(newNode);
@@ -46,7 +46,7 @@ public final class LinkedCollection implements Collection {
         }
 
         // Store head node
-        Optional<MediaNode> pointer = m_head;
+        Optional<ObjNode> pointer = m_head;
 
         // If head needs to be removed
         if (indexToRemove == 0) {
@@ -64,7 +64,7 @@ public final class LinkedCollection implements Collection {
 
         // Node temp->next is the node to be deleted
         // Store pointer to the next of node to be deleted
-        MediaNode next = pointer.get().getNext().get().getNext().get();
+        ObjNode next = pointer.get().getNext().get().getNext().get();
 
         // Unlink the deleted node from list
         pointer.get().setNext(next);
@@ -73,14 +73,14 @@ public final class LinkedCollection implements Collection {
     }
 
     @Override
-    public Media at(int indexToFind) {
+    public Object at(int indexToFind) {
         //searchInLinked(idx);
-        MediaNode pointer = m_head.get();
+        ObjNode pointer = m_head.get();
         for (int count = 0; count < indexToFind; count++) {
             pointer = pointer.getNext().get();
         }
 
-        return pointer.getMedia();
+        return pointer.getObject();
     }
 
     /*private searchInLinked (int indexToFind) {

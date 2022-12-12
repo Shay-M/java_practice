@@ -1,17 +1,24 @@
-public final class Loaned {
-    private Media m_media;
-    private String m_loanedTo;
+public class Loaned {
 
-    public Loaned(final Media media, final String loanedTo) {
-        this.m_media = media;
-        this.m_loanedTo = loanedTo;
+
+    final private String loanedName;
+    final private Object obj;
+
+
+    public Loaned(Object obj, String loanedName) {
+        this.loanedName = loanedName;
+        this.obj = obj;
     }
 
-    public final Media getMedia() {
-        return this.m_media;
+    public Media getObj() {
+        return ((Media) this.obj);
     }
 
-    public final String loanedTo() {
-        return this.m_loanedTo;
+    public String loanedTo() {
+        return null;
+    }
+
+    public String getName() {
+        return loanedName;
     }
 }

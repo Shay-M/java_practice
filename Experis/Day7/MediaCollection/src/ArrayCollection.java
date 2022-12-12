@@ -1,25 +1,25 @@
 public final class ArrayCollection implements Collection {
 
-    private Media[] m_array = new Media[0];
+    private Object[] m_array = new Object[0];
     //private final ArrayMediaIterator m_arrayMediaIterator = new ArrayMediaIterator(m_array);
 
     @Override
-    public final void add(Media media) {
-        final Media[] tempArray = new Media[count() + 1];
+    public final void add(Object object) {
+        final Object[] tempArray = new Object[count() + 1];
         System.arraycopy(m_array,
                 0,
                 tempArray,
                 0,
                 count());
-        tempArray[count()] = media;
+        tempArray[count()] = object;
         m_array = tempArray;
         // m_arrayMediaIterator.update(m_array);
     }
 
     @Override
-    public final void insert(Media media) { // like add but at beginning
-        final Media[] newArray = new Media[count() + 1];
-        newArray[0] = media;
+    public final void insert(Object object) { // like add but at beginning
+        final Object[] newArray = new Object[count() + 1];
+        newArray[0] = object;
         if (count() > 1) {
             System.arraycopy(
                     m_array,
@@ -27,8 +27,9 @@ public final class ArrayCollection implements Collection {
                     newArray,
                     1,
                     count());
-            m_array = newArray;
+
         }
+        m_array = newArray;
         //m_arrayMediaIterator.update(m_array);
     }
 
@@ -37,7 +38,7 @@ public final class ArrayCollection implements Collection {
         if (indexToRemove > count()) {
             return;
         }
-        final Media[] newArray = new Media[count() - 1];
+        final Object[] newArray = new Object[count() - 1];
         System.arraycopy(m_array,
                 0,
                 newArray,
@@ -54,10 +55,11 @@ public final class ArrayCollection implements Collection {
     }
 
     @Override
-    public final Media at(int indexToFind) {
+    public final Object at(int indexToFind) {
+
         try {
-            final Media returnedMedia = m_array[indexToFind];
-            return returnedMedia;
+            final Object returnedObject = m_array[indexToFind]; // -1
+            return returnedObject;
         } catch (ArrayIndexOutOfBoundsException ex) {
             throw ex; //todo
         }
