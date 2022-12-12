@@ -1,3 +1,4 @@
+// - Implementation of MediaNode (you might need to perform changes to it!)
 import java.util.Optional;
 
 public final class MediaNode {
