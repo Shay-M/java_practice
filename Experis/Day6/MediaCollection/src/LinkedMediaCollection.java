@@ -1,5 +1,3 @@
-
-
 public final class LinkedMediaCollection implements MediaCollection {
     private MediaNode head;
     private MediaNode tail;

@@ -14,7 +14,7 @@ public class Main {
         mc.add(new Media("3 The Little Prince", "Anton"));
         MediaIterator itr = mc.iterator();
 
-        /*
+
         while (itr.hasNext()) {
             Media media = itr.next();
             logger.log(Level.INFO, media.getName());
@@ -44,10 +44,24 @@ public class Main {
         while (itr.hasNext()) {
             Media media = itr.next();
             logger.log(Level.INFO, media.getName());
+        }
+
+        /*
+        MediaCollection mc = new ArrayMediaCollection();
+        mc.add(new Media("Harry Potter", "J.K.Rolling"));
+        mc.add(new Media("Jungle Book", "Kipling"));
+        mc.add(new Media("The Little Prince", "Anton"));
+
+        LoanedCollection loaned = new ArrayLoanedCollection();
+        loaned.add(new Loaned(mc.at(1), "Yoel"));
+        loaned.add(new Loaned(mc.at(2), "Rivit"));
+
+        LoanedIterator itr = loaned.iterator();
+        while (itr.hasNext()) {
+            Loaned loaned = itr.next();
+            logger.log(Level.INFO, loaned.getMedia().getName() + " loaned to " + loaned.loanedTo());
+
         }*/
-
-
-
 
 
     }

@@ -1,5 +1,3 @@
-
-
 public final class LinkedMediaIterator implements MediaIterator {
 
     private MediaNode head;

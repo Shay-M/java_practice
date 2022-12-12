@@ -1,5 +1,3 @@
-
-
 public final class ArrayMediaIterator implements MediaIterator {
 
     private Media[] m_array; //final?
