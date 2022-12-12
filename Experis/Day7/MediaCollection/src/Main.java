@@ -1,5 +1,3 @@
-import Actions.*;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -12,28 +10,30 @@ public class Main {
         // testAll();
 
         Collection mediaCollection = new LinkedCollection();
-        mediaCollection.insert(new Media("1 Harry Potter", "J.K.Rolling"));
-        mediaCollection.insert(new Media("2 Jungle Book", "Kipling"));
-        mediaCollection.insert(new Media("3 The Little Prince", "Anton"));
+        mediaCollection.insert(new Media("1 Harry Potter", "J.K.Rolling", false));//todo
+        mediaCollection.insert(new Media("2 Jungle Book", "Kipling", true));
+        mediaCollection.insert(new Media("3 The Little Prince", "Anton", false));
 
         Collection actions = new ArrayCollection();
-        actions.insert(new PrintAllAc(mediaCollection.iterator()));
+        actions.insert(new AcPrintAll(mediaCollection.iterator()));
+        //actions.insert(new AcPrintDetils(mediaCollection));
+
+        // actions.printAll; ?
 
 
-        while (true) {
+        //while (true) {
 
-            printMenu();
-            try {
-                //final int command = Integer.valueOf(System.console().readLine()) - 1;
-                final int command = 0;
+        try {
+            //final int command = Integer.valueOf(System.console().readLine()) - 1;
+            final int command = 0; //<
 
-                ((PrintAllAc) actions.at(command)).doAction();
+            ((AcPrintAll) actions.at(command)).doAction();
 
-            } catch (NumberFormatException ex) {
-                logger.log(Level.INFO, "Exit!");
-                return;
-            }
+        } catch (NumberFormatException ex) {
+            logger.log(Level.INFO, "Exit!");
+            return;
         }
+        //}
     }
 
     private static void testAll() {
@@ -148,29 +148,5 @@ public class Main {
 
     }
 
-    private static final void printMenu() {
-
-        /*String[] menuCommands = new String[NUM_COMMANDS];
-        String outPut = "\nChoose one of the options (1-" + NUM_COMMANDS + "), any other key to exit.\n";
-
-        int indexCommands = 0;
-        menuCommands[indexCommands++] = "List all books & cds";
-        menuCommands[indexCommands++] = "Print details for books and cds";
-        menuCommands[indexCommands++] = "Add a book";
-        menuCommands[indexCommands++] = "Add a cd";
-        menuCommands[indexCommands++] = "Mark book or cd as loaned";
-        menuCommands[indexCommands++] = "Mark book or cd as returned";
-
-        indexCommands = 1;
-
-        for (String command : menuCommands) {
-            outPut += "\t" + indexCommands++ + ") ";
-            outPut += command;
-            outPut += "\n";
-        }
-
-        logger.log(Level.INFO, outPut);*/
-
-    }
 
 }
