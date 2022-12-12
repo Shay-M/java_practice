@@ -1,12 +1,12 @@
 import java.util.Optional;
 
-public final class LinkedMediaIterator implements MediaIterator {
+public final class LinkedIterator implements Iterator {
 
     // private MediaNode m_head;
     private Optional<MediaNode> m_head;
     //private MediaNode pointer;
 
-    public LinkedMediaIterator(MediaNode mediaNode) {
+    public LinkedIterator(MediaNode mediaNode) {
         m_head = Optional.of(mediaNode);
         //pointer = m_head;
     }

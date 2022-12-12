@@ -1,4 +1,4 @@
-public final class ArrayMediaCollection implements MediaCollection {
+public final class ArrayCollection implements Collection {
 
     private Media[] m_array = new Media[0];
     //private final ArrayMediaIterator m_arrayMediaIterator = new ArrayMediaIterator(m_array);
@@ -70,8 +70,8 @@ public final class ArrayMediaCollection implements MediaCollection {
     }
 
     @Override
-    public final MediaIterator iterator() {
-        return new ArrayMediaIterator(m_array); // According to the diagram uml it does not contain no diamond arrow
+    public final Iterator iterator() {
+        return new ArrayIterator(m_array); // According to the diagram uml it does not contain no diamond arrow
     }
 
 

@@ -1,9 +1,9 @@
-public final class ArrayMediaIterator implements MediaIterator {
+public final class ArrayIterator implements Iterator {
 
-    private Media[] m_array; //final?
+    private Media[] m_array;
     private int courant = 0;
 
-    public ArrayMediaIterator(Media[] array) {
+    public ArrayIterator(Media[] array) {
         m_array = array;
     }
 

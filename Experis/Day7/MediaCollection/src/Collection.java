@@ -29,7 +29,7 @@ public abstract class MediaCollection {
 }*/
 
 
-public interface MediaCollection {
+public interface Collection {
 
     public void add(Media media);
 
@@ -41,6 +41,6 @@ public interface MediaCollection {
 
     public int count();
 
-    public MediaIterator iterator();
+    public Iterator iterator();
 
 }

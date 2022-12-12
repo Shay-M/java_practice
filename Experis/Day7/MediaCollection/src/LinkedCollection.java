@@ -1,6 +1,6 @@
 import java.util.Optional;
 
-public final class LinkedMediaCollection implements MediaCollection {
+public final class LinkedCollection implements Collection {
     // private MediaNode m_head;
     private Optional<MediaNode> m_head = Optional.empty();
     private Optional<MediaNode> m_tail = Optional.empty();
@@ -20,17 +20,6 @@ public final class LinkedMediaCollection implements MediaCollection {
             }
             m_tail = Optional.of(newNode);
         }
-
-       /* if (m_head.isPresent()) {
-            m_head = Optional.of(newNode);
-        } else {
-            Optional<MediaNode> last = m_head;
-
-            while (last.get().getNext().isPresent()) {
-                last = last.get().getNext();
-            }
-            last.get().setNext(newNode);
-        }*/
 
         ++m_length;
     }
@@ -110,8 +99,8 @@ public final class LinkedMediaCollection implements MediaCollection {
     }
 
     @Override
-    public final MediaIterator iterator() {
-        return new LinkedMediaIterator(m_head.get()); // According to the diagram uml it does not contain no diamond arrow
+    public final Iterator iterator() {
+        return new LinkedIterator(m_head.get()); // According to the diagram uml it does not contain no diamond arrow
     }
 
 
