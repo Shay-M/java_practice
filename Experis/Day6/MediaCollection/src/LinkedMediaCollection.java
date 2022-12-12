@@ -1,63 +1,117 @@
+import java.util.Optional;
+
 public final class LinkedMediaCollection implements MediaCollection {
-    private MediaNode head;
-    private MediaNode tail;
+    // private MediaNode m_head;
+    private Optional<MediaNode> m_head = Optional.empty();
+    private Optional<MediaNode> m_tail = Optional.empty();
     private int m_length = 0;
 
 
     @Override
     public void add(Media media) {
-        MediaNode newNode = new MediaNode(media);
-        tail.setNext(newNode);
-        tail = newNode;
+        final MediaNode newNode = new MediaNode(media);
 
-        if (head.getMedia() == null) {
-            head = tail;
+        if (m_head.isEmpty()) {
+            m_head = Optional.of(newNode);
+            m_tail = Optional.of(newNode);
+        } else {
+            if (m_tail.isPresent()) {
+                m_tail.get().setNext(newNode);
+            }
+            m_tail = Optional.of(newNode);
         }
+
+       /* if (m_head.isPresent()) {
+            m_head = Optional.of(newNode);
+        } else {
+            Optional<MediaNode> last = m_head;
+
+            while (last.get().getNext().isPresent()) {
+                last = last.get().getNext();
+            }
+            last.get().setNext(newNode);
+        }*/
+
         ++m_length;
     }
 
     @Override
     public void insert(Media media) {
-        if (head == null) {
-            head = new MediaNode(media);
+        final MediaNode newNode = new MediaNode(media);
+
+        if (m_head.isEmpty()) {
+            m_head = Optional.of(newNode);
+            m_tail = Optional.of(newNode);
         } else {
-            MediaNode newNode = new MediaNode(media);
-            newNode.setNext(head);
-            head = newNode;
+            newNode.setNext(m_head.get());
+            m_head = Optional.of(newNode);
         }
         ++m_length;
     }
 
     @Override
     public void removeAt(int indexToRemove) {
-        if (indexToRemove > count()) {//-1
+
+        if (indexToRemove > count()) {
             return;
         }
 
-        MediaNode pointer = head;
-        while (indexToRemove - 1 >= 0) {
-            pointer = pointer.getNext().get();
-            --indexToRemove;
+        // Store head node
+        Optional<MediaNode> pointer = m_head;
+
+        // If head needs to be removed
+        if (indexToRemove == 0) {
+            m_head = pointer.get().getNext(); // Change head
+            return;
         }
 
+        // Find previous node of the node to be deleted
+        for (int count = 0; pointer.isEmpty() && count < indexToRemove - 1; count++) {
+            pointer = pointer.get().getNext();
+        }
+        // If position is more than number of nodes
+        if (pointer.isEmpty() || pointer.get().getNext().isEmpty())
+            return;
+
+        // Node temp->next is the node to be deleted
+        // Store pointer to the next of node to be deleted
+        MediaNode next = pointer.get().getNext().get().getNext().get();
+
+        // Unlink the deleted node from list
+        pointer.get().setNext(next);
 
         --m_length;
     }
 
     @Override
-    public Media at(int idx) {
-        return null;
+    public Media at(int indexToFind) {
+        //searchInLinked(idx);
+        MediaNode pointer = m_head.get();
+        for (int count = 0; count < indexToFind; count++) {
+            pointer = pointer.getNext().get();
+        }
+
+        return pointer.getMedia();
     }
+
+    /*private searchInLinked (int indexToFind) {
+
+    }*/
+
+    /*private void removeNode(MediaNode MediaNodeToRemove) {
+
+        MediaNodeToRemove.setNext(MediaNodeToRemove.getNext().get());
+
+    }*/
 
     @Override
     public int count() {
-
         return m_length;
     }
 
     @Override
     public final MediaIterator iterator() {
-        return new LinkedMediaIterator(head); // According to the diagram uml it does not contain no diamond arrow
+        return new LinkedMediaIterator(m_head.get()); // According to the diagram uml it does not contain no diamond arrow
     }
 
 

@@ -1,28 +1,31 @@
+import java.util.Optional;
+
 public final class LinkedMediaIterator implements MediaIterator {
 
-    private MediaNode head;
-    // private MediaNode pointer;
+    // private MediaNode m_head;
+    private Optional<MediaNode> m_head;
+    //private MediaNode pointer;
 
     public LinkedMediaIterator(MediaNode mediaNode) {
-        head = mediaNode;
+        m_head = Optional.of(mediaNode);
+        //pointer = m_head;
     }
 
     @Override
     public boolean hasNext() {
-//        if (head.getNext().isPresent()) {
-        if (head != null) {
-            return true;
-        }
-        return false;
+        return m_head.isPresent();
     }
 
     @Override
     public Media next() {
-        Media returnedMedia = head.getMedia();
-        if (head.getNext().isPresent()) { //? incompatible types: java.util.Optional<MediaNode> cannot be converted to MediaNode
-            head = head.getNext().get();
-        }
 
+        Media returnedMedia = m_head.get().getMedia();
+
+        if (m_head.get().getNext().isPresent()) {
+            m_head = m_head.get().getNext();
+        } else {
+            m_head = Optional.empty();
+        }
 
         return returnedMedia;
     }
