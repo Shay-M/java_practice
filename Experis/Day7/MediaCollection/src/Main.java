@@ -1,3 +1,5 @@
+import Actions.*;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -6,6 +8,36 @@ public class Main {
     private static final Logger logger = Logger.getLogger(Main.class.getCanonicalName());
 
     public static void main(String[] args) {
+
+        // testAll();
+
+        Collection mediaCollection = new LinkedCollection();
+        mediaCollection.insert(new Media("1 Harry Potter", "J.K.Rolling"));
+        mediaCollection.insert(new Media("2 Jungle Book", "Kipling"));
+        mediaCollection.insert(new Media("3 The Little Prince", "Anton"));
+
+        Collection actions = new ArrayCollection();
+        actions.insert(new PrintAllAc(mediaCollection.iterator()));
+
+
+        while (true) {
+
+            printMenu();
+            try {
+                //final int command = Integer.valueOf(System.console().readLine()) - 1;
+                final int command = 0;
+
+                ((PrintAllAc) actions.at(command)).doAction();
+
+            } catch (NumberFormatException ex) {
+                logger.log(Level.INFO, "Exit!");
+                return;
+            }
+        }
+    }
+
+    private static void testAll() {
+
         // ----------------------Test with a collection of Media..-----------------------------
 
 /*
@@ -103,7 +135,7 @@ public class Main {
         // no bcz int not a obj
 
 
-        // 4) Can you add different types to the Collection? (for example, both String and Media in the same collection:Collection c = new ArrayCollection();
+        /*// 4) Can you add different types to the Collection? (for example, both String and Media in the same collection:Collection c = new ArrayCollection();
         // yes they r all obj
         Collection collection = new ArrayCollection();
         collection.insert(new String("0L"));
@@ -111,10 +143,34 @@ public class Main {
         collection.insert(new Media("Harry Potter", "J K Rolling"));
 
         // If yes - how can you print all the items in the collection? If no - why?
-        // instanceof and not fun way
+        // instanceof and not fun way*/
 
 
     }
 
+    private static final void printMenu() {
+
+        /*String[] menuCommands = new String[NUM_COMMANDS];
+        String outPut = "\nChoose one of the options (1-" + NUM_COMMANDS + "), any other key to exit.\n";
+
+        int indexCommands = 0;
+        menuCommands[indexCommands++] = "List all books & cds";
+        menuCommands[indexCommands++] = "Print details for books and cds";
+        menuCommands[indexCommands++] = "Add a book";
+        menuCommands[indexCommands++] = "Add a cd";
+        menuCommands[indexCommands++] = "Mark book or cd as loaned";
+        menuCommands[indexCommands++] = "Mark book or cd as returned";
+
+        indexCommands = 1;
+
+        for (String command : menuCommands) {
+            outPut += "\t" + indexCommands++ + ") ";
+            outPut += command;
+            outPut += "\n";
+        }
+
+        logger.log(Level.INFO, outPut);*/
+
+    }
 
 }
