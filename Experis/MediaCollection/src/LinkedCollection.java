@@ -1,14 +1,14 @@
 import java.util.Optional;
 
-public final class LinkedCollection<T> implements Collection<T> {
+public final class LinkedCollection implements Collection {
     // private MediaNode m_head;
-    private Optional<ObjNode<T>> m_head = Optional.empty();
-    private Optional<ObjNode<T>> m_tail = Optional.empty();
+    private Optional<ObjNode> m_head = Optional.empty();
+    private Optional<ObjNode> m_tail = Optional.empty();
     private int m_length = 0;
 
 
     @Override
-    public void add(final T object) {
+    public void add(Object object) {
         final ObjNode newNode = new ObjNode(object);
 
         if (m_head.isEmpty()) {
@@ -25,7 +25,7 @@ public final class LinkedCollection<T> implements Collection<T> {
     }
 
     @Override
-    public void insert(final T object) {
+    public void insert(Object object) {
         final ObjNode newNode = new ObjNode(object);
 
         if (m_head.isEmpty()) {
@@ -39,14 +39,14 @@ public final class LinkedCollection<T> implements Collection<T> {
     }
 
     @Override
-    public void removeAt(final int indexToRemove) {
+    public void removeAt(int indexToRemove) {
 
         if (indexToRemove > count()) {
             return;
         }
 
         // Store head node
-        Optional<ObjNode<T>> pointer = m_head;
+        Optional<ObjNode> pointer = m_head;
 
         // If head needs to be removed
         if (indexToRemove == 0) {
@@ -73,14 +73,14 @@ public final class LinkedCollection<T> implements Collection<T> {
     }
 
     @Override
-    public final T at(final int indexToFind) {
+    public Object at(int indexToFind) {
         //searchInLinked(idx);
-        ObjNode<T> pointer = m_head.get();
+        ObjNode pointer = m_head.get();
         for (int count = 0; count < indexToFind; count++) {
             pointer = pointer.getNext().get();
         }
 
-        return (T) pointer.getObject();
+        return pointer.getObject();
     }
 
     /*private searchInLinked (int indexToFind) {
@@ -99,9 +99,8 @@ public final class LinkedCollection<T> implements Collection<T> {
     }
 
     @Override
-    public final Iterator<T> iterator() {
-        // According to the diagram uml it does not contain no diamond arrow
-        return new LinkedIterator<T>(m_head.get());
+    public final Iterator iterator() {
+        return new LinkedIterator(m_head.get()); // According to the diagram uml it does not contain no diamond arrow
     }
 
 

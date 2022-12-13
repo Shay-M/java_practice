@@ -1,17 +1,12 @@
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class AcPrintAll implements Action {
-    private static final Logger logger = Logger.getLogger(Main.class.getCanonicalName());
+public class AcPrintAll extends Action {
 
-    private final String actionName = "List all books & cds";
-    private Iterator m_iterator;
+    private static final String ACTION_NAME = "List all books & cds";
 
-    public AcPrintAll(Iterator iterator) {
-
-        m_iterator = iterator;
+    public AcPrintAll(Collection mCollection) {
+        super(mCollection, ACTION_NAME);
     }
-
 
     @Override
     public void doAction() {
@@ -20,8 +15,9 @@ public class AcPrintAll implements Action {
             logger.log(Level.INFO, media.getName());
         }*/
 
-        String outPut = "\n\t" + actionName + "\n";
+        String outPut = "\n\t" + ACTION_NAME + "\n";
         int indexCommands = 0;
+        final Iterator m_iterator = m_collection.iterator();
         while (m_iterator.hasNext()) {
             Media obj = (Media) m_iterator.next();
 
@@ -37,11 +33,6 @@ public class AcPrintAll implements Action {
         }
 
         logger.log(Level.INFO, outPut);
-    }
-
-    @Override
-    public String getName() {
-        return actionName;
     }
 
 

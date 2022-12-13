@@ -1,27 +1,26 @@
-public final class ArrayCollection<T> implements Collection<T> {
+public final class ArrayCollection implements Collection {
 
+    private Object[] m_array = new Object[0];
     //private final ArrayMediaIterator m_arrayMediaIterator = new ArrayMediaIterator(m_array);
-    // private Object[] m_array = new Object[0];
-    private T[] m_array = (T[]) new Object[0];
 
     @Override
-    public final void add(final T object) {
-        final T[] tempArray = (T[]) new Object[count() + 1];
+    public final void add(Object object) {
+        final Object[] tempArray = new Object[count() + 1];
         System.arraycopy(m_array,
                 0,
                 tempArray,
                 0,
                 count());
-        tempArray[count()] = (T) object;
-        m_array = (T[]) tempArray;
+        tempArray[count()] = object;
+        m_array = tempArray;
         // m_arrayMediaIterator.update(m_array);
     }
 
     @Override
-    public final void insert(final T object) { // like add but at beginning
-        final T[] newArray = (T[]) new Object[count() + 1];
+    public final void insert(Object object) { // like add but at beginning
+        final Object[] newArray = new Object[count() + 1];
         newArray[0] = object;
-        if (count() > 0) {
+        if (count() > 1) {
             System.arraycopy(
                     m_array,
                     0,
@@ -30,16 +29,16 @@ public final class ArrayCollection<T> implements Collection<T> {
                     count());
 
         }
-        m_array = (T[]) newArray;
+        m_array = newArray;
         //m_arrayMediaIterator.update(m_array);
     }
 
     @Override
-    public final void removeAt(final int indexToRemove) {
+    public final void removeAt(int indexToRemove) {
         if (indexToRemove > count()) {
             return;
         }
-        final T[] newArray = (T[]) new Object[count() - 1];
+        final Object[] newArray = new Object[count() - 1];
         System.arraycopy(m_array,
                 0,
                 newArray,
@@ -51,15 +50,16 @@ public final class ArrayCollection<T> implements Collection<T> {
                 newArray,
                 indexToRemove,
                 count() - indexToRemove - 1);
-        m_array = (T[]) newArray;
+        m_array = newArray;
         //m_arrayMediaIterator.update(m_array);
     }
 
     @Override
-    public final T at(final int indexToFind) {
+    public final Object at(int indexToFind) {
+
         try {
-            final T returnedObject = m_array[indexToFind]; // -1
-            return (T) returnedObject;
+            final Object returnedObject = m_array[indexToFind]; // -1
+            return returnedObject;
         } catch (ArrayIndexOutOfBoundsException ex) {
             throw ex; //todo
         }
@@ -72,8 +72,8 @@ public final class ArrayCollection<T> implements Collection<T> {
     }
 
     @Override
-    public final Iterator<T> iterator() {
-        return new ArrayIterator<T>(m_array); // new bcz according to the diagram uml it does not contain no diamond arrow
+    public final Iterator iterator() {
+        return new ArrayIterator(m_array); // According to the diagram uml it does not contain no diamond arrow
     }
 
 

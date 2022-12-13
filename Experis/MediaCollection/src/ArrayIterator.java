@@ -1,9 +1,9 @@
-public final class ArrayIterator<T> implements Iterator<T> {
+public final class ArrayIterator implements Iterator {
 
-    private T[] m_array;
+    private Object[] m_array;
     private int courant = 0;
 
-    public ArrayIterator(T[] array) {
+    public ArrayIterator(Object[] array) {
         m_array = array;
     }
 
@@ -13,8 +13,8 @@ public final class ArrayIterator<T> implements Iterator<T> {
     }
 
     @Override
-    public T next() {
-        T returnedObject = m_array[courant];
+    public Object next() {
+        Object returnedObject = m_array[courant];
         ++courant;
         return returnedObject;
     }

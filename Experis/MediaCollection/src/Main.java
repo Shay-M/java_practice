@@ -6,26 +6,18 @@ public class Main {
     private static final Logger logger = Logger.getLogger(Main.class.getCanonicalName());
 
     public static void main(String[] args) {
-        //testAll();
 
-        Collection<Media> mediaCollection = new LinkedCollection<Media>();
-        //Collection<Media> mediaCollection = new ArrayCollection<Media>();
-        mediaCollection.insert(new Media("1 Harry Potter", "J.K.Rolling", false)); //todo combine
+        testAll();
+
+        Collection mediaCollection = new LinkedCollection();
+        mediaCollection.insert(new Media("1 Harry Potter", "J.K.Rolling", false));//todo
         mediaCollection.insert(new Media("2 Jungle Book", "Kipling", true));
         mediaCollection.insert(new Media("3 The Little Prince", "Anton", false));
 
-        /*Iterator<Media> itr = mediaCollection.iterator();
-        while (itr.hasNext()) {
-            final Media media = itr.next();
-            logger.log(Level.INFO, ">>: " + media.getName());
-        }*/
+        Collection actions = new ArrayCollection(); // actions.printAll; ?
+        actions.add(new AcPrintAll(mediaCollection));
+        actions.add(new AcPrintDetils(mediaCollection));
 
-        Collection<Action> actions = new ArrayCollection<Action>(); // actions.printAll; ?
-        actions.add(new ActionPrintAll(mediaCollection));
-        actions.add(new ActionPrintDetils(mediaCollection));
-        actions.add(new ActionPrintDetils(mediaCollection));
-        actions.add(new ActionPrintDetils(mediaCollection));
-        actions.add(new ActionPrintDetils(mediaCollection));
 
         //while (true) {
 
@@ -39,65 +31,9 @@ public class Main {
             logger.log(Level.INFO, "Exit!");
             return;
         }
-
+        //}
     }
 
-    private static void testAll() {
-
-        /*testWithACollectionOfMedia();
-        testWithACollectionOfLoaned();
-        testWithACollectionOfString();
-        testWithACollectionOfLong();*/
-
-        // 3) Can you have a collection of int? (the primitive, not the reference type Integer)
-        // no bcz int not a obj
-
-        /*// 4) Can you add different types to the Collection? (for example, both String and Media in the same collection:Collection c = new ArrayCollection();
-        // yes they are all obj
-
-        Collection collection = new ArrayCollection();
-        collection.insert(new String("0L"));
-        collection.insert(new Long(2L));
-        collection.insert(new Media("Harry Potter", "J K Rolling"));
-
-        // If yes - how can you print all the items in the collection? If no - why?
-        // instanceof and collection */
-
-
-    }
-/*
-
-    @SuppressWarnings("removal")
-    private static void testWithACollectionOfLong() {
-        Collection<Long> collectionLong = new ArrayCollection<Long>(); //ArrayCollection!! insert
-        collectionLong.add(new Long(0L));
-        collectionLong.add(new Long(2L));
-        collectionLong.add(new Long(5L));
-
-        Iterator<Long> itr = collectionLong.iterator();
-        while (itr.hasNext()) {
-            Long num = itr.next();
-            //Object num = itr.next();
-            logger.log(Level.INFO, "Long: " + num.toString());
-
-        }
-    }
-
-    private static void testWithACollectionOfString() {
-        Collection<String> collection = new LinkedCollection();
-        collection.insert("1 Harry Potter");
-        collection.insert("2 Jungle Book");
-        collection.insert("3 The Little Prince");
-
-        Iterator<String> itr = collection.iterator();
-
-        while (itr.hasNext()) {
-            String num = itr.next();
-            //Object num = itr.next();
-            logger.log(Level.INFO, "Long: " + num.toString());
-
-        }
-    }
 
     private static void testWithACollectionOfLoaned() {
         Collection collection = new ArrayCollection();
@@ -164,7 +100,55 @@ public class Main {
         }
     }
 
-    */
+    private static void testAll() {
+
+        //testWithACollectionOfMedia();
+        //testWithACollectionOfLoaned();
+
+        // ------------------------Test with a collection of String.---------------------------
+
+       /* Collection collection = new ArrayCollection();
+        collection.insert(new String("1 Harry Potter"));
+        collection.insert(new String("2 Jungle Book"));
+        collection.insert(new String("3 The Little Prince"));
+
+        Iterator itr = collection.iterator();
+        while (itr.hasNext()) {
+            Object obj = itr.next();
+            logger.log(Level.INFO, "String: " + ((String) obj).toUpperCase());
+
+        }*/
+
+        // ------------------------Test with a collection of Long.---------------------------
+
+        /*Collection collection = new ArrayCollection();
+        collection.insert(new Long(0L));
+        collection.insert(new Long(2L));
+        collection.insert(new Long(5L));
+
+        Iterator itr = collection.iterator();
+        while (itr.hasNext()) {
+            Object obj = itr.next();
+            logger.log(Level.INFO, "Long: " + ((Long) obj).toString());
+
+        }*/
+
+        // 3) Can you have a collection of int? (the primitive, not the reference type Integer)
+        // no bcz int not a obj
+
+
+        /*// 4) Can you add different types to the Collection? (for example, both String and Media in the same collection:Collection c = new ArrayCollection();
+        // yes they r all obj
+        Collection collection = new ArrayCollection();
+        collection.insert(new String("0L"));
+        collection.insert(new Long(2L));
+        collection.insert(new Media("Harry Potter", "J K Rolling"));
+
+        // If yes - how can you print all the items in the collection? If no - why?
+        // instanceof and not fun way*/
+
+
+    }
 
 
 }

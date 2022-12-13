@@ -1,15 +1,15 @@
-public interface Collection {
+public interface Collection<T> {
 
-    void add(Object object);
+    void add(T t);
 
-    void insert(Object object);
+    void insert(T object);
 
     void removeAt(int idx);
 
-    Object at(int idx);
+    T at(int idx);
 
     int count();
 
-    Iterator iterator();
+    Iterator<T> iterator();
 
 }

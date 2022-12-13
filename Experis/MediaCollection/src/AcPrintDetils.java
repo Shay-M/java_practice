@@ -1,15 +1,11 @@
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class AcPrintDetils implements Action {
-    private static final Logger logger = Logger.getLogger(Main.class.getCanonicalName());
-    private final String actionName = "Print details for books and cds";
-    private Collection m_collection;
+public class AcPrintDetils extends Action {
+    private static final String ACTION_NAME = "Print details for books and cds";
 
+    public AcPrintDetils(Collection mCollection) {
+        super(mCollection, ACTION_NAME);
 
-    public AcPrintDetils(Collection collection) {
-
-        m_collection = collection;
     }
 
     @Override
@@ -21,11 +17,6 @@ public class AcPrintDetils implements Action {
         } catch (NullPointerException ex) {
             logger.log(Level.INFO, "\n no Item found!\n");
         }
-    }
-
-    @Override
-    public String getName() {
-        return actionName;
     }
 
     /*private final IRentable getItemByUser() {
