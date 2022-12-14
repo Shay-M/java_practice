@@ -97,10 +97,11 @@ public final class LinkedCollection<T> implements Collection<T> {
         return m_length;
     }
 
+    // According to the diagram uml it does not contain no diamond arrow
     @Override
-    public final Iterator<T> iterator() {
-        // According to the diagram uml it does not contain no diamond arrow
-        return new LinkedIterator<T>(m_head.get());
+    public final java.util.Iterator<T> iterator() {
+        java.util.Iterator<T> iterator = new LinkedIterator<T>(m_head.get());
+        return iterator;
     }
 
 
