@@ -1,0 +1,53 @@
+import java.util.Iterator;
+
+public class Range implements Collection {
+    private final static ArrayCollection<Integer> collection = new ArrayCollection<Integer>();
+    private final static Iterator<Integer> itr = collection.iterator();
+
+    public Range(int firstNum, int secondNum) {
+        for (int i = firstNum; i < secondNum; i++) {
+            this.add(i);
+        }
+    }
+
+    /*public Range(int firstNum, int secondNum, int steps) {
+        for (int i = firstNum; i < secondNum; i += steps) {
+            for (int j = 0; j < steps; j++) {
+                // this.add(i);
+            }
+
+        }
+
+    }*/
+
+    @Override
+    public void add(Object o) {
+        collection.add((Integer) o);
+    }
+
+
+    @Override
+    public void insert(Object object) {
+
+    }
+
+    @Override
+    public void removeAt(int idx) {
+
+    }
+
+    @Override
+    public Object at(int idx) {
+        return null;
+    }
+
+    @Override
+    public int count() {
+        return collection.count();
+    }
+
+    @Override
+    public Iterator iterator() {
+        return collection.iterator();
+    }
+}
