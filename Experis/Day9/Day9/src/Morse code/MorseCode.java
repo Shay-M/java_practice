@@ -38,7 +38,8 @@ public class MorseCode {
 			}
 			
 		}
-
+		
+		
 		logger.log(Level.INFO, "" + output );
 		
 		
