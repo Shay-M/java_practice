@@ -2,7 +2,7 @@ public interface Collection<T> extends Iterable<T> {
 
     void add(T t);
 
-    void insert(T object);
+    void insert(T t);
 
     void removeAt(int idx);
 

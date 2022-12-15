@@ -1,6 +1,6 @@
 public final class ArrayIterator<T> implements java.util.Iterator<T> {
 
-    private T[] m_array;
+    private final T[] m_array;
     private int courant = 0;
 
     public ArrayIterator(T[] array) {

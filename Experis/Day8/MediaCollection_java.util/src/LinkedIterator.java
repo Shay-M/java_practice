@@ -1,6 +1,6 @@
 import java.util.Optional;
 
-public final class LinkedIterator<T> implements java.util.Iterator {
+public final class LinkedIterator<T> implements java.util.Iterator<T> {
 
     // private MediaNode m_head;
     private Optional<ObjNode<T>> m_head;
@@ -17,9 +17,9 @@ public final class LinkedIterator<T> implements java.util.Iterator {
     }
 
     @Override
-    public Object next() {
+    public final T next() {
 
-        Object returnedObject = m_head.get().getObject();
+        T returnedObject = m_head.get().getObject();
 
         if (m_head.get().getNext().isPresent()) {
             m_head = m_head.get().getNext();

@@ -6,8 +6,6 @@ package Reversesllistinplace;
 //- Is it possible to implement the function with Complexity O(N) for BOTH types of List? (Note that List supports a listIterator() method)
 
 
-import OddIterator.OddIterator;
-
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,12 +16,12 @@ public class Main {
 
     public static void main(String[] args) {
 
-        final LinkedList<String> listOfLetters = new LinkedList<String>();
+        final List<String> listOfLetters = new LinkedList<String>();
         listOfLetters.add("a");
         listOfLetters.add("b");
         listOfLetters.add("c");
 
-        final ArrayList<String> arrayOfLetters = new ArrayList<String>();
+        final List<String> arrayOfLetters = new ArrayList<String>();
         arrayOfLetters.add("a");
         arrayOfLetters.add("b");
         arrayOfLetters.add("c");

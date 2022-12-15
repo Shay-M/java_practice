@@ -6,14 +6,14 @@ public final class ArrayCollection<T> implements Collection<T> {
 
     @Override
     public final void add(final T object) {
-        final T[] tempArray = (T[]) new Object[count() + 1];
+        final T[] newArray = (T[]) new Object[count() + 1];
         System.arraycopy(m_array,
                 0,
-                tempArray,
+                newArray,
                 0,
                 count());
-        tempArray[count()] = (T) object;
-        m_array = (T[]) tempArray;
+        newArray[count()] = (T) object;
+        m_array = (T[]) newArray;
         // m_arrayMediaIterator.update(m_array);
     }
 
@@ -73,8 +73,7 @@ public final class ArrayCollection<T> implements Collection<T> {
 
     @Override
     public java.util.Iterator<T> iterator() {
-        java.util.Iterator<T> iterator = new ArrayIterator<T>(m_array);
-        return iterator;
+        return new ArrayIterator<T>(m_array);
     }
 
 

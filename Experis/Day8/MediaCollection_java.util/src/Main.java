@@ -9,45 +9,25 @@ public class Main {
         // testAll();
 
         Collection<Media> mediaCollection = initializeMedia();
-
-
-        // mediaCollection.at(0).equals(mediaCollection.at(0));
-        logger.log(Level.INFO, " " + mediaCollection.at(0).equals(mediaCollection.at(0)));
-        logger.log(Level.INFO, " " + mediaCollection.at(0).equals(mediaCollection.at(1)));
-
         Collection<Action> actionsCollection = initializeAction(mediaCollection);
-        //printAction(actionsCollection);
+        printAction(actionsCollection);
 
-        // final int commandNum = getCommandNum();
-
-        //actionsCollection.at(commandNum)).doAction();
+        final int commandNum = ManuManager.getCommandNum(logger,actionsCollection.count());
+        //actionsCollection.at(commandNum).doAction();
 
         actionsCollection.at(0).doAction();
-        //actionsCollection.at(1).doAction();
+        actionsCollection.at(1).doAction();
 
 
     }
 
-    private static int getCommandNum() {
 
-        /*try {
-
-            final int commandNum = Integer.parseInt(System.console().readLine()) - 1;
-
-        } catch (NumberFormatException ex) {
-            logger.log(Level.INFO, "Exit!");
-            break;
-        }
-        return commandNum;*/
-        return 0;
-    }
 
     private static void printAction(Collection<Action> actionsCollection) {
-        int indexCommands = 0;
+        int indexCommands = 1;
         String outPut = "\nChoose one of the options (1-" + actionsCollection.count() + "), any other key to exit.\n";
 
         for (Action action : actionsCollection) {
-
             outPut += "\t" + indexCommands++ + ") ";
             outPut += action.getName();
             outPut += "\n";
@@ -59,36 +39,33 @@ public class Main {
     private static Collection<Action> initializeAction(Collection<Media> mediaCollection) {
         Collection<Action> actionsCollection = new ArrayCollection<Action>(); // actions.printAll; ?
         actionsCollection.add(new ActionPrintAll(mediaCollection));
-        actionsCollection.add(new ActionPrintDetils(mediaCollection));
+        actionsCollection.add(new ActionPrintDetails(mediaCollection));
 
 
         return actionsCollection;
-
     }
 
     private static Collection<Media> initializeMedia() {
 
         //Collection<Media> mediaCollection = new LinkedCollection<Media>();
         Collection<Media> mediaCollection = new ArrayCollection<Media>();
-        mediaCollection.insert(new Media("1 Harry Potter", "J.K.Rolling", false)); //todo combine
-        mediaCollection.insert(new Media("2 Jungle Book", "Kipling", true));
-        mediaCollection.insert(new Media("3 The Little Prince", "Anton", false));
-
+        mediaCollection.add(new Media("1 Harry Potter", "J.K.Rolling", false)); //todo combine
+        mediaCollection.add(new Media("2 Jungle Book", "Kipling", true));
+        mediaCollection.add(new Media("3 The Little Prince", "Anton", false));
         /*for (Media media : mediaCollection) {
             logger.log(Level.INFO, "media: " + media.getName());
         }*/
-
         return mediaCollection;
-
     }
 
     private static void testAll() {
-
         testWithACollectionOfMedia();
         testWithACollectionOfLong();
         testWithACollectionOfLoaned();
         testWithACollectionOfString();
         testWithACollectionOfInteger();
+        /*logger.log(Level.INFO, " " + mediaCollection.at(0).equals(mediaCollection.at(0)));
+        logger.log(Level.INFO, " " + mediaCollection.at(0).equals(mediaCollection.at(1)));*/
 
         // 3) Can you have a collection of int? (the primitive, not the reference type Integer)
         // no bcz int not a obj
@@ -102,9 +79,7 @@ public class Main {
         collection.insert(new Media("Harry Potter", "J K Rolling"));
 
         // If yes - how can you print all the items in the collection? If no - why?
-        // instanceof and collection */
-
-
+        // instanceof and collection ot try */
     }
 
     private static void testWithACollectionOfInteger() {
@@ -120,15 +95,12 @@ public class Main {
             Integer num = itr.next();
             //Object num = itr.next();
             logger.log(Level.INFO, "Integer: " + num.toString());
-
         }
     }
-
 
     @SuppressWarnings("removal")
     private static void testWithACollectionOfLong() {
         logger.log(Level.INFO, "\n\n");
-
         Collection<Long> collectionLong = new ArrayCollection<Long>(); //ArrayCollection!! insert
         collectionLong.add(0L);
         collectionLong.add(2L);
@@ -139,7 +111,6 @@ public class Main {
             Long num = itr.next();
             //Object num = itr.next();
             logger.log(Level.INFO, "Long: " + num.toString());
-
         }
     }
 
@@ -152,18 +123,15 @@ public class Main {
         collection.insert("3 The Little Prince");
 
         java.util.Iterator<String> itr = collection.iterator();
-
         while (itr.hasNext()) {
             String str = itr.next();
             //Object num = itr.next();
             logger.log(Level.INFO, "Long: " + str);
-
         }
     }
 
     private static void testWithACollectionOfLoaned() {
         logger.log(Level.INFO, "\n\n");
-
         Collection<Media> collectionMedia = new ArrayCollection<Media>();
         collectionMedia.insert(new Media("1 Harry Potter", "J.K.Rolling", false));
         collectionMedia.insert(new Media("2 Jungle Book", "Kipling", false));
@@ -179,14 +147,11 @@ public class Main {
             Loaned loaned = itr.next();
             logger.log(Level.INFO, (loaned).getObj().getName() +
                     " loaned to " + (loaned).loanedTo());
-
         }
     }
 
     private static void testWithACollectionOfMedia() {
-
         logger.log(Level.INFO, "\n\n");
-
         //Collection collectionMedia = new ArrayCollection();
         Collection<Media> collectionMedia = new ArrayCollection<Media>();
         collectionMedia.insert(new Media("1 Harry Potter", "J.K.Rolling", false));
@@ -194,7 +159,6 @@ public class Main {
         collectionMedia.insert(new Media("3 The Little Prince", "Anton", false));
 
         java.util.Iterator<Media> itr = collectionMedia.iterator();
-
         while (itr.hasNext()) {
             Media media = itr.next();
             logger.log(Level.INFO, (media).getName());
@@ -227,6 +191,5 @@ public class Main {
             logger.log(Level.INFO, ((Media) obj).getName());
         }
     }
-
 
 }
