@@ -35,12 +35,12 @@ public class Main {
     }
     private static void ReversesListWithListIterator(List listOfLetters) { // O(N)
         final ListIterator<String> iteratorListToReturnFromStart = listOfLetters.listIterator();
-
         final int listSize = listOfLetters.size();
         for (int index = 0; index < listSize / 2; ++index) { // N/2 *
-
+            String save = iteratorListToReturnFromStart.next();
+            listOfLetters.set(index, listOfLetters.get(listSize - index -1));
+            listOfLetters.set(listSize - index -1, save);
         }
     }
-
 }
 
