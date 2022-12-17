@@ -72,7 +72,7 @@ public final class Main {
 
     private static List<Integer> addLists(List<Integer> list1, List<Integer> list2) {
         final List<Integer> listToReturn = new LinkedList<Integer>();
-        final ListIterator<Integer> iteratorListToReturn = listToReturn.listIterator();
+        // final ListIterator<Integer> iteratorListToReturn = listToReturn.listIterator();
         final ListIterator<Integer> iteratorList1 = list1.listIterator();
         final ListIterator<Integer> iteratorList2 = list2.listIterator();
         if (list1.isEmpty() || list2.isEmpty()) {

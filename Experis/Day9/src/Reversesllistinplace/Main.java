@@ -22,7 +22,7 @@ public class Main {
         listOfLetters.add("c");
 
         logger.log(Level.INFO, "Before LinkedList " + listOfLetters);
-        ReversesListWithListIterator(listOfLetters);
+        ReversesListWithListIterator2(listOfLetters);
         logger.log(Level.INFO, "After LinkedList. " + listOfLetters);
     }
 
@@ -40,6 +40,20 @@ public class Main {
             String save = iteratorListToReturnFromStart.next();
             listOfLetters.set(index, listOfLetters.get(listSize - index -1));
             listOfLetters.set(listSize - index -1, save);
+        }
+    }
+
+    private static void ReversesListWithListIterator2(List listOfLetters) { // O(N)
+        final ListIterator<String> iteratorListToReturnFromStart = listOfLetters.listIterator();
+        final ListIterator<String> iteratorListToReturnFromEnd = listOfLetters.listIterator();
+        while (iteratorListToReturnFromEnd.hasNext()){
+            iteratorListToReturnFromEnd.next();
+        }
+        final int listSize = listOfLetters.size();
+        for (int index = 0; index < listSize / 2; ++index) { // N/2 *
+            String save = iteratorListToReturnFromStart.next();
+            iteratorListToReturnFromStart.set(iteratorListToReturnFromEnd.previous());
+            iteratorListToReturnFromEnd.set(save);
         }
     }
 }
