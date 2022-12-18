@@ -1,6 +1,7 @@
 // Write a function that takes an integer number and returns a list of its digits.
 package BigInteger;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
@@ -12,7 +13,7 @@ public final class Main {
 
     public static void main(String[] args) {
 
-        logger.log(Level.INFO, "" + addLists(numberToList(Integer.MAX_VALUE), numberToList(1)));
+        //logger.log(Level.INFO, "" + addLists(numberToList(Integer.MAX_VALUE), numberToList(1)));
 
 
 //        logger.log(Level.INFO, "numberToList 4321 : " + numberToList(4321));
@@ -32,11 +33,11 @@ public final class Main {
 //        logger.log(Level.INFO, "[9] * [3,2,1] = [2,889]: " + multiplyLists(numberToList(9), numberToList(321)));
 //        logger.log(Level.INFO, "[00] * [1] = [0]: " + multiplyLists(numberToList(0), numberToList(1)));
 
-//        BigInteger bigInteger1 = new BigInteger(Integer.MAX_VALUE);
-//        BigInteger bigInteger2 = new BigInteger(1);
-//
-//        bigInteger1.add(bigInteger2); // bigInteger1 = 10 + 43 = 44
-//        logger.log(Level.INFO, " " + bigInteger1);
+        BigInteger bigInteger1 = new BigInteger(Integer.MAX_VALUE);
+        BigInteger bigInteger2 = new BigInteger(1);
+
+        bigInteger1.add(bigInteger2);
+        logger.log(Level.INFO, " " + bigInteger1);
 //        bigInteger1.subtract(bigInteger2); // bigInteger1 = 44 - 34 = 10
 //        logger.log(Level.INFO, " " + bigInteger1);
 //        bigInteger1.multiply(bigInteger2); // 10 * 34 = 340
@@ -72,6 +73,8 @@ public final class Main {
 
     private static List<Integer> addLists(List<Integer> list1, List<Integer> list2) {
         final List<Integer> listToReturn = new LinkedList<Integer>();
+        int f = 8;
+        final List<Integer> listToReturn2 = new ArrayList<>(3);
         // final ListIterator<Integer> iteratorListToReturn = listToReturn.listIterator();
         final ListIterator<Integer> iteratorList1 = list1.listIterator();
         final ListIterator<Integer> iteratorList2 = list2.listIterator();
