@@ -1,3 +1,5 @@
+import Collection.Collection;
+
 public class ActionAdd extends Action implements IAction {
 
     private static final String ACTION_NAME = "Add a book.";

@@ -1,3 +1,5 @@
+import Collection.Collection;
+
 import java.util.logging.Level;
 
 public class ActionPrintDetails extends Action {
@@ -25,20 +27,19 @@ public class ActionPrintDetails extends Action {
 
         StringBuilder outPut = new StringBuilder("\n\t" + ACTION_NAME + "\n");
         int indexCommands = 0;
+        int[] itemsIds;
+        for (Object outputableMedia : m_collection) {
+//            if (media.getName().toLowerCase().trim().startsWith(prefix)) {
+//                itemsIds[index++] = item.getId();
+//                outPut.append("\t[").append(media.getLoaned() ? '*' : ' ');
+//                outPut.append("] ").append(++indexCommands).append(") ");
+//                outPut.append(" ").append(media.getName());
+//                outPut.append("\n");
+//            }
+        }
 
-       /* int[] itemsIds;
-        for (Media media : (Iterable<Media>) m_collection) {
-            if (media.getName().toLowerCase().trim().startsWith(prefix)) {
-                itemsIds[index++] = item.getId();
-                outPut.append("\t[").append(media.getLoaned() ? '*' : ' ');
-                outPut.append("] ").append(++indexCommands).append(") ");
-                outPut.append(" ").append(media.getName());
-                outPut.append("\n");
-            }
-        }*/
 
-
-        /*for (IRentable item : Collection) {
+        /*for (IRentable item : Collection.Collection) {
             if (item != null && item.toString().toLowerCase().startsWith(prefix)) {
                 itemsIds[index++] = item.getId();
                 outPut.append("\t").append(index).append(") ");

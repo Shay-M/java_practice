@@ -1,6 +1,5 @@
 public class Loaned {
-
-
+    
     final private String loanedName;
     final private Object obj;
 

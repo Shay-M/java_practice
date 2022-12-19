@@ -1,3 +1,5 @@
+import Collection.Collection;
+
 import java.util.logging.Level;
 
 public class ActionPrintAll<T> extends Action {
@@ -14,7 +16,7 @@ public class ActionPrintAll<T> extends Action {
         StringBuilder outPut = new StringBuilder("\n\t" + ACTION_NAME + "\n");
         int indexCommands = 0;
 
-        for (Media media : (Iterable<Media>) m_collection) {
+        for (Media media : (Iterable<OutputableMedia>) m_collection) { //<<
             outPut.append("\t[").append(media.getLoaned() ? '*' : ' ');
             outPut.append("] ").append(++indexCommands).append(") ");
             outPut.append(" ").append(media.getName());

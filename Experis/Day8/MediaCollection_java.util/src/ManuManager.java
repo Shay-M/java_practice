@@ -1,6 +1,9 @@
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * get number command from the user
+ */
 public class ManuManager {
 
 

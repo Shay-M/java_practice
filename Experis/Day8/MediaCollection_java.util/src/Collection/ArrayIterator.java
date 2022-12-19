@@ -1,3 +1,5 @@
+package Collection;
+
 public final class ArrayIterator<T> implements java.util.Iterator<T> {
 
     private final T[] m_array;

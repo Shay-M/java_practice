@@ -1,3 +1,5 @@
+package Collection;
+
 public interface Collection<T> extends Iterable<T> {
 
     void add(T t);

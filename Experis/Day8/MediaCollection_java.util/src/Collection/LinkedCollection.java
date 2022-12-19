@@ -1,3 +1,5 @@
+package Collection;
+
 import java.util.Optional;
 
 public final class LinkedCollection<T> implements Collection<T> {

@@ -1,3 +1,5 @@
+import Collection.Collection;
+
 import java.util.logging.Logger;
 
 /*public interface Action {
@@ -8,11 +10,11 @@ import java.util.logging.Logger;
 public abstract class Action implements IAction {
 
     private String m_actionName;
-    protected final Collection m_collection;
+    protected final Collection<OutputableMedia> m_collection;
 
-    protected static final Logger logger = Logger.getLogger(Main.class.getCanonicalName());
+    protected static final Logger logger = Logger.getLogger(Action.class.getCanonicalName());
 
-    protected Action(Collection mCollection, String actionName) {
+    protected Action(Collection<OutputableMedia> mCollection, String actionName) {
         m_collection = mCollection;
         m_actionName = actionName;
     }

@@ -1,3 +1,5 @@
+package Collection;
+
 import java.util.Optional;
 
 public final class LinkedIterator<T> implements java.util.Iterator<T> {

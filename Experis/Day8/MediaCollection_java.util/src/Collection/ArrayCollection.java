@@ -1,3 +1,5 @@
+package Collection;
+
 public final class ArrayCollection<T> implements Collection<T> {
 
     //private final ArrayMediaIterator m_arrayMediaIterator = new ArrayMediaIterator(m_array);

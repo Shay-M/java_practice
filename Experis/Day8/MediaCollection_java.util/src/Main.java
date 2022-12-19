@@ -1,3 +1,5 @@
+import Collection.*;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -8,19 +10,18 @@ public class Main {
     public static void main(String[] args) {
         // testAll();
 
-        Collection<Media> mediaCollection = initializeMedia();
+        Collection<OutputableMedia> mediaCollection = initializeMedia();
         Collection<Action> actionsCollection = initializeAction(mediaCollection);
         printAction(actionsCollection);
 
-        final int commandNum = ManuManager.getCommandNum(logger,actionsCollection.count());
+        /*
+        final int commandNum = ManuManager.getCommandNum(logger, actionsCollection.count());
         //actionsCollection.at(commandNum).doAction();
 
         actionsCollection.at(0).doAction();
         actionsCollection.at(1).doAction();
-
-
+        */
     }
-
 
 
     private static void printAction(Collection<Action> actionsCollection) {
@@ -32,26 +33,23 @@ public class Main {
             outPut += action.getName();
             outPut += "\n";
         }
-
         logger.log(Level.INFO, outPut);
     }
 
-    private static Collection<Action> initializeAction(Collection<Media> mediaCollection) {
+    private static Collection<Action> initializeAction(Collection<OutputableMedia> mediaCollection) {
         Collection<Action> actionsCollection = new ArrayCollection<Action>(); // actions.printAll; ?
         actionsCollection.add(new ActionPrintAll(mediaCollection));
         actionsCollection.add(new ActionPrintDetails(mediaCollection));
-
-
         return actionsCollection;
     }
 
-    private static Collection<Media> initializeMedia() {
+    private static Collection<OutputableMedia> initializeMedia() {
 
-        //Collection<Media> mediaCollection = new LinkedCollection<Media>();
-        Collection<Media> mediaCollection = new ArrayCollection<Media>();
-        mediaCollection.add(new Media("1 Harry Potter", "J.K.Rolling", false)); //todo combine
-        mediaCollection.add(new Media("2 Jungle Book", "Kipling", true));
-        mediaCollection.add(new Media("3 The Little Prince", "Anton", false));
+        //Collection.Collection<Media> mediaCollection = new Collection.LinkedCollection<Media>();
+        Collection<OutputableMedia> mediaCollection = new ArrayCollection<OutputableMedia>();
+        mediaCollection.add(new Book("1 Harry Potter", "J.K.Rolling"));
+        mediaCollection.add(new Cd("2 Jungle Book", "Kipling", true));
+        mediaCollection.add(new Cd("3 The Little Prince", "Anton", false));
         /*for (Media media : mediaCollection) {
             logger.log(Level.INFO, "media: " + media.getName());
         }*/
@@ -70,10 +68,10 @@ public class Main {
         // 3) Can you have a collection of int? (the primitive, not the reference type Integer)
         // no bcz int not a obj
 
-        /*// 4) Can you add different types to the Collection? (for example, both String and Media in the same collection:Collection c = new ArrayCollection();
+        /*// 4) Can you add different types to the Collection.Collection? (for example, both String and Media in the same collection:Collection.Collection c = new Collection.Collection.ArrayCollection();
         // yes they are all obj
 
-        Collection collection = new ArrayCollection();
+        Collection.Collection collection = new Collection.Collection.ArrayCollection();
         collection.insert(new String("0L"));
         collection.insert(new Long(2L));
         collection.insert(new Media("Harry Potter", "J K Rolling"));
@@ -90,9 +88,7 @@ public class Main {
         collectionLong.add(2);
         collectionLong.add(5);
 
-        java.util.Iterator<Integer> itr = collectionLong.iterator();
-        while (itr.hasNext()) {
-            Integer num = itr.next();
+        for (Integer num : collectionLong) {
             //Object num = itr.next();
             logger.log(Level.INFO, "Integer: " + num.toString());
         }
@@ -101,14 +97,19 @@ public class Main {
     @SuppressWarnings("removal")
     private static void testWithACollectionOfLong() {
         logger.log(Level.INFO, "\n\n");
-        Collection<Long> collectionLong = new ArrayCollection<Long>(); //ArrayCollection!! insert
+        Collection<Long> collectionLong = new ArrayCollection<Long>(); //Collection.Collection.ArrayCollection!! insert
         collectionLong.add(0L);
         collectionLong.add(2L);
         collectionLong.add(new Long(5L));
 
-        java.util.Iterator<Long> itr = collectionLong.iterator();
+        /*java.util.Iterator<Long> itr = collectionLong.iterator();
         while (itr.hasNext()) {
             Long num = itr.next();
+            //Object num = itr.next();
+            logger.log(Level.INFO, "Long: " + num.toString());
+        }*/
+
+        for (Long num : collectionLong) {
             //Object num = itr.next();
             logger.log(Level.INFO, "Long: " + num.toString());
         }
@@ -122,9 +123,7 @@ public class Main {
         collection.insert("2 Jungle Book");
         collection.insert("3 The Little Prince");
 
-        java.util.Iterator<String> itr = collection.iterator();
-        while (itr.hasNext()) {
-            String str = itr.next();
+        for (String str : collection) {
             //Object num = itr.next();
             logger.log(Level.INFO, "Long: " + str);
         }
@@ -142,9 +141,7 @@ public class Main {
         collectionLoaned.add(new Loaned(new Media("1 Harry Potter", "J.K.Rolling", false), "Yoel"));
         collectionLoaned.add(new Loaned(collectionMedia.at(1), "Riv"));
 
-        java.util.Iterator<Loaned> itr = collectionLoaned.iterator();
-        while (itr.hasNext()) {
-            Loaned loaned = itr.next();
+        for (Loaned loaned : (Iterable<Loaned>) collectionLoaned) {
             logger.log(Level.INFO, (loaned).getObj().getName() +
                     " loaned to " + (loaned).loanedTo());
         }
@@ -152,7 +149,7 @@ public class Main {
 
     private static void testWithACollectionOfMedia() {
         logger.log(Level.INFO, "\n\n");
-        //Collection collectionMedia = new ArrayCollection();
+        //Collection.Collection collectionMedia = new Collection.Collection.ArrayCollection();
         Collection<Media> collectionMedia = new ArrayCollection<Media>();
         collectionMedia.insert(new Media("1 Harry Potter", "J.K.Rolling", false));
         collectionMedia.insert(new Media("2 Jungle Book", "Kipling", false));
