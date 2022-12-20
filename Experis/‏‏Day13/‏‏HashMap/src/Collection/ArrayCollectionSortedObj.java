@@ -1,20 +1,20 @@
 package Collection;
 
-public final class ArrayCollectionSorted_long extends ArrayCollection_long {
-    public ArrayCollectionSorted_long(int tableSize) {
+public final class ArrayCollectionSortedObj extends ArrayCollectionObj {
+    public ArrayCollectionSortedObj(int tableSize) {
         super(tableSize);
     }
 
     @Override
-    public int add(final long key) {
+    public int add(final Object key) {
         final int oldArrSize = count();
         int countIndex = 0;
         for (int i = 0; i < oldArrSize; i++) {
-            if (this.getArray()[i] < key) {
+            if (this.getArray()[i].hashCode() < key.hashCode()) {
                 ++countIndex;
             }
         }
-        final long[] newArray = new long[count() + 1];
+        final Object[] newArray = new Object[count() + 1];
         System.arraycopy(
                 this.getArray(),
                 0,

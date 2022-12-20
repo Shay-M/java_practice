@@ -30,6 +30,10 @@ public class Main {
 //        // logger.log(Level.INFO, " " + mapLong.getValue(6L));
 //        final long endTime = System.nanoTime();
 //        logger.log(Level.INFO, "isEmpty: " + (endTime - startTime) / 1000000.0 + " milliseconds");
+
+        for (String tru : hashMap ){
+            logger.log(Level.INFO, " " + tru);
+        }
     }
 }
 

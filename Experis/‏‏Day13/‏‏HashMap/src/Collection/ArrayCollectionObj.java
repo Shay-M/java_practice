@@ -1,27 +1,29 @@
 package Collection;
 
 
-public class ArrayCollection_long implements Collection {
+import java.util.Iterator;
+
+public class ArrayCollectionObj implements Collection {
     private int m_tableSize;
 
-    private long[] m_array;
+    private Object[] m_array;
 
-    public ArrayCollection_long(int tableSize) {
-        this.m_array = new long[m_tableSize];
+    public ArrayCollectionObj(int tableSize) {
+        this.m_array = new Object[m_tableSize];
         m_tableSize = tableSize;
     }
 
-    protected long[] getArray() {
+    protected Object[] getArray() {
         return m_array;
     }
 
-    public void setArray(long[] m_array) {
+    public void setArray(Object[] m_array) {
         this.m_array = m_array;
     }
 
     @Override
-    public int add(final long key) {
-        final long[] newArray = new long[count() + 1];
+    public int add(final Object key) {
+        final Object[] newArray = new Object[count() + 1];
         System.arraycopy(m_array,
                 0,
                 newArray,
@@ -34,8 +36,8 @@ public class ArrayCollection_long implements Collection {
     }
 
     @Override
-    public final void insert(final long key) { // like add but at beginning
-        final long[] newArray = new long[count() + 1];
+    public final void insert(final Object key) { // like add but at beginning
+        final Object[] newArray = new Object[count() + 1];
         newArray[0] = key;
         if (count() > 0) {
             System.arraycopy(
@@ -53,7 +55,7 @@ public class ArrayCollection_long implements Collection {
         if (indexToRemove > count()) {
             return;
         }
-        final long[] newArray = new long[count() - 1];
+        final Object[] newArray = new Object[count() - 1];
         System.arraycopy(m_array,
                 0,
                 newArray,
@@ -65,13 +67,13 @@ public class ArrayCollection_long implements Collection {
                 newArray,
                 indexToRemove,
                 count() - indexToRemove - 1);
-        m_array = (long[]) newArray;
+        m_array = newArray;
     }
 
     @Override
-    public final long at(final long indexToFind) {
+    public final Object at(final int indexToFind) {
         try {
-            final long returnedObject = m_array[(int) indexToFind]; // -1
+            final Object returnedObject = m_array[(int) indexToFind]; // -1
             return returnedObject;
         } catch (ArrayIndexOutOfBoundsException ex) {
             throw ex; //todo

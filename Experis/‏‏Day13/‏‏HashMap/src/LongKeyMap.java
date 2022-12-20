@@ -1,4 +1,4 @@
-public interface LongKeyMap<T>{
+public interface LongKeyMap<T> extends Iterable<T> {
 	
 	int size();
 	boolean isEmpty();

@@ -1,11 +1,13 @@
 package Collection;
 
-public final class ArrayIterator implements Iterator {
+import java.util.Iterator;
 
-    private final long[] m_array;
+public final class ArrayIterator implements Iterator<Object> {
+
+    private final Object[] m_array;
     private int courant = 0;
 
-    public ArrayIterator(long[] array) {
+    public ArrayIterator(Object[] array) {
         m_array = array;
     }
 
@@ -15,8 +17,8 @@ public final class ArrayIterator implements Iterator {
     }
 
     @Override
-    public final long next() {
-        long returnedObject = m_array[courant];
+    public final Object next() {
+        Object returnedObject = m_array[courant];
         ++courant;
         return returnedObject;
     }

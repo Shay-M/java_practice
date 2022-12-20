@@ -1,15 +1,16 @@
-import Collection.ArrayCollectionSorted_long;
-import Collection.Iterator;
+import Collection.ArrayCollectionSortedObj;
+import Collection.ArrayIterator;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-public class HashMap<T> implements LongKeyMap<T> , Iterable {
-    final private ArrayCollectionSorted_long m_keysArr;
+public class HashMap<T> implements LongKeyMap<T> {
+    final private ArrayCollectionSortedObj m_keysArr;
     final private List<T> m_valueList;
 
     public HashMap(final int tableSize) {
-        m_keysArr = new ArrayCollectionSorted_long(tableSize);
+        m_keysArr = new ArrayCollectionSortedObj(tableSize);
         m_valueList = new ArrayList<T>(tableSize);
     }
 
@@ -73,6 +74,6 @@ public class HashMap<T> implements LongKeyMap<T> , Iterable {
 
     @Override
     public java.util.Iterator iterator() {
-        return null;
+        return  m_valueList.iterator();
     }
 }

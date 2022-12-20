@@ -1,14 +1,16 @@
 package Collection;
 
-public interface Collection  {
+import java.util.Iterator;
 
-    int add(long l);
+public interface Collection extends Iterable {
 
-    void insert(long l);
+    int add(Object o);
+
+    void insert(Object o);
 
     void removeAt(int idx);
 
-    long at(long idx);
+    Object at(int indexToFind);
 
     int count();
 
