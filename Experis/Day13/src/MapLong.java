@@ -24,14 +24,14 @@ public class MapLong<T> implements LongKeyMap<T> {
 	}
 
 	@Override
-	final public T getValue(final long keyToFind) {
+	final public T getValue(final Object keyToFind) {
 		//? make it for (key:m_keysArr)
 		Iterator keyIto = m_keysArr.iterator();
 		java.util.Iterator<T> valueIto = m_valueList.iterator();
 		while (keyIto.hasNext() && valueIto.hasNext()) {
-			final long key = keyIto.next();
+			final Object key = keyIto.next();
 			final T value = valueIto.next();
-			if (key == keyToFind) {
+			if (key.hashCode() == keyToFind.hashCode()) {
 				return value;
 			}
 		}

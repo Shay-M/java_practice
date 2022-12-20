@@ -74,6 +74,6 @@ public class ArrayCollection_long implements Collection {
 
    @Override
     public Iterator iterator() {
-        return new ArrayIterator(m_array);
+        return new ArrayIteratorz(m_array);
     }
 }
