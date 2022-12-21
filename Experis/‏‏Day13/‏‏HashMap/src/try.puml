@@ -1,0 +1,46 @@
+@startuml
+class Main {
++ {static} void main(String[])
+}
+class KeyAndDate {
++ long getKey()
++ E getDate()
+}
+class ArrayIterator {
++ boolean hasNext()
++ Object next()
+}
+interface Collection {
+}
+interface LongKeyMap {
+}
+class HashMap {
++ int size()
++ boolean isEmpty()
++ T getValue(Object)
++ boolean contains(T)
++ void put(Object,T)
++ boolean equals(Object)
++ java.util.Iterator iterator()
+}
+class ArrayCollectionSortedObj {
++ int add(Object)
+}
+class ArrayCollectionObj {
++ void setArray(Object[])
++ int add(Object)
++ void insert(Object)
++ void removeAt(int)
++ Object at(int)
++ int count()
++ Iterator iterator()
+}
+
+
+Iterator <|.. ArrayIterator
+Iterable <|-- Collection
+Iterable <|-- LongKeyMap
+LongKeyMap <|.. HashMap
+ArrayCollectionObj <|-- ArrayCollectionSortedObj
+Collection <|.. ArrayCollectionObj
+@enduml
