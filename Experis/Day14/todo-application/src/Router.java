@@ -1,6 +1,4 @@
-import commands.AddTask;
-import commands.Command;
-import commands.ShowAllTasks;
+import commands.*;
 import super_simple_web_server.SuperSimpleWebServer;
 import task.TaskManager;
 
@@ -29,8 +27,11 @@ public class Router {
 
     private void initializeList() {
         urls.add(new ShowAllTasks("ShowAllTasks", m_logger, taskManager)); // Home
-        urls.add(new ShowAllTasks("", m_logger, taskManager)); // Home
+        urls.add(new ShowAllTasks("", m_logger, taskManager)); // Home !try!
         urls.add(new AddTask("AddTask", m_logger, taskManager));
+        urls.add(new CompletedMarkTask("Completed", m_logger, taskManager));
+        urls.add(new NotCompletedMarkTask("NotCompleted", m_logger, taskManager));
+        urls.add(new DeleteTask("Delete", m_logger, taskManager));
     }
 
     private final void runServer(Logger logger) {

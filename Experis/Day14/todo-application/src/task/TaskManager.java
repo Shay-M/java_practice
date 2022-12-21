@@ -23,10 +23,18 @@ public class TaskManager {
     }
 
     public final void Completed(final String taskName) {
-
+        for (Task task : taskList) {
+            if (task.getName().equals(taskName)) {
+                task.setDone(true); // todo
+            }
+        }
     }
 
     public final void NotCompleted(final String taskName) {
-
+        for (Task task : taskList) {
+            if (task.getName().equals(taskName)) {
+                task.setDone(false); // todo
+            }
+        }
     }
 }

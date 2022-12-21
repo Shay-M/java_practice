@@ -1,26 +1,16 @@
 package commands;
 
-import task.Task;
 import task.TaskManager;
 import utils.TimeAndDateFromString;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class AddTask extends Command {
-
-    enum UriPats {
-        EMPTY_NOTUSE,
-        ADDTASK_NOTUSE,
-        NAME,
-        DATE,
-        TIME
-    }
 
     public AddTask(String url, Logger logger, TaskManager taskManager) {
         super(url, logger, taskManager);
@@ -37,6 +27,7 @@ public class AddTask extends Command {
                 final LocalTime endTime = timeAndDateFromString.TimeFromString(getLogger(), dayAndTime[UriPats.TIME.ordinal()]);
                 final LocalDateTime localDateTime = LocalDateTime.of(endDate, endTime);
                 getTaskManager().add(nameTask, localDateTime);
+
                 getLogger().log(Level.INFO, "add task!");
                 body = "Task added:<BR>";
                 body += "Name: " + nameTask + "<BR>End Date: " + endDate + "<BR>EndTime: " + endTime;

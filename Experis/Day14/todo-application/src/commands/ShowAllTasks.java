@@ -27,7 +27,7 @@ public class ShowAllTasks extends Command {
 
     private String listToHtml(List<Task> tasks) {
         if (tasks.isEmpty()) {
-            return "<BR>No task found!<BR>";
+            return "<BR>No tasks found!<BR>";
         }
         StringBuilder str;
         str = new StringBuilder("<ul>");

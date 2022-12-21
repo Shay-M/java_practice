@@ -10,6 +10,14 @@ public abstract class Command {
     private final Logger m_logger;
     private TaskManager m_taskManager;
 
+    enum UriPats {
+        EMPTY_NOTUSE,
+        ADDTASK_NOTUSE,
+        NAME,
+        DATE,
+        TIME
+    }
+
     protected TaskManager getTaskManager() {
         return m_taskManager;
     }
@@ -30,6 +38,9 @@ public abstract class Command {
     }
 
     public abstract String go(final String[] nameParts);
+
+
+
 
 
 }
