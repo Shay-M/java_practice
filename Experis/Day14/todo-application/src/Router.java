@@ -9,12 +9,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Router {
-    private final static int PORT = 1080; // http://127.0.0.1:1080/
-    private final List<Command> urls = new ArrayList<Command>();
     private final int HOME_PAGE = 0;
     private final int PAGE_URI_NAME_INDEX = 1;
-    private final Logger m_logger;
+    private final static int PORT = 1080; // http://127.0.0.1:1080/
 
+    private final List<Command> urls = new ArrayList<Command>();
+    private final Logger m_logger;
     private final TaskManager taskManager;
 
     public Router(final Logger logger) {
@@ -31,10 +31,11 @@ public class Router {
         urls.add(new AddTask("AddTask", m_logger, taskManager));
         urls.add(new CompletedMarkTask("Completed", m_logger, taskManager));
         urls.add(new NotCompletedMarkTask("NotCompleted", m_logger, taskManager));
+        // urls.add(new NotCompletedMarkTask("NotCompleted",false, m_logger, taskManager));
         urls.add(new DeleteTask("Delete", m_logger, taskManager));
     }
 
-    private final void runServer(Logger logger) {
+    private void runServer(Logger logger) {
 
         try (final SuperSimpleWebServer server = new SuperSimpleWebServer(PORT, logger)) { //try with resource
             while (true) {
@@ -47,7 +48,7 @@ public class Router {
         }
     }
 
-    public final void update(final SuperSimpleWebServer.Request request, Logger logger) {
+    private  void update(final SuperSimpleWebServer.Request request, Logger logger) {
         final String uri = request.getUri();
         final String[] nameParts = uri.split("/");
 
