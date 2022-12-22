@@ -1,7 +1,6 @@
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -30,7 +29,7 @@ public class Write {
         try {
             Files.delete(newFilePath);
         } catch (IOException e) {
-            //throw new RuntimeException(e); no file found
+            throw new RuntimeException(e); // no file found
         }
     }
 
@@ -46,7 +45,7 @@ public class Write {
     public static void writerToFiles(final String filePath, final String fileName) {
         final Path newFilePath = Paths.get(filePath + fileName);
         try (BufferedWriter writer = Files.newBufferedWriter(newFilePath,
-                Charset.forName("UTF-8"))) {
+                StandardCharsets.UTF_8)) {
             writer.write("To be, or not to be. That is the question.");
         } catch (IOException ex) {
             ex.printStackTrace();

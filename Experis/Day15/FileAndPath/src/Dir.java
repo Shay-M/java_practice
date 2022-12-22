@@ -11,10 +11,11 @@ public class Dir {
     public static void main(final String[] args) {
         if (args.length > 0) {
             final Path path = Paths.get(args[0]);
-            Stream<Path> list = null;
+            final Stream<Path> list;
             try {
                 list = Files.list(path);
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
                 throw new RuntimeException(e);
             }
             list.limit(5).forEach(System.out::println);

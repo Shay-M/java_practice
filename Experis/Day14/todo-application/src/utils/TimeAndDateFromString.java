@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 
 public class TimeAndDateFromString {
 
-    public final static LocalTime TimeFromString(Logger logger, String time) {
+    public final static LocalTime timeFromString(Logger logger, String time) {
         final LocalTime endTime = LocalTime.parse(
                 time,
                 DateTimeFormatter.ofPattern("HHmm")
@@ -18,7 +18,7 @@ public class TimeAndDateFromString {
         return endTime;
     }
 
-    public final static LocalDate DateFromString(Logger logger, String date) {
+    public final static LocalDate dateFromString(Logger logger, String date) {
         final LocalDate endDate = LocalDate.parse(
                 date,
                 DateTimeFormatter.BASIC_ISO_DATE
