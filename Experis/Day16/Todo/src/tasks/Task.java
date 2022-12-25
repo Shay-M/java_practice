@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 public final class Task {
 	private final String m_name;
+	// private final String m_name2;
 	private final LocalDateTime m_dueTime;
 
 	public Task(final String name, final LocalDateTime dueTime) {
