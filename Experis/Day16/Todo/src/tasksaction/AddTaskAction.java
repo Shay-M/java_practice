@@ -22,8 +22,8 @@ public class AddTaskAction implements TasksAction {
 	
 	@Override
 	public Map<String, Object> validate(final List<String> untrust_params) {
-		if (untrust_params.size() != 3) {
-			throw new IllegalArgumentException("wrong number of parameters " + untrust_params.size() + ", expected 3");
+		if (untrust_params.size() != TaskParser.NUM_ARGS_REQUIRED) {
+			throw new IllegalArgumentException("wrong number of parameters " + untrust_params.size() + ", expected " + TaskParser.NUM_ARGS_REQUIRED);
 		}
 		
 		final Map<String, Object> params = new HashMap<>();

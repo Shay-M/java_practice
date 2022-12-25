@@ -1,7 +1,6 @@
 package tasksaction;
 
 import org.junit.jupiter.api.Test;
-import tasks.CompletionAction;
 import tasks.Task;
 import tasks.TasksBundle;
 
@@ -39,8 +38,8 @@ class CompletionActionTest {
 
     @Test
     void addingOneTaskSetCompletedTrue() {
-        //assertTrue(addingTaskAndSetCompletedBoolean(String.valueOf(true)));
-        assertEquals(false,addingTaskAndSetCompletedBoolean(String.valueOf(true)));
+        assertTrue(addingTaskAndSetCompletedBoolean(String.valueOf(true)));
+        // assertEquals(false,addingTaskAndSetCompletedBoolean(String.valueOf(true)));
     }
 /*
     @Test

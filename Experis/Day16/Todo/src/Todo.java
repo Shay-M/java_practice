@@ -7,7 +7,9 @@ import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalUnit;
 
@@ -17,7 +19,12 @@ import super_simple_web_server.SuperSimpleWebServer.Request;
 import tasks.Task;
 import tasks.TaskAlreadyExistsException;
 import tasks.TasksBundle;
+import tasksaction.CompletionAction;
 import webaction.AddTask;
+import webaction.CheckTask;
+import webaction.ChooseDate;
+import webaction.ChooseTime;
+import webaction.EnterNewTaskName;
 import webaction.ShowTasks;
 import webaction.WebAction;
 
@@ -29,13 +36,18 @@ public final class Todo {
 	static {
 		// !!! Show syntactic sugar - cleaner, shorter
 		PARAMETERIZED_PAGES.add(new AbstractMap.SimpleImmutableEntry<String, WebAction>("/addtask/", new AddTask()));
+		PARAMETERIZED_PAGES.add(new AbstractMap.SimpleImmutableEntry<String, WebAction>("/check/", new CheckTask()));
+		PARAMETERIZED_PAGES.add(new AbstractMap.SimpleImmutableEntry<String, WebAction>("/choosetime/", new ChooseTime()));
 		EXACT_PAGES.add(new AbstractMap.SimpleImmutableEntry<String, WebAction>("/", new ShowTasks()));
+		EXACT_PAGES.add(new AbstractMap.SimpleImmutableEntry<String, WebAction>("/newtaskname", new EnterNewTaskName()));
+		EXACT_PAGES.add(new AbstractMap.SimpleImmutableEntry<String, WebAction>("/choosedate", new ChooseDate()));
 	}
 	
 	public static void main(final String[] args) {
 		final Todo server = new Todo();
 		
-		server.m_allTasks.add(new Task("Buy milk", LocalDateTime.now().plus(1, ChronoUnit.HOURS)));
+		server.m_allTasks.add(new Task("Buy milk", LocalDateTime.of(LocalDate.now(), LocalTime.of(12, 15))));
+
 		server.serverLoop();
 	}
 	
