@@ -9,6 +9,8 @@ public final class TasksBundle implements Iterable<Entry<Task, MutableState>> {
     private final Map<Task, MutableState> m_tasks = new HashMap<>();
     private final TasksSystemFile tasksSystemFile = new TasksSystemFile();
 
+    // private final Map<String,Object> m_categories = new HashMap<>();
+
     public final void add(final Task task) {
         if (m_tasks.containsKey(task)) {
             throw new TaskAlreadyExistsException(task);

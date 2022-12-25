@@ -19,7 +19,7 @@ public class ChooseTime implements WebAction {
 			for (int minutes : possibleMinutes) {
 				LocalTime time = LocalTime.of(hour, minutes);
 				String hhmm = time.format(DateTimeFormatter.ofPattern("HHmm"));
-				page += "<a href='/addtask/" + untrust_remainingUriParams +"/" + hhmm
+				page += "<a href='/category/" + untrust_remainingUriParams +"/" + hhmm
 						+ "'>" 
 						+ time.format(DateTimeFormatter.ofPattern("HH:mm")) 
 						+ "</a>&nbsp;&nbsp;&nbsp;";

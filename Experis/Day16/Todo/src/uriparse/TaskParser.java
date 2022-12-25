@@ -11,7 +11,7 @@ import java.util.Map;
 import tasks.Task;
 
 public class TaskParser {
-	public static final int NUM_ARGS_REQUIRED = 3;
+	public static final int NUM_ARGS_REQUIRED = 4;
 	
 	public static Task parseTask(final String untrust_name, final String untrust_encodedDate, final String untrust_encodedTime) {
 		final String name;

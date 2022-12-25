@@ -20,13 +20,7 @@ import tasks.Task;
 import tasks.TaskAlreadyExistsException;
 import tasks.TasksBundle;
 import tasksaction.CompletionAction;
-import webaction.AddTask;
-import webaction.CheckTask;
-import webaction.ChooseDate;
-import webaction.ChooseTime;
-import webaction.EnterNewTaskName;
-import webaction.ShowTasks;
-import webaction.WebAction;
+import webaction.*;
 
 public final class Todo {
     private static final Logger s_logger = Logger.getLogger(Todo.class.getCanonicalName());
@@ -39,6 +33,7 @@ public final class Todo {
         PARAMETERIZED_PAGES.add(new AbstractMap.SimpleImmutableEntry<String, WebAction>("/addtask/", new AddTask()));
         PARAMETERIZED_PAGES.add(new AbstractMap.SimpleImmutableEntry<String, WebAction>("/check/", new CheckTask()));
         PARAMETERIZED_PAGES.add(new AbstractMap.SimpleImmutableEntry<String, WebAction>("/choosetime/", new ChooseTime()));
+        PARAMETERIZED_PAGES.add(new AbstractMap.SimpleImmutableEntry<String, WebAction>("/category", new EnterCategory()));
         EXACT_PAGES.add(new AbstractMap.SimpleImmutableEntry<String, WebAction>("/", new ShowTasks()));
         EXACT_PAGES.add(new AbstractMap.SimpleImmutableEntry<String, WebAction>("/newtaskname", new EnterNewTaskName()));
         EXACT_PAGES.add(new AbstractMap.SimpleImmutableEntry<String, WebAction>("/choosedate", new ChooseDate()));
