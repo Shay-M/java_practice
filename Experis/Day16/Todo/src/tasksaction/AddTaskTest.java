@@ -11,10 +11,7 @@ import java.util.Map.Entry;
 
 import org.junit.jupiter.api.*;
 
-import tasks.MutableState;
-import tasks.Task;
-import tasks.TaskAlreadyExistsException;
-import tasks.TasksBundle;
+import tasks.*;
 
 class AddTaskTest {
 
@@ -36,7 +33,7 @@ class AddTaskTest {
 
     @Test
     void addingOneTask() {
-        TasksBundle tasks = new TasksBundle();
+        TasksBundle tasks = new TasksBundleInMemory();
         assertEquals(0, tasks.size());
 
         List<String> input = Arrays.asList("MyTask", "20221225", "1251");
@@ -68,7 +65,7 @@ class AddTaskTest {
     }
 
     private static int stringsTests(final String name, final String date, final String time) {
-        TasksBundle tasks = new TasksBundle();
+        TasksBundle tasks = new TasksBundleInMemory();
 
         tasks = stringsTests(tasks, name, date, time);
 

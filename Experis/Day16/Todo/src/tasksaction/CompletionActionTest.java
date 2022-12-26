@@ -3,6 +3,7 @@ package tasksaction;
 import org.junit.jupiter.api.Test;
 import tasks.Task;
 import tasks.TasksBundle;
+import tasks.TasksBundleInMemory;
 
 import java.util.Arrays;
 import java.util.List;
@@ -21,7 +22,7 @@ class CompletionActionTest {
 //    }
     //
     private static boolean addingTaskAndSetCompletedBoolean(String isCompleted) {
-        TasksBundle tasks = new TasksBundle();
+        TasksBundle tasks = new TasksBundleInMemory();
 
         List<String> input = Arrays.asList("MyTask", "20221225", "1251");
         final AddTaskAction act = new AddTaskAction();

@@ -1,8 +1,6 @@
 package tasks;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
@@ -12,22 +10,15 @@ import java.time.LocalTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TasksBundleTest {
-
-//    @BeforeEach
-//    void setUp() {
-//    }
-//
-//    @AfterEach
-//    void tearDown() {
-//    }
-
+abstract class TasksShearedBundleTests {
     final static Task FIXING_TASK_1 = new Task("testTask1", LocalDateTime.of(LocalDate.of(2001, 1, 1), LocalTime.of(1, 1)));
     final static Task FIXING_TASK_2 = new Task("testTask2", LocalDateTime.of(LocalDate.of(2002, 2, 2), LocalTime.of(2, 2)));
+    //todo iterator test!
+    protected abstract TasksBundle createTasksBundle(); // tasksBundle -כדי שנוכל לעבוד כם שתי סוגי ה
 
     @Test
     void addingTasks() {
-        final TasksBundle tasksBundle = new TasksBundle();
+        final TasksBundle tasksBundle = createTasksBundle();
         tasksBundle.add(FIXING_TASK_1);
         assertEquals(1, tasksBundle.size());
         tasksBundle.add(FIXING_TASK_2);
@@ -36,7 +27,7 @@ class TasksBundleTest {
 
     @Test
     void duplication() {
-        final TasksBundle tasksBundle = new TasksBundle();
+        final TasksBundle tasksBundle = createTasksBundle();
         tasksBundle.add(FIXING_TASK_1);
         try {
             tasksBundle.add(FIXING_TASK_1);
@@ -48,7 +39,7 @@ class TasksBundleTest {
 
     @Test
     void addNull() {
-        final TasksBundle tasksBundle = new TasksBundle();
+        final TasksBundle tasksBundle = createTasksBundle();
         try {
             tasksBundle.add(null);
             Assertions.fail("IllegalArgumentException not thrown for null");
@@ -56,13 +47,11 @@ class TasksBundleTest {
 
         }
 
-        // assertThrowsExactly(IllegalArgumentException.class, () ->  tasksBundle.add(null));
-
     }
 
     @Test
     void getStateFromTask() {
-        final TasksBundle tasksBundle = new TasksBundle();
+        final TasksBundle tasksBundle = createTasksBundle();
         // test with one task
         tasksBundle.add(FIXING_TASK_1);
         assertTrue(!tasksBundle.getState(FIXING_TASK_1).isCompleted());
@@ -71,7 +60,7 @@ class TasksBundleTest {
 
     @Test
     void getStateFromNullTask() {
-        final TasksBundle tasksBundle = new TasksBundle();
+        final TasksBundle tasksBundle = createTasksBundle();
         // way 1: test if task is null
         try {
             assertEquals(0, tasksBundle.getState(null));

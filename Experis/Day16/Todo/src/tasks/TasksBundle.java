@@ -1,42 +1,19 @@
 package tasks;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Map.Entry;
 
-public final class TasksBundle implements Iterable<Entry<Task, MutableState>> {
-    private final Map<Task, MutableState> m_tasks = new HashMap<>();
-    // private final TasksSystemFile tasksSystemFile = new TasksSystemFile();
-    
-    public final void add(final Task task) {
-        if (m_tasks.containsKey(task)) {
-            throw new TaskAlreadyExistsException(task);
-        }
-        final int oldNumTasks = m_tasks.size();
-        m_tasks.put(task, new MutableState());
-        assert (m_tasks.size() == oldNumTasks + 1);
+public interface TasksBundle extends Iterable<Map.Entry<Task, MutableState>> {
 
-        // tasksSystemFile.createFile(task);
-    }
+    void add(final Task task);
 
-    public final Iterator<Entry<Task, MutableState>> iterator() {
-        return m_tasks.entrySet().iterator();
-    }
+    Iterator<Map.Entry<Task, MutableState>> iterator();
 
-    public final boolean isEmpty() {
-        return m_tasks.isEmpty();
-    }
+    boolean isEmpty();
 
-    public final int size() {
-        return m_tasks.size();
-    }
+    int size();
 
-    public final MutableState getState(Task task) {
-        if (!m_tasks.containsKey(task)) {
-            throw new IllegalArgumentException("task not found: " + task.toString());
-        }
+    MutableState getState(Task task);
 
-        return m_tasks.get(task);
-    }
+
 }

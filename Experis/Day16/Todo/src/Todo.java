@@ -19,6 +19,7 @@ import super_simple_web_server.SuperSimpleWebServer.Request;
 import tasks.Task;
 import tasks.TaskAlreadyExistsException;
 import tasks.TasksBundle;
+import tasks.TasksBundleInMemory;
 import tasksaction.CompletionAction;
 import webaction.*;
 
@@ -39,7 +40,7 @@ public final class Todo {
         EXACT_PAGES.add(new AbstractMap.SimpleImmutableEntry<String, WebAction>("/choosedate", new ChooseDate()));
     }
 
-    private final TasksBundle m_allTasks = new TasksBundle();
+    private final TasksBundle m_allTasks = new TasksBundleInMemory();
 
     public static void main(final String[] args) {
         final Todo server = new Todo();

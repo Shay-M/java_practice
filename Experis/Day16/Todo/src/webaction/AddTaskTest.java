@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import super_simple_web_server.SuperSimpleWebServer;
 import tasks.TaskAlreadyExistsException;
 import tasks.TasksBundle;
+import tasks.TasksBundleInMemory;
 
 class AddTaskTest {
 
@@ -54,7 +55,7 @@ class AddTaskTest {
 	@Test
 	void testAddingOneTask() {
 		final AddTask action = new AddTask();
-		final TasksBundle tasks = new TasksBundle();
+		final TasksBundle tasks = new TasksBundleInMemory();
 
 		Assertions.assertTrue(tasks.isEmpty());
 		
@@ -66,7 +67,7 @@ class AddTaskTest {
 	@Test
 	void testAddingSeveralTask() {
 		final AddTask action = new AddTask();
-		final TasksBundle tasks = new TasksBundle();
+		final TasksBundle tasks = new TasksBundleInMemory();
 
 		action.doAction(null, "Buy%20bananas/20221225/1345", tasks);
 		action.doAction(null, "BuyMilk/20221225/1300", tasks);
@@ -78,7 +79,7 @@ class AddTaskTest {
 	@Test
 	void testAddingDuplicateTask() {
 		final AddTask action = new AddTask();
-		final TasksBundle tasks = new TasksBundle();
+		final TasksBundle tasks = new TasksBundleInMemory();
 
 		action.doAction(null, "Buy%20bananas/20221225/1345", tasks);
 		try {
@@ -93,7 +94,7 @@ class AddTaskTest {
 
 	private static void testExceptionInParamsString(final String params) {
 		final AddTask action = new AddTask();
-		final TasksBundle tasks = new TasksBundle();
+		final TasksBundle tasks = new TasksBundleInMemory();
 
 		Assertions.assertTrue(tasks.isEmpty());
 		
