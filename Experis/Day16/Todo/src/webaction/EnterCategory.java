@@ -12,7 +12,7 @@ public class EnterCategory implements WebAction {
         String page = "<H2>Choose a Category or create a new one:</H2>";
         // "<form action='/choosedate'>Enter name for task: <input name='name'></form>";
         page += "<form action='/addtask/" + untrust_remainingUriParams + "'>"
-                + "Enter name for task: <input name='name'></form>&nbsp;&nbsp;&nbsp;";
+                + "Enter name for task: <input name='name'></form>&nbsp;&nbsp;&nbsp;&nbsp;";
 
         return page; //BasicParts.categoryInSystemFiles()
     }
