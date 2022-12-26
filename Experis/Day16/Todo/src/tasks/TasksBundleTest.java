@@ -55,6 +55,9 @@ class TasksBundleTest {
         } catch (IllegalArgumentException ex) {
 
         }
+
+        // assertThrowsExactly(IllegalArgumentException.class, () ->  tasksBundle.add(null));
+
     }
 
     @Test
@@ -63,7 +66,6 @@ class TasksBundleTest {
         // test with one task
         tasksBundle.add(FIXING_TASK_1);
         assertTrue(!tasksBundle.getState(FIXING_TASK_1).isCompleted());
-
     }
 
 
@@ -79,6 +81,10 @@ class TasksBundleTest {
         }
         // way 2: test if task is null: (**)
         assertThrowsExactly(NullPointerException.class, new AddTaskExecutable(tasksBundle));
+
+        // way 3 "Sugar Syntax": test if task is null:
+        assertThrowsExactly(NullPointerException.class, () -> tasksBundle.getState(null));
+
 
     }
 
@@ -96,29 +102,4 @@ class TasksBundleTest {
         }
     }
 
-
-    //    @Test
-//    void size() {
-//        TasksBundle tasksBundle = new TasksBundle();
-//        assertEquals(0, tasksBundle.size());
-//
-//        tasksBundle.add(FIXING_TASK_1);
-//        assertEquals(1, tasksBundle.size());
-//
-//        tasksBundle.add(FIXING_TASK_2);
-//        assertEquals(2, tasksBundle.size());
-//
-//    }
-//
-//
-//    @Test
-//    void isEmpty() {
-//        TasksBundle tasksBundle = new TasksBundle();
-//        assertTrue(tasksBundle.isEmpty());
-//
-//        tasksBundle.add(FIXING_TASK_1);
-//        assertTrue(!tasksBundle.isEmpty());
-//
-//        //when remove need to test
-//    }
 }
