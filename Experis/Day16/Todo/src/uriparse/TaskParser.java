@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import tasks.Task;
-
+// לוקח לינק ומיצר משימה
 public class TaskParser {
     public static final int NUM_ARGS_REQUIRED = 3;
 

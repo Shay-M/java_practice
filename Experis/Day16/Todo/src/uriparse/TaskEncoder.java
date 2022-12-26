@@ -18,3 +18,4 @@ public final class TaskEncoder {
 		return date.format(DateTimeFormatter.ofPattern("yyyyMMdd/HHmm"));
 	}
 }
+//בונה מחדש לינק מאוביקט

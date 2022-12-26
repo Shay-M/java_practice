@@ -1,3 +1,11 @@
+javac -Xlint:unchecked
+
+overloading: פונקציה מובחנות דרך השם וגם דרך האורגמנטים ששולחים
+
+
+-----------------------------------------------------------------------------------
+
+
 FUNCTIONAL PROPERTIES
 Does it work correctly?
 ....
@@ -37,7 +45,19 @@ SOLID
     - Interface Segragation
     - Dependency inversion
 	
-	overloading: פונקציה מובחנות דרך השם וגם דרך האורגמנטים ששולחים
+	
+	
+	
+Unit Tests - נבדק כל רכיב בנפרד - האם עושה מה שאמור לעשות
+
+Integration Tests - נבדקת האינטגרציה בין רכיבי המערכת ובין המערכת לממשקים החיצונ
+
+System Tests - האם המערכת עושה את מה שהיא צריכה לעשות ואיך?
+
+Acceptance Tests - בדיקות קבלה - האם נבנתה המערכת הנכונה שעונה לדרישת
+
+
+
 
 
 
