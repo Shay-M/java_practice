@@ -8,7 +8,6 @@ public class MutableStateOnDisk extends MutableState {
     }
 
     @Override
-
     public void setCompleted(final boolean isCompleted) {
         TasksSystemFile.writerToFiles("", m_task, isCompleted);
         setIsCompleted(isCompleted);

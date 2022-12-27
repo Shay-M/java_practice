@@ -10,15 +10,16 @@ import java.util.stream.Stream;
 
 public class TasksSystemFile {
     private static final String ROOT_PATH = "tasks/";
-    private static final int DATE_AND_TIME_LOCATION_IN_LIST = 2;
+    public static final int DATE_AND_TIME_LOCATION_IN_LIST = 1;
+    public static final int COMPLETED_LOCATION_IN_LIST = 2;
 
-    public final void createFile(Task task) throws FileAlreadyExistsException {
+    public static final void createFile(Task task) throws FileAlreadyExistsException {
         createsRootFolder(ROOT_PATH);
         // final String taskCategoryName = task.getName();
         createsFile(ROOT_PATH, task);
     }
 
-    private void createsRootFolder(final String path) {
+    private static void createsRootFolder(final String path) {
         final Path directoriesPath = Paths.get(path);
         try {
             Files.createDirectories(directoriesPath);
@@ -53,7 +54,7 @@ public class TasksSystemFile {
         }
     }
 
-    private void createsFile(final String filePath, final Task task) throws FileAlreadyExistsException {
+    private static void createsFile(final String filePath, final Task task) throws FileAlreadyExistsException {
         final Path newFilePath = Paths.get(filePath + task.getName());
         try {
             Files.createFile(newFilePath);
@@ -74,16 +75,13 @@ public class TasksSystemFile {
             throw new RuntimeException(ex);
         }
     }
-    // final Map<Task, MutableState> m_tasks = new HashMap<>();
 
-    public final boolean readMutableStateFromFileTasks(final Task task) {
-        final Path filePathToRead = Paths.get(ROOT_PATH + task.getName());
-        final List<Path> listOfFiles = listOfFileInRoot();
-
+    public static final String readMutableStateFromFileTasks(final String taskName, final int numLineInFile) {
+        final Path filePathToRead = Paths.get(ROOT_PATH + taskName);
         try {
             final List<String> lines = Files.readAllLines(filePathToRead);
-            String test = lines.get(DATE_AND_TIME_LOCATION_IN_LIST); // Boolean.getBoolean no!
-            final boolean isCompletedFromFile = Boolean.parseBoolean(lines.get(DATE_AND_TIME_LOCATION_IN_LIST));
+            //String test = lines.get(DATE_AND_TIME_LOCATION_IN_LIST); // Boolean.getBoolean - no!
+            final String isCompletedFromFile = String.valueOf(lines.get(numLineInFile));
             return isCompletedFromFile;
         } catch (IOException e) {
             throw new RuntimeException(e); // IllegalArgumentException?
@@ -102,10 +100,12 @@ public class TasksSystemFile {
 //        }
 //    }
 
-    public final List listOfFileInRoot() {
+    public static final List<Path> listOfFileInRoot()  {
         final Path path = Paths.get(ROOT_PATH);
         try (Stream<Path> listOfFiles = Files.list(path)) {
             return listOfFiles.toList();
+        } catch (NoSuchFileException e) {
+            throw new FileNotExistsException();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

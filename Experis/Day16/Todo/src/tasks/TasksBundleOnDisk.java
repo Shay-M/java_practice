@@ -1,13 +1,18 @@
 package tasks;
 
 import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 public final class TasksBundleOnDisk implements TasksBundle {
 
-    private final static TasksSystemFile tasksSystemFile = new TasksSystemFile();
+    // private final static TasksSystemFile tasksSystemFile = new TasksSystemFile(); when?
 
     @Override
     public final void add(final Task task) {
@@ -15,7 +20,7 @@ public final class TasksBundleOnDisk implements TasksBundle {
             throw new IllegalArgumentException();
         }
         try {
-            tasksSystemFile.createFile(task);
+            TasksSystemFile.createFile(task);
         } catch (FileAlreadyExistsException e) {
             throw new TaskAlreadyExistsException(task);
         }
@@ -23,18 +28,48 @@ public final class TasksBundleOnDisk implements TasksBundle {
 
     @Override
     public final Iterator<Map.Entry<Task, MutableState>> iterator() {
-        throw new UnsupportedOperationException();
-        //return null;
+        final Map<Task, MutableState> m_tasks = new HashMap<>();
+
+        final List<Path> listOfPathFiles = TasksSystemFile.listOfFileInRoot();
+
+        for (Path filePath : listOfPathFiles) {
+            m_tasks.put(createTaskFromPath(filePath), createMutableStateFromPath(filePath));
+        }
+
+        return m_tasks.entrySet().iterator();
+    }
+
+    private MutableState createMutableStateFromPath(final Path filePath) {
+        final boolean completedTaskStateFromFile = Boolean.parseBoolean(TasksSystemFile.readMutableStateFromFileTasks(
+                filePath.getFileName().toString(),
+                TasksSystemFile.COMPLETED_LOCATION_IN_LIST
+        ));
+        MutableState mutableState = new MutableState();
+        mutableState.setCompleted(completedTaskStateFromFile);
+
+        return mutableState;
+    }
+
+    private Task createTaskFromPath(final Path filePath) {
+        final String dateTimeFromFile = TasksSystemFile.readMutableStateFromFileTasks(
+                filePath.getFileName().toString(),
+                TasksSystemFile.DATE_AND_TIME_LOCATION_IN_LIST
+        );
+        final LocalDateTime endDateTime = LocalDateTime.parse(
+                dateTimeFromFile,
+                DateTimeFormatter.ISO_LOCAL_DATE_TIME
+        );
+        return new Task(filePath.getFileName().toString(), endDateTime);
     }
 
     @Override
     public final boolean isEmpty() {
-        return tasksSystemFile.listOfFileInRoot().size() == 0;
+        return TasksSystemFile.listOfFileInRoot().size() == 0;
     }
 
     @Override
     public final int size() {
-        return (int) tasksSystemFile.listOfFileInRoot().size();
+        return (int) TasksSystemFile.listOfFileInRoot().size();
     }
 
     @Override
@@ -43,7 +78,10 @@ public final class TasksBundleOnDisk implements TasksBundle {
         final MutableStateOnDisk mutableStateFromFile = new MutableStateOnDisk(task);
         //Path taskFilePath = tasksSystemFile.pathOfFile(task.getName());
 
-        final boolean isTaskFromFileCompleted = tasksSystemFile.readMutableStateFromFileTasks(task);
+        final boolean isTaskFromFileCompleted = Boolean.parseBoolean(TasksSystemFile.readMutableStateFromFileTasks(
+                task.getName(),
+                TasksSystemFile.COMPLETED_LOCATION_IN_LIST
+        ));
         mutableStateFromFile.setCompleted(isTaskFromFileCompleted);
 
         return mutableStateFromFile;
