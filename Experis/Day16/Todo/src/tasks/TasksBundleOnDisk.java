@@ -1,6 +1,7 @@
 package tasks;
 
 import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Path;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -39,13 +40,16 @@ public final class TasksBundleOnDisk implements TasksBundle {
     @Override
     public final MutableState getState(final Task task) {
 
-        final MutableState mutableStateFromFile = new MutableState();
-        mutableStateFromFile.setCompleted(tasksSystemFile.readMutableStateFromFileTasks(task));
+        final MutableStateOnDisk mutableStateFromFile = new MutableStateOnDisk(task);
+        //Path taskFilePath = tasksSystemFile.pathOfFile(task.getName());
 
-//        if (!m_tasks.containsKey(task)) {
+        final boolean isTaskFromFileCompleted = tasksSystemFile.readMutableStateFromFileTasks(task);
+        mutableStateFromFile.setCompleted(isTaskFromFileCompleted);
+
+        return mutableStateFromFile;
+        //        if (!m_tasks.containsKey(task)) {
 //            throw new IllegalArgumentException("task not found: " + task.toString());
 //        }
 
-        return mutableStateFromFile;
     }
 }

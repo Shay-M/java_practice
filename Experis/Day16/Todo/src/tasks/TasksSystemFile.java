@@ -5,13 +5,12 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
 public class TasksSystemFile {
     private static final String ROOT_PATH = "tasks/";
+    private static final int DATE_AND_TIME_LOCATION_IN_LIST = 2;
 
     public final void createFile(Task task) throws FileAlreadyExistsException {
         createsRootFolder(ROOT_PATH);
@@ -66,8 +65,8 @@ public class TasksSystemFile {
         writerToFiles(filePath, task, false);
     }
 
-    private void writerToFiles(final String filePath, final Task task, final boolean completed) {
-        final Path filePathWriter = Paths.get(filePath + task.getName());
+    public static void writerToFiles(final String filePath, final Task task, final boolean completed) {
+        final Path filePathWriter = Paths.get(ROOT_PATH + task.getName());
         try (BufferedWriter writer = Files.newBufferedWriter(filePathWriter,
                 StandardCharsets.UTF_8)) {
             writer.write(task.getName() + "\n" + task.getDueTime() + "\n" + completed);
@@ -79,11 +78,12 @@ public class TasksSystemFile {
 
     public final boolean readMutableStateFromFileTasks(final Task task) {
         final Path filePathToRead = Paths.get(ROOT_PATH + task.getName());
-        List<Path> listOfFiles = listOfFileInRoot();
+        final List<Path> listOfFiles = listOfFileInRoot();
 
         try {
             final List<String> lines = Files.readAllLines(filePathToRead);
-            boolean isCompletedFromFile = Boolean.getBoolean(lines.get(2));//todo 2;
+            String test = lines.get(DATE_AND_TIME_LOCATION_IN_LIST); // Boolean.getBoolean no!
+            final boolean isCompletedFromFile = Boolean.parseBoolean(lines.get(DATE_AND_TIME_LOCATION_IN_LIST));
             return isCompletedFromFile;
         } catch (IOException e) {
             throw new RuntimeException(e); // IllegalArgumentException?
@@ -110,6 +110,11 @@ public class TasksSystemFile {
             throw new RuntimeException(e);
         }
     }
+
+//    public final Path pathOfFile(String name) {
+//        final Path path = Paths.get(ROOT_PATH + name);
+//
+//    }
 
 //    private List listOfTasks() {
 //        final Path filePathToRead = Paths.get(ROOT_PATH + task.getName()); //todo need strong key

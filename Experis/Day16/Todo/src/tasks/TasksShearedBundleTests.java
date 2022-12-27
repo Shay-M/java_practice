@@ -32,7 +32,8 @@ abstract class TasksShearedBundleTests {
         try {
             tasksBundle.add(FIXING_TASK_1);
             Assertions.fail("TaskAlreadyExistsException not thrown for duplication");
-        } catch (TaskAlreadyExistsException ex) {
+        }
+        catch (TaskAlreadyExistsException ex) {
 
         }
     }
@@ -43,7 +44,8 @@ abstract class TasksShearedBundleTests {
         try {
             tasksBundle.add(null);
             Assertions.fail("IllegalArgumentException not thrown for null");
-        } catch (IllegalArgumentException ex) {
+        }
+        catch (IllegalArgumentException ex) {
 
         }
 
@@ -59,7 +61,7 @@ abstract class TasksShearedBundleTests {
     @Test
     void setStateFromTask() {
         final TasksBundle tasksBundle = createTasksBundle();
-        tasksBundle.add(FIXING_TASK_1);
+        tasksBundle.add(FIXING_TASK_1); // Default Completed is false
         tasksBundle.getState(FIXING_TASK_1).setCompleted(true);
 
         assertTrue(tasksBundle.getState(FIXING_TASK_1).isCompleted());
@@ -73,7 +75,8 @@ abstract class TasksShearedBundleTests {
         try {
             assertEquals(0, tasksBundle.getState(null));
             Assertions.fail("NullPointerException not thrown for getState on null");
-        } catch (NullPointerException ex) {
+        }
+        catch (NullPointerException ex) {
 
         }
         // way 2: test if task is null: (**)
