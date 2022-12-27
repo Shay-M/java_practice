@@ -9,7 +9,10 @@ public final class TasksBundleOnDisk implements TasksBundle {
     private final static TasksSystemFile tasksSystemFile = new TasksSystemFile();
 
     @Override
-    public final void add(Task task) {
+    public final void add(final Task task) {
+        if (task == null) {
+            throw new IllegalArgumentException();
+        }
         try {
             tasksSystemFile.createFile(task);
         } catch (FileAlreadyExistsException e) {
@@ -25,17 +28,24 @@ public final class TasksBundleOnDisk implements TasksBundle {
 
     @Override
     public final boolean isEmpty() {
-        return tasksSystemFile.numberOfFileInRoot() == 0;
+        return tasksSystemFile.listOfFileInRoot().size() == 0;
     }
 
     @Override
     public final int size() {
-        return tasksSystemFile.numberOfFileInRoot();
+        return (int) tasksSystemFile.listOfFileInRoot().size();
     }
 
     @Override
-    public final MutableState getState(Task task) {
-        throw new UnsupportedOperationException();
-        //return null;
+    public final MutableState getState(final Task task) {
+
+        final MutableState mutableStateFromFile = new MutableState();
+        mutableStateFromFile.setCompleted(tasksSystemFile.readMutableStateFromFileTasks(task));
+
+//        if (!m_tasks.containsKey(task)) {
+//            throw new IllegalArgumentException("task not found: " + task.toString());
+//        }
+
+        return mutableStateFromFile;
     }
 }

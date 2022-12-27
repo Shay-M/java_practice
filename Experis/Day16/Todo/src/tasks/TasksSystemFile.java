@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 public class TasksSystemFile {
@@ -12,9 +15,8 @@ public class TasksSystemFile {
 
     public final void createFile(Task task) throws FileAlreadyExistsException {
         createsRootFolder(ROOT_PATH);
-        final String taskName = task.getName();
         // final String taskCategoryName = task.getName();
-        createsTextFile(ROOT_PATH, taskName);
+        createsFile(ROOT_PATH, task);
     }
 
     private void createsRootFolder(final String path) {
@@ -50,39 +52,74 @@ public class TasksSystemFile {
                 throw new RuntimeException(e);
             }
         }
-
-
     }
 
-    private void createsTextFile(final String filePath, final String fileName) throws FileAlreadyExistsException {
-        final Path newFilePath = Paths.get(filePath + fileName);
+    private void createsFile(final String filePath, final Task task) throws FileAlreadyExistsException {
+        final Path newFilePath = Paths.get(filePath + task.getName());
         try {
             Files.createFile(newFilePath);
         } catch (FileAlreadyExistsException ex) {
-            throw new FileAlreadyExistsException(ex.getMessage());            //ex.printStackTrace();
+            throw new FileAlreadyExistsException(ex.getMessage());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        writerToFiles(filePath, fileName);
+        writerToFiles(filePath, task, false);
     }
 
-    private void writerToFiles(final String filePath, final String fileName) {
-        final Path newFilePath = Paths.get(filePath + fileName);
-        try (BufferedWriter writer = Files.newBufferedWriter(newFilePath,
+    private void writerToFiles(final String filePath, final Task task, final boolean completed) {
+        final Path filePathWriter = Paths.get(filePath + task.getName());
+        try (BufferedWriter writer = Files.newBufferedWriter(filePathWriter,
                 StandardCharsets.UTF_8)) {
-            writer.write("...todo!..");
+            writer.write(task.getName() + "\n" + task.getDueTime() + "\n" + completed);
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
     }
+    // final Map<Task, MutableState> m_tasks = new HashMap<>();
 
-    public final int numberOfFileInRoot() {
+    public final boolean readMutableStateFromFileTasks(final Task task) {
+        final Path filePathToRead = Paths.get(ROOT_PATH + task.getName());
+        List<Path> listOfFiles = listOfFileInRoot();
+
+        try {
+            final List<String> lines = Files.readAllLines(filePathToRead);
+            boolean isCompletedFromFile = Boolean.getBoolean(lines.get(2));//todo 2;
+            return isCompletedFromFile;
+        } catch (IOException e) {
+            throw new RuntimeException(e); // IllegalArgumentException?
+        }
+    }
+
+//    private final LocalDateTime readLocalDateTimeFromFile(Path filePathToRead) {
+//        List<Path> listOfFiles = listOfFileInRoot();
+//
+//        try {
+//            final List lines = Files.readAllLines(filePathToRead);
+//            String DateTimeFromFile = (String) lines.get(1); // todo 1
+//            //return LocalDateTime.of();
+//        } catch (IOException e) {
+//            throw new RuntimeException(e); // IllegalArgumentException?
+//        }
+//    }
+
+    public final List listOfFileInRoot() {
         final Path path = Paths.get(ROOT_PATH);
         try (Stream<Path> listOfFiles = Files.list(path)) {
-            return (int) listOfFiles.count();
+            return listOfFiles.toList();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
+//    private List listOfTasks() {
+//        final Path filePathToRead = Paths.get(ROOT_PATH + task.getName()); //todo need strong key
+//        List<Path> listOfPathFiles = listOfFileInRoot();
+//        List<Task> tasks = new ArrayList<Task>();
+//        for (Path filePath : listOfPathFiles) {
+//            tasks.add(new Task(filePath.getFileName(), LocalDateTime.of());)
+//        }
+//
+//        return tasks;
+//    }
 }
 

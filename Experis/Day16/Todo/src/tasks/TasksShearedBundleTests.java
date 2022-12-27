@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 abstract class TasksShearedBundleTests {
     final static Task FIXING_TASK_1 = new Task("testTask1", LocalDateTime.of(LocalDate.of(2001, 1, 1), LocalTime.of(1, 1)));
     final static Task FIXING_TASK_2 = new Task("testTask2", LocalDateTime.of(LocalDate.of(2002, 2, 2), LocalTime.of(2, 2)));
-    //todo iterator test!
+
     protected abstract TasksBundle createTasksBundle(); // tasksBundle -כדי שנוכל לעבוד כם שתי סוגי ה
 
     @Test
@@ -52,9 +52,17 @@ abstract class TasksShearedBundleTests {
     @Test
     void getStateFromTask() {
         final TasksBundle tasksBundle = createTasksBundle();
-        // test with one task
         tasksBundle.add(FIXING_TASK_1);
         assertTrue(!tasksBundle.getState(FIXING_TASK_1).isCompleted());
+    }
+
+    @Test
+    void setStateFromTask() {
+        final TasksBundle tasksBundle = createTasksBundle();
+        tasksBundle.add(FIXING_TASK_1);
+        tasksBundle.getState(FIXING_TASK_1).setCompleted(true);
+
+        assertTrue(tasksBundle.getState(FIXING_TASK_1).isCompleted());
     }
 
 
@@ -89,6 +97,33 @@ abstract class TasksShearedBundleTests {
         public void execute() throws Throwable {
             m_tasksBundle.getState(null);
         }
+    }
+
+
+    @Test
+    void EmptyIteratorHasNextTask() {
+        final TasksBundle tasksBundle = createTasksBundle();
+        assertTrue(!tasksBundle.iterator().hasNext());
+    }
+
+    @Test
+    void iteratorHasNextTask() {
+        final TasksBundle tasksBundle = createTasksBundle();
+        tasksBundle.add(FIXING_TASK_1);
+        assertTrue(tasksBundle.iterator().hasNext());
+    }
+
+    @Test
+    void iteratorGetNextTaskOnEmpty() {
+        final TasksBundle tasksBundle = createTasksBundle();
+        assertThrowsExactly(java.util.NoSuchElementException.class, () -> tasksBundle.iterator().next());
+    }
+
+    @Test
+    void iteratorGetNextTask() {
+        final TasksBundle tasksBundle = createTasksBundle();
+        tasksBundle.add(FIXING_TASK_1);
+        assertDoesNotThrow(() -> tasksBundle.iterator().next());
     }
 
 }

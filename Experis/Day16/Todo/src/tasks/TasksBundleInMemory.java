@@ -37,7 +37,7 @@ public final class TasksBundleInMemory implements TasksBundle { //Iterable<Entry
     }
 
     @Override
-    public final MutableState getState(Task task) {
+    public final MutableState getState(final Task task) {
         if (!m_tasks.containsKey(task)) {
             throw new IllegalArgumentException("task not found: " + task.toString());
         }
