@@ -13,6 +13,6 @@ class TaskBundleCachedTest extends TasksShearedBundleTests {
 
     @BeforeEach
     void resatFolder() {
-        //TasksSystemFile.cleanUpFiles();
+        TasksSystemFile.cleanUpFiles();
     }
 }
