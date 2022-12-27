@@ -100,12 +100,13 @@ public class TasksSystemFile {
 //        }
 //    }
 
-    public static final List<Path> listOfFileInRoot()  {
+    public static final List<Path> listOfFileInRoot() {
+        createsRootFolder(ROOT_PATH);
         final Path path = Paths.get(ROOT_PATH);
         try (Stream<Path> listOfFiles = Files.list(path)) {
             return listOfFiles.toList();
         } catch (NoSuchFileException e) {
-            throw new FileNotExistsException();
+            throw new java.util.NoSuchElementException();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

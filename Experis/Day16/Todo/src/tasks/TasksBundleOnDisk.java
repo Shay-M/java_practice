@@ -9,8 +9,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
-public final class TasksBundleOnDisk implements TasksBundle {
+public final class TasksBundleOnDisk implements TasksBundle, Iterable<Entry<Task, MutableState>> {
 
     // private final static TasksSystemFile tasksSystemFile = new TasksSystemFile(); when?
 
@@ -27,9 +28,9 @@ public final class TasksBundleOnDisk implements TasksBundle {
     }
 
     @Override
-    public final Iterator<Map.Entry<Task, MutableState>> iterator() {
+    public final Iterator<Entry<Task, MutableState>> iterator() {
         final Map<Task, MutableState> m_tasks = new HashMap<>();
-
+        //todo
         final List<Path> listOfPathFiles = TasksSystemFile.listOfFileInRoot();
 
         for (Path filePath : listOfPathFiles) {

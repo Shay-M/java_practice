@@ -46,7 +46,6 @@ abstract class TasksShearedBundleTests {
         } catch (IllegalArgumentException ex) {
 
         }
-
     }
 
     @Test
@@ -65,7 +64,6 @@ abstract class TasksShearedBundleTests {
         assertTrue(tasksBundle.getState(FIXING_TASK_1).isCompleted());
     }
 
-
     @Test
     void getStateFromNullTask() {
         final TasksBundle tasksBundle = createTasksBundle();
@@ -78,11 +76,8 @@ abstract class TasksShearedBundleTests {
         }
         // way 2: test if task is null: (**)
         assertThrowsExactly(NullPointerException.class, new AddTaskExecutable(tasksBundle));
-
         // way 3 "Sugar Syntax": test if task is null:
         assertThrowsExactly(NullPointerException.class, () -> tasksBundle.getState(null));
-
-
     }
 
     // (**) for way 2
@@ -98,7 +93,6 @@ abstract class TasksShearedBundleTests {
             m_tasksBundle.getState(null);
         }
     }
-
 
     @Test
     void iteratorHasNextOnEmptyTasksBundle() {
@@ -116,14 +110,15 @@ abstract class TasksShearedBundleTests {
     @Test
     void iteratorNextOnEmptyTasksBundle() {
         final TasksBundle tasksBundle = createTasksBundle();
-        assertThrowsExactly(FileNotExistsException.class, () -> tasksBundle.iterator().next()); //<<
+        assertThrowsExactly(java.util.NoSuchElementException.class, () -> tasksBundle.iterator().next()); //<<
     }
 
     @Test
     void iteratorGetNextTask() {
         final TasksBundle tasksBundle = createTasksBundle();
         tasksBundle.add(FIXING_TASK_1);
-        assertDoesNotThrow(() -> tasksBundle.iterator().next());
+        //assertDoesNotThrow(() -> tasksBundle.iterator().next());
+        assertEquals(FIXING_TASK_1, tasksBundle.iterator().next().getKey());
     }
 
 }

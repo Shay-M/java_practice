@@ -18,6 +18,9 @@ public final class TasksBundleInMemory implements TasksBundle { //Iterable<Entry
         if (m_tasks.containsKey(task)) {
             throw new TaskAlreadyExistsException(task);
         }
+        if (task == null) {
+            throw new IllegalArgumentException();
+        }
         final int oldNumTasks = m_tasks.size();
         m_tasks.put(task, new MutableState());
         assert (m_tasks.size() == oldNumTasks + 1);

@@ -14,7 +14,6 @@ class TasksBundleOnDiskTest extends TasksShearedBundleTests {
     @BeforeEach
     void resatFolder() {
         TasksSystemFile.cleanUpFiles();
-
     }
 
 }
