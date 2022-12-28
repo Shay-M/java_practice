@@ -22,7 +22,8 @@ public class AddTask implements WebAction {
             assert (tasks.size() == oldSize + 1);
 
             return BasicParts.tasksHeader(tasks) + BasicParts.tasksList(tasks);
-        } catch (DateTimeException ex) {
+        }
+        catch (DateTimeException ex) {
             throw new IllegalArgumentException(ex.getMessage());
         }
     }

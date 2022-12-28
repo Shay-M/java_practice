@@ -32,9 +32,10 @@ public final class TaskBundleCached implements TasksBundle {
     @Override
     public void add(final Task task) {
         ensureInMemoryFromDiskIsInitialize();
+
         try {
-            mOpt_inMemory_fast.get().add(task);
             m_onDisk_slow.add(task);
+            mOpt_inMemory_fast.get().add(task);
         }
         catch (TaskAlreadyExistsException ex) {
             // we have this file.
@@ -62,8 +63,8 @@ public final class TaskBundleCached implements TasksBundle {
 
     @Override
     public MutableState getState(final Task task) {
-        //initializeInMemoryFromDisk();
-        MutableState mutableState = mOpt_inMemory_fast.get().getState(task);
+        ensureInMemoryFromDiskIsInitialize();
+        final MutableState mutableState = mOpt_inMemory_fast.get().getState(task);
         mOpt_inMemory_fast.get().getState(task).setCompleted(mutableState.isCompleted());
         return mutableState;
     }

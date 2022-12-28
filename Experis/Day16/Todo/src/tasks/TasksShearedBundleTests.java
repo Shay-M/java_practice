@@ -74,7 +74,7 @@ abstract class TasksShearedBundleTests {
             assertEquals(0, tasksBundle.getState(null));
             Assertions.fail("NullPointerException not thrown for getState on null");
         }
-        catch (NullPointerException ex) {
+        catch (NullPointerException ex) { //NoSuchElementException
 
         }
         // way 2: test if task is null: (**)

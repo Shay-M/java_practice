@@ -1,3 +1,7 @@
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.nio.file.Path;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,8 +24,11 @@ import tasks.*;
 import tasksaction.CompletionAction;
 import webaction.*;
 
+import javax.imageio.ImageIO;
+
 public final class Todo {
     private static final Logger s_logger = Logger.getLogger(Todo.class.getCanonicalName());
+
 
     private static final List<Entry<String, WebAction>> PARAMETERIZED_PAGES = new ArrayList<>();
     private static final List<Entry<String, WebAction>> EXACT_PAGES = new ArrayList<>();
@@ -40,45 +47,59 @@ public final class Todo {
     //    private final TasksBundle m_allTasks = new TasksBundleInMemory();
     private final TasksBundle m_allTasks = new TaskBundleCached();
 
+    // private final Map<String, TaskBundleCached> usersTaskBundles = new HashMap<>();
+
+
     public static void main(final String[] args) {
         final Todo server = new Todo();
 
         server.m_allTasks.add(new Task("Buy milk", LocalDateTime.of(LocalDate.now(), LocalTime.of(12, 15))));
-
         server.serverLoop();
+
     }
 
     private void serverLoop() {
         try (SuperSimpleWebServer server = new SuperSimpleWebServer(9797, s_logger)) {
             while (true) {
                 try (SuperSimpleWebServer.Request request = server.waitForRequest()) { // try-with-resource
-                    handleRequest(request);
+                    if (request.getUri().equals("/favicon.ico")) {
+                        Favicon.getFavicon(request);
+                    } else {
+                        handleRequest(request);
+                    }
                 }
             }
-        } catch (IOException ex) {
+        }
+        catch (IOException ex) {
             s_logger.log(Level.SEVERE, "IOException " + ex.getMessage());
             return;
         }
     }
 
     private void handleRequest(final Request request) {
+
         try {
             try {
                 final String page = resolvePage(request);
                 request.getWriter(Status.OK).write(page);
-            } catch (PageNotFoundException ex) {
+            }
+            catch (PageNotFoundException ex) {
                 request.getWriter(Status.NOT_FOUND).write("<H1>Page not found</H1>" + ex.getUri());
-            } catch (TaskAlreadyExistsException ex) {
+            }
+            catch (TaskAlreadyExistsException ex) {
                 request.getWriter(Status.INTERNAL_ERROR).write("<H1>Task already exists</H1>");
-            } catch (IllegalArgumentException ex) {
+            }
+            catch (IllegalArgumentException ex) {
                 request.getWriter(Status.NOT_FOUND).write("<H1>Illegal argument: " + ex.getMessage() + "</H1>");
             }
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             s_logger.log(Level.WARNING, e.getMessage());
         }
     }
 
     private String resolvePage(final Request request) throws PageNotFoundException {
+
         final String untrust_uri = request.getUri();
 
         for (Entry<String, WebAction> endPointMapping : EXACT_PAGES) {
@@ -95,6 +116,7 @@ public final class Todo {
                 return endPointMapping.getValue().doAction(request, untrust_remainingUriParams, m_allTasks);
             }
         }
+
 
         throw new PageNotFoundException(untrust_uri);
     }
