@@ -13,7 +13,7 @@ import java.util.Map.Entry;
 
 public final class TasksBundleOnDisk implements TasksBundle, Iterable<Entry<Task, MutableState>> {
 
-    // private final static TasksSystemFile tasksSystemFile = new TasksSystemFile(); when?
+    private final static TasksSystemFile tasksSystemFile = new TasksSystemFile();
 
     @Override
     public final void add(final Task task) {
@@ -21,8 +21,9 @@ public final class TasksBundleOnDisk implements TasksBundle, Iterable<Entry<Task
             throw new IllegalArgumentException();
         }
         try {
-            TasksSystemFile.createFile(task);
-        } catch (FileAlreadyExistsException e) {
+            tasksSystemFile.createFile(task);
+        }
+        catch (FileAlreadyExistsException e) {
             throw new TaskAlreadyExistsException(task);
         }
     }
@@ -30,8 +31,7 @@ public final class TasksBundleOnDisk implements TasksBundle, Iterable<Entry<Task
     @Override
     public final Iterator<Entry<Task, MutableState>> iterator() {
         final Map<Task, MutableState> m_tasks = new HashMap<>();
-        //todo
-        final List<Path> listOfPathFiles = TasksSystemFile.listOfFileInRoot();
+        final List<Path> listOfPathFiles = tasksSystemFile.listOfFileInRoot();
 
         for (Path filePath : listOfPathFiles) {
             m_tasks.put(createTaskFromPath(filePath), createMutableStateFromPath(filePath));
@@ -41,9 +41,9 @@ public final class TasksBundleOnDisk implements TasksBundle, Iterable<Entry<Task
     }
 
     private MutableState createMutableStateFromPath(final Path filePath) {
-        final boolean completedTaskStateFromFile = Boolean.parseBoolean(TasksSystemFile.readMutableStateFromFileTasks(
+        final boolean completedTaskStateFromFile = Boolean.parseBoolean(tasksSystemFile.readMutableStateFromFileTasks(
                 filePath.getFileName().toString(),
-                TasksSystemFile.COMPLETED_LOCATION_IN_LIST
+                tasksSystemFile.COMPLETED_LOCATION_IN_LIST
         ));
         MutableState mutableState = new MutableState();
         mutableState.setCompleted(completedTaskStateFromFile);
@@ -52,9 +52,9 @@ public final class TasksBundleOnDisk implements TasksBundle, Iterable<Entry<Task
     }
 
     private Task createTaskFromPath(final Path filePath) {
-        final String dateTimeFromFile = TasksSystemFile.readMutableStateFromFileTasks(
+        final String dateTimeFromFile = tasksSystemFile.readMutableStateFromFileTasks(
                 filePath.getFileName().toString(),
-                TasksSystemFile.DATE_AND_TIME_LOCATION_IN_LIST
+                tasksSystemFile.DATE_AND_TIME_LOCATION_IN_LIST
         );
         final LocalDateTime endDateTime = LocalDateTime.parse(
                 dateTimeFromFile,
@@ -65,12 +65,12 @@ public final class TasksBundleOnDisk implements TasksBundle, Iterable<Entry<Task
 
     @Override
     public final boolean isEmpty() {
-        return TasksSystemFile.listOfFileInRoot().size() == 0;
+        return tasksSystemFile.getNumberOfFile() == 0;//listOfFileInRoot().size() == 0;
     }
 
     @Override
     public final int size() {
-        return (int) TasksSystemFile.listOfFileInRoot().size();
+        return (int) tasksSystemFile.getNumberOfFile();//.listOfFileInRoot().size();
     }
 
     @Override
@@ -79,9 +79,9 @@ public final class TasksBundleOnDisk implements TasksBundle, Iterable<Entry<Task
         final MutableStateOnDisk mutableStateFromFile = new MutableStateOnDisk(task);
         //Path taskFilePath = tasksSystemFile.pathOfFile(task.getName());
 
-        final boolean isTaskFromFileCompleted = Boolean.parseBoolean(TasksSystemFile.readMutableStateFromFileTasks(
+        final boolean isTaskFromFileCompleted = Boolean.parseBoolean(tasksSystemFile.readMutableStateFromFileTasks(
                 task.getName(),
-                TasksSystemFile.COMPLETED_LOCATION_IN_LIST
+                tasksSystemFile.COMPLETED_LOCATION_IN_LIST
         ));
         mutableStateFromFile.setCompleted(isTaskFromFileCompleted);
 

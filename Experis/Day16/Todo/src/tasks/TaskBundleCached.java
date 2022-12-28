@@ -23,9 +23,9 @@ public final class TaskBundleCached implements TasksBundle {
     }
 
     private void ensureInMemoryFromDiskIsInitialize() {
-        if (mOpt_inMemory_fast.isEmpty()) { // like !m_inMemory.isPresent()
+        //if (mOpt_inMemory_fast.isEmpty()) { // like !m_inMemory.isPresent()
             initializeInMemoryFromDisk(); // load all saved task from the disk
-        }
+        //}
         assert (mOpt_inMemory_fast.isPresent());
     }
 

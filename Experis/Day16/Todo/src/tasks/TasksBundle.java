@@ -15,5 +15,4 @@ public interface TasksBundle extends Iterable<Map.Entry<Task, MutableState>> {
 
     MutableState getState(Task task);
 
-
 }

@@ -39,15 +39,17 @@ public final class Todo {
         PARAMETERIZED_PAGES.add(new AbstractMap.SimpleImmutableEntry<String, WebAction>("/check/", new CheckTask()));
         PARAMETERIZED_PAGES.add(new AbstractMap.SimpleImmutableEntry<String, WebAction>("/choosetime/", new ChooseTime()));
         PARAMETERIZED_PAGES.add(new AbstractMap.SimpleImmutableEntry<String, WebAction>("/category", new EnterCategory()));
-        EXACT_PAGES.add(new AbstractMap.SimpleImmutableEntry<String, WebAction>("/", new ShowTasks()));
+        PARAMETERIZED_PAGES.add(new AbstractMap.SimpleImmutableEntry<String, WebAction>("/showtasks", new ShowTasks()));
+        EXACT_PAGES.add(new AbstractMap.SimpleImmutableEntry<String, WebAction>("/", new Login()));
+        // EXACT_PAGES.add(new AbstractMap.SimpleImmutableEntry<String, WebAction>("/", new ShowTasks()));
         EXACT_PAGES.add(new AbstractMap.SimpleImmutableEntry<String, WebAction>("/newtaskname", new EnterNewTaskName()));
         EXACT_PAGES.add(new AbstractMap.SimpleImmutableEntry<String, WebAction>("/choosedate", new ChooseDate()));
     }
 
-    //    private final TasksBundle m_allTasks = new TasksBundleInMemory();
+    // private final TasksBundle m_allTasks = new TasksBundleInMemory();
     private final TasksBundle m_allTasks = new TaskBundleCached();
 
-    // private final Map<String, TaskBundleCached> usersTaskBundles = new HashMap<>();
+    //private final Map<String, TaskBundleCached> usersTaskBundles = new HashMap<>();
 
 
     public static void main(final String[] args) {
@@ -77,7 +79,6 @@ public final class Todo {
     }
 
     private void handleRequest(final Request request) {
-
         try {
             try {
                 final String page = resolvePage(request);
