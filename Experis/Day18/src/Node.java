@@ -4,17 +4,23 @@ public final class Node<T extends Comparable<T>> implements Comparable<T> {
 
     private Optional<Node<T>> m_left = Optional.empty();
     private Optional<Node<T>> m_right = Optional.empty();
-    private final Optional<T> m_date;
+
+    //private final Optional<T> m_date;
+    private final T m_date;
 
     public Node(final T date) {
-        m_date = Optional.ofNullable(date);
+        m_date = date;
+    }
+
+    final public T getDate() {
+        return m_date;
     }
 
 
     @Override
     public int compareTo(final T dateFromOther) {
-//        return ((Comparable) m_date).compareTo(dateFromOther);
-        return m_date.get().compareTo(dateFromOther);
+        // return ((Comparable) m_date).compareTo(dateFromOther); with not public final class Node<T extends Comparable<T>> implements Comparable<T> {
+        return m_date.compareTo(dateFromOther);
     }
 
     public final void add(final T objToAdd) {
@@ -52,36 +58,47 @@ public final class Node<T extends Comparable<T>> implements Comparable<T> {
 //    }
 
     public final boolean contains(final T dateToFind) {
-
-        if (m_date.get().equals(dateToFind)) { //hmm
-            return true;
-        } else {
-            final int compareResult = this.compareTo(dateToFind);
-            if (compareResult > 0 && m_left.isPresent()) {
-                return m_left.get().contains(dateToFind);
-            } else if (compareResult < 0 && m_right.isPresent()) {
-                return m_right.get().contains(dateToFind);
-            }
-        }
-        return false;
-
+        return getNode(dateToFind).isPresent();
+//        if (m_date.equals(dateToFind)) { //hmm
+//            return true;
+//        } else {
+//            final int compareResult = this.compareTo(dateToFind);
+//            if (compareResult > 0 && m_left.isPresent()) {
+//                return m_left.get().contains(dateToFind);
+//            } else if (compareResult < 0 && m_right.isPresent()) {
+//                return m_right.get().contains(dateToFind);
+//            }
+//        }
+//        return false;
     }
 
+    /* -ask
     public final Optional<Object> getDate(final T dateToFind) {
 
         if (m_date.equals(dateToFind)) {
             return Optional.of(m_date);
         } else {
             final int compareResult = this.compareTo(dateToFind);
-            if (compareResult > 0 && m_left.isPresent()) {
+            if (compareResult < 0 && m_left.isPresent()) {
                 return m_left.get().getDate(dateToFind);
-            } else if (compareResult < 0 && m_right.isPresent()) {
+            } else if (compareResult > 0 && m_right.isPresent()) {
                 return m_right.get().getDate(dateToFind);
             }
         }
         return Optional.empty();
+    }*/
 
+    public final Optional<Node<T>> getNode(final T dateToFind) {
+        if (m_date.equals(dateToFind)) {
+            return Optional.of(this);
+        } else {
+            final int compareResult = this.compareTo(dateToFind);
+            if (compareResult > 0 && m_right.isPresent()) {
+                return m_right.get().getNode(dateToFind);
+            } else if (compareResult < 0 && m_left.isPresent()) {
+                return m_left.get().getNode(dateToFind);
+            }
+        }
+        return Optional.empty();
     }
-
-
 }

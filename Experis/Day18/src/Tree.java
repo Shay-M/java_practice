@@ -25,21 +25,22 @@ public class Tree<T extends Comparable<T>> {
     public final int size() {
         return count;
     }
+
     // remove a value from the tree
     public final void remove(final T date) {
-        if(contains(date)){
+        Optional<Node<T>> nodeToRemove = m_root.get().getNode(date);
+        if (nodeToRemove.isPresent()) {
 
             --count;
         }
 
     }
+
     // retrieves the value from the tree
-    public final T get(final T date) {
-
-        return null;
+    public final T get(final T dateToFind) {
+        //return m_root.isEmpty() ? null : m_root.get().getNode(dateToFind).get().getDate();
+        return m_root.get().getNode(dateToFind).isPresent() ? m_root.get().getNode(dateToFind).get().getDate() : null;
     }
-
-
 }
 
 
