@@ -12,7 +12,7 @@ public final class Node<T extends Comparable<T>> implements Comparable<T> {
         m_date = date;
     }
 
-    final public T getDate() {
+    public T getDate() {
         return m_date;
     }
 
@@ -23,7 +23,7 @@ public final class Node<T extends Comparable<T>> implements Comparable<T> {
         return m_date.compareTo(dateFromOther);
     }
 
-    public final void add(final T objToAdd) {
+    public void add(final T objToAdd) {
         if (this.compareTo(objToAdd) < 0) {
             if (m_left.isEmpty()) {
                 m_left = Optional.of(new Node<T>(objToAdd));
@@ -39,25 +39,25 @@ public final class Node<T extends Comparable<T>> implements Comparable<T> {
         }
     }
 
-//    public final void add(final T objToAdd) {
-//        if (this.compareTo(objToAdd) > 0) { // this > date
-//            addToNode(m_left, objToAdd);
-//        }
-//        else {
-//            addToNode(m_right, objToAdd);
-//        }
-//    }
-//
-//    private void addToNode(Optional<Node> node, final T objToAdd) {
-//        if (node.isEmpty()) {
-//            node = Optional.of(new Node(objToAdd));
-//        }
-//        else {
-//            node.get().add(objToAdd);
-//        }
-//    }
+   /* -ask
+    public final void add(final T objToAdd) {
+        if (this.compareTo(objToAdd) > 0) { // this > date
+            addToNode(m_left, objToAdd);
+        } else {
+            addToNode(m_right, objToAdd);
+        }
+    }
 
-    public final boolean contains(final T dateToFind) {
+    private void addToNode(Optional<Node> node, final T objToAdd) {
+        if (node.isEmpty()) {
+            node = Optional.of(new Node(objToAdd));
+        } else {
+            node.get().add(objToAdd);
+        }
+    }*/
+
+
+    public boolean contains(final T dateToFind) {
         return getNode(dateToFind).isPresent();
 //        if (m_date.equals(dateToFind)) { //hmm
 //            return true;
@@ -72,7 +72,7 @@ public final class Node<T extends Comparable<T>> implements Comparable<T> {
 //        return false;
     }
 
-    /* -ask
+    /*
     public final Optional<Object> getDate(final T dateToFind) {
 
         if (m_date.equals(dateToFind)) {
@@ -88,7 +88,7 @@ public final class Node<T extends Comparable<T>> implements Comparable<T> {
         return Optional.empty();
     }*/
 
-    public final Optional<Node<T>> getNode(final T dateToFind) {
+    public Optional<Node<T>> getNode(final T dateToFind) {
         if (m_date.equals(dateToFind)) {
             return Optional.of(this);
         } else {
@@ -101,4 +101,6 @@ public final class Node<T extends Comparable<T>> implements Comparable<T> {
         }
         return Optional.empty();
     }
+
+
 }

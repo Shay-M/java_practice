@@ -1,5 +1,6 @@
 import java.util.Optional;
 
+// BinarySearchTree
 public class Tree<T extends Comparable<T>> {
     // private static final Logger logger = Logger.getLogger(Tree.class.getCanonicalName());
     Optional<Node<T>> m_root = Optional.empty();
@@ -15,7 +16,7 @@ public class Tree<T extends Comparable<T>> {
     }
 
     public final boolean contains(final T dateToFind) {
-        return m_root.isEmpty() ? false : m_root.get().contains(dateToFind);
+        return m_root.isPresent() && m_root.get().contains(dateToFind);
     }
 
     public final boolean isEmpty() {
@@ -28,12 +29,29 @@ public class Tree<T extends Comparable<T>> {
 
     // remove a value from the tree
     public final void remove(final T date) {
-        Optional<Node<T>> nodeToRemove = m_root.get().getNode(date);
-        if (nodeToRemove.isPresent()) {
-
-            --count;
+        if (m_root.isPresent()) {
+            Optional<Node<T>> nodeToRemove = m_root.get().getNode(date);
+            if (nodeToRemove.isPresent()) {
+                removingNode(nodeToRemove.get());
+                --count;
+            }
         }
+    }
 
+    private void removingNode(final Node<T> nodeToRemove) {
+
+//        // node with only one child or no child
+//        if (nodeToRemove.left == null)
+//            return root.right;
+//        else if (root.right == null)
+//            return root.left;
+//
+//        // node with two children: Get the inorder
+//        // successor (smallest in the right subtree)
+//        root.key = minValue(root.right);
+//
+//        // Delete the inorder successor
+//        root.right = deleteRec(root.right, root.key);
     }
 
     // retrieves the value from the tree
