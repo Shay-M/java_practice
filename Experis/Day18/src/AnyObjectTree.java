@@ -1,43 +1,38 @@
 import java.util.Comparator;
 
-public final class AnyObjectTree<U, T extends Comparable<T>> implements Tree, Comparator {
+public final class AnyObjectTree<U> implements Tree, Comparator {
 
     private final Comparator<U> m_comparator;
-    private final ComparableTree<T> m_tree = new ComparableTree<T>();
+    private final ComparableTree<U> m_tree = new ComparableTree<U>();
 
     public AnyObjectTree(final Comparator<U> comparator) {
         m_comparator = comparator;
-
-
     }
 
     @Override
     public void add(Comparable item) {
-        m_tree.add((T) item);
+        m_tree.add((U) item);
 
     }
 
     @Override
     public boolean contains(Comparable itemToFind) {
-        throw new UnsupportedOperationException();
-        // return false;
+        return m_tree.contains((U) itemToFind);
     }
 
     @Override
     public boolean isEmpty() {
-        throw new UnsupportedOperationException();
-        // return false;
+        return m_tree.isEmpty();
     }
 
     @Override
     public int size() {
-        throw new UnsupportedOperationException();
-        // return 0;
+        return m_tree.size();
     }
 
     @Override
     public void remove(Comparable itemToRemove) {
-        throw new UnsupportedOperationException();
+        m_tree.remove((U) itemToRemove);
 
     }
 

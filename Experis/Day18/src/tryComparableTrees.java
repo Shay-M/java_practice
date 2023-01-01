@@ -1,8 +1,8 @@
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public final class ComparableTreesTry {
-    private static final Logger logger = Logger.getLogger(ComparableTreesTry.class.getCanonicalName());
+public final class tryComparableTrees {
+    private static final Logger logger = Logger.getLogger(tryComparableTrees.class.getCanonicalName());
 
     // https://www.geeksforgeeks.org/why-to-use-comparator-interface-rather-than-comparable-interface-in-java/?ref=rp
     public final static class X implements Comparable<X> {

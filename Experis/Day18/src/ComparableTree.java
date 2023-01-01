@@ -2,6 +2,7 @@ import java.util.Iterator;
 import java.util.Optional;
 
 // BinarySearchTree
+//public class ComparableTree<T extends Comparable<T>> implements Iterator<T>, Tree<T> { // implements Iterable
 public class ComparableTree<T extends Comparable<T>> implements Iterator<T>, Tree<T> { // implements Iterable
     // private static final Logger logger = Logger.getLogger(Tree.class.getCanonicalName());
     Optional<Node<T>> m_root = Optional.empty();
