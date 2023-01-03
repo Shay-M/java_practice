@@ -1,6 +1,6 @@
 import java.util.Comparator;
 
-public final class AnyObjectTree<U> implements Tree, Comparator {
+public final class AnyObjectTree<U extends Comparable<U>> implements Tree, Comparator {
 
     private final Comparator<U> m_comparator;
     private final ComparableTree<U> m_tree = new ComparableTree<U>();

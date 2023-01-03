@@ -25,10 +25,10 @@ public final class tryAnyObjectTree<U> {
             }
         };
 
-        final AnyObjectTree<ComplexNumbers> tree = new AnyObjectTree<ComplexNumbers>(m_comparator < ComplexNumbers >);
-        tree.add(new ComplexNumbers());
+        //final AnyObjectTree<ComplexNumbers> tree = new AnyObjectTree<ComplexNumbers>(m_comparator < ComplexNumbers >);
+        // tree.add(new ComplexNumbers());
 
-        dog();
+
 
     }
 }

@@ -53,10 +53,12 @@ public final class Todo {
 
 
     public static void main(final String[] args) {
-        final Todo server = new Todo();
+        // final Todo server = new Todo();
 
-        server.m_allTasks.add(new Task("Buy milk", LocalDateTime.of(LocalDate.now(), LocalTime.of(12, 15))));
-        server.serverLoop();
+        // server.m_allTasks.add(new Task("Buy milk", LocalDateTime.of(LocalDate.now(), LocalTime.of(12, 15))));
+        // server.serverLoop();
+
+        TaskBundleSQL taskBundleSQL = new TaskBundleSQL();
 
     }
 
