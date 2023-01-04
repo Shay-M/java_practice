@@ -1,6 +1,7 @@
 package tasks;
 
 import db.DataBaseSqlPassword;
+import db.JdbcCommands;
 import org.junit.jupiter.api.*;
 
 import java.sql.Connection;
@@ -54,12 +55,8 @@ class TaskBundleSQLTest extends TasksShearedBundleTests {
 
 
     @BeforeEach
-    void resatSql() {
-        // JdbcConnection.deleteTable(DATABASE_URL_TEST, "todolist");
-        // JdbcConnection.deleteTable(DATABASE_URL_TEST, "task");
-        // JdbcConnection.deleteTable(DATABASE_URL_TEST, "user");
-
-
+    void resatSql() throws SQLException {
+        JdbcCommands.cleanAllTables(m_connection, DB_NAME);
     }
 
 
