@@ -26,7 +26,10 @@
     <filter-actions connection-id="5ba68694-1695-404e-9268-f80cc634af4a" dataset="tododb.task" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="5ba68694-1695-404e-9268-f80cc634af4a" dataset="tododb.todolist" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="5ba68694-1695-404e-9268-f80cc634af4a" dataset="tododb.user" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="5ba68694-1695-404e-9268-f80cc634af4a" dataset="tests.users" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="5ba68694-1695-404e-9268-f80cc634af4a" dataset="tests.todolist" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="5ba68694-1695-404e-9268-f80cc634af4a" dataset="tododb.users" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="5ba68694-1695-404e-9268-f80cc634af4a" dataset="tests.task" active-filter-id="EMPTY_FILTER" />
   </component>
   <component name="DBNavigator.Project.ExecutionManager">
     <retain-sticky-names value="false" />

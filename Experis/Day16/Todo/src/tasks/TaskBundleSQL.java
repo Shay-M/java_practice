@@ -1,109 +1,77 @@
 package tasks;
 
+import java.nio.file.FileAlreadyExistsException;
 import java.sql.*;
-import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public final class TaskBundleSQL implements TasksBundle { //
-    final static Logger logger = Logger.getLogger(TaskBundleSQL.class.getCanonicalName());
+// AutoCloseable bcz we used PreparedStatement must coll close !
+public class TaskBundleSQL implements TasksBundle, AutoCloseable { // need AutoCloseable ?
+    private final static int DUPLICATE_SQL_ERROR_NUMBER = 1062;
+    private PreparedStatement preparedStatement;
+    private final Connection m_connection;
 
-    private static final String DATABASE_URL = "jdbc:mysql://localhost/tododb";
-    private final static String USER = "root";
-    private final static String PASSWORD = new Scanner(System.in).nextLine();
-
-    private final Map<Task, MutableState> m_tasks = new HashMap<>();
-
-    public TaskBundleSQL() {
-        // sendSelectQuery("* from v_users", new String[]{"username", "userId"});
-        getTasksQuery("* from v_ueser_list");
-        // logger.log(Level.INFO, "m_tasks: " + m_tasks.toString());
-    }
-
-    private void getTasksQuery(final String executeQuery) { // , final String[] getStrings
-        try (Connection conn = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD)) {
-            Statement stmt = conn.createStatement();
-            // stmt.executeUpdate()
-            ResultSet result = stmt.executeQuery("select " + executeQuery);
-            while (result.next()) {
-                final String taskName = result.getString("taskName");
-                final LocalDateTime taskLocalDate = result.getTimestamp("dateTimeEnd").toLocalDateTime();
-                Task taskFromSql = new Task(taskName, taskLocalDate);
-
-                final boolean taskIsCompletedFromSql = result.getBoolean("isCompleted");
-                MutableState mutableStateFromSql = new MutableState();
-                mutableStateFromSql.setCompleted(taskIsCompletedFromSql);
-
-                m_tasks.put(taskFromSql, mutableStateFromSql);
-            }
-        }
-        catch (SQLException ex) {
-            logger.log(Level.INFO, "" + ex.getMessage());
-        }
-    }
-
-
-    private void sendSelectQuery(final String executeQuery, final String[] getStrings) {
-        try (Connection conn = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD)) {
-            Statement stmt = conn.createStatement();
-            // stmt.executeUpdate()
-            ResultSet rs = stmt.executeQuery("select " + executeQuery);
-            while (rs.next()) {
-                // Retrieve by column name
-                for (String getString : getStrings) {
-                    logger.log(Level.INFO, getString + ": " + rs.getString(getString));
-                }
-
-            }
-        }
-        catch (SQLException ex) {
-            logger.log(Level.INFO, "" + ex.getMessage());
-        }
+    public TaskBundleSQL(final Connection connection, final Logger logger) {
+        m_connection = connection;
+        logger.log(Level.INFO, "connection: " + connection.toString());
     }
 
     @Override
-    public void add(Task task) {
-
-        try (Connection conn = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD)) {
-            Statement stmt = conn.createStatement();
-
+    public void add(final Task task) {
+        if (task == null) {
+            throw new IllegalArgumentException();
+        }
+        try {
             final String queryInsert = "INSERT INTO task ( taskName, dateTimeEnd, isCompleted)";
-            final String queryValues = "VALUES (" + task.getName() + "," + task.getDueTime() + ", 0)";
-            stmt.executeUpdate(queryInsert + queryValues);
+            final String queryValues = "VALUES (? , ? , 0 )";
+            preparedStatement = m_connection.prepareStatement(queryInsert + " " + queryValues);
+            preparedStatement.setString(1, task.getName());
+            final Timestamp timestamp = Timestamp.valueOf(task.getDueTime());
+            preparedStatement.setTimestamp(2, timestamp);
+            preparedStatement.executeQuery();
         }
-        catch (SQLException ex) {
-            logger.log(Level.INFO, "" + ex.getMessage());
+        catch (SQLException e) {
+            if (e.getErrorCode() == DUPLICATE_SQL_ERROR_NUMBER) {
+                throw new TaskAlreadyExistsException(task);
+            }
+            else {
+                throw new RuntimeException(e);
+            }
         }
-
     }
 
     @Override
     public Iterator<Map.Entry<Task, MutableState>> iterator() {
-        return m_tasks.entrySet().iterator();
+        throw new UnsupportedOperationException();
+        // return null;
     }
 
     @Override
     public boolean isEmpty() {
-        return m_tasks.isEmpty();
+        throw new UnsupportedOperationException();
+        // return false;
     }
 
     @Override
     public int size() {
-        return m_tasks.size();
+        return 0;
     }
 
     @Override
-    public MutableState getState(Task task) {
-        if (!m_tasks.containsKey(task)) {
-            throw new IllegalArgumentException("task not found: " + task.toString());
-        }
-
-        return m_tasks.get(task);
+    public MutableState getState(final Task task) {
+        throw new UnsupportedOperationException();
+        // return null;
     }
 
-
+    @Override
+    public void close() throws SQLException {
+        try {
+            preparedStatement.close();
+        }
+        catch (SQLException e) {
+            throw new SQLException("close failed. " + e);
+        }
+    }
 }
