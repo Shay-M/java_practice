@@ -14,10 +14,12 @@ public class TaskBundleSQL implements TasksBundle, AutoCloseable { // need AutoC
     private final static int DUPLICATE_SQL_ERROR_NUMBER = 1062;
     private PreparedStatement preparedStatement;
     private final Connection m_connection;
+    private Logger m_logger;
     private final Map<Task, MutableState> m_tasks = new HashMap<>();
 
     public TaskBundleSQL(final Connection connection, final Logger logger) {
         m_connection = connection;
+        m_logger = logger;
         assert m_connection != null;
         logger.log(Level.INFO, "connection: " + connection.toString());
     }
@@ -98,36 +100,42 @@ public class TaskBundleSQL implements TasksBundle, AutoCloseable { // need AutoC
     @Override
     public MutableState getState(final Task task) { //< <
         // NullPointerException
+        final String sqlQuery = "SELECT isCompleted " +
+                "FROM task " +
+                "JOIN users on users.username = ? " +
+                "AND task.taskName = ? " +
+                "AND task.dateTimeEnd = ?;";
 
         try {
-            preparedStatement = m_connection.prepareStatement(
-                    "SELECT *\n" +
-                            "FROM task t\n" +
-                            "WHERE" +
-                            "taskName = ? " +
-                            "AND dateTimeEnd = ?  " +
-                            "AND isCompleted = ?;"
-            );
+            preparedStatement = m_connection.prepareStatement(sqlQuery);
+            final int countQuietenMarks = sqlQuery.replaceAll("[^?]", "").length();
+            int index = 0;
+            preparedStatement.setString(++index, "shay"); //todo
+            preparedStatement.setString(++index, task.getName());
+            final Timestamp timestamp = Timestamp.valueOf(task.getDueTime());
+            preparedStatement.setTimestamp(++index, timestamp);
+            assert index == countQuietenMarks;
 
-            final ResultSet rs = preparedStatement.executeQuery();
+            final ResultSet rs = preparedStatement.executeQuery(); // X
             if (!rs.next()) {
                 throw new IllegalArgumentException("Task not found: " + task.toString());
             }
             else {
-                int index = 0;
-                final String taskNameFromSql = rs.getString(++index);
-                final Timestamp taskTimestampFromSql = rs.getTimestamp(++index);
-                final LocalDateTime localDateTimeFromTimestamp = taskTimestampFromSql.toLocalDateTime();
+                index = 0;
+//                final String taskNameFromSql = rs.getString(++index);
+//                final Timestamp taskTimestampFromSql = rs.getTimestamp(++index);
+//                final LocalDateTime localDateTimeFromTimestamp = taskTimestampFromSql.toLocalDateTime();
                 final boolean taskCompletedFromSql = rs.getBoolean(++index); // .getShort(++index);
-                assert index == 3;
+                assert index == 1;
 
-                Task taskFromSql = new Task(taskNameFromSql, localDateTimeFromTimestamp);
-                MutableState mutableStateFromSql = new MutableState();
+                //Task taskFromSql = new Task(taskNameFromSql, localDateTimeFromTimestamp);
+                final MutableState mutableStateFromSql = new MutableState();
                 mutableStateFromSql.setCompleted(taskCompletedFromSql);
                 return mutableStateFromSql;
             }
         }
         catch (SQLException ex) {
+            m_logger.log(Level.INFO, "getMessage: " + ex.getMessage());
             throw new SQLErrorException(ex);
         }
     }
