@@ -24,8 +24,9 @@
 --join phonenumber p on c.`ContactId` = p.`Contact_ContactId`
 --join phonetype pt on pt.category_id = p.`PhoneType_category_id`
 
+-- select * from v_get_contact;
 
-select * from v_get_contact;]]></console>
+CALL sp_get_contact("yosi");]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
@@ -34,11 +35,7 @@ select * from v_get_contact;]]></console>
     </last-used-providers>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files>
-      <object connection-id="440f5198-0298-48aa-bda7-603fdb9c7a67" object-ref="schemas/seconddigitalbanktest/tables/phonenumber" />
-      <object connection-id="440f5198-0298-48aa-bda7-603fdb9c7a67" object-ref="schemas/seconddigitalbanktest/tables/customer" />
-      <object connection-id="440f5198-0298-48aa-bda7-603fdb9c7a67" object-ref="schemas/seconddigitalbanktest/tables/contact" />
-    </open-files>
+    <open-files />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
     <filter-actions connection-id="440f5198-0298-48aa-bda7-603fdb9c7a67" dataset="seconddigitalbanktest.customer" active-filter-id="EMPTY_FILTER">

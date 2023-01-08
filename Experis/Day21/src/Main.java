@@ -26,8 +26,8 @@ public class Main {
                 SqlDBConnection sqlDBConnection = new SqlDBConnection(connection, m_logger);
                 CustomerDAOImpl workerDao = new CustomerDAOImpl(sqlDBConnection);
 
-                final String name = workerDao.getCustomerName(1000);
-                m_logger.log(Level.INFO, name);
+                // final String name = workerDao.getCustomer(1000);
+                m_logger.log(Level.INFO, "list: " + workerDao.getContact("yosi").get(0).getName());
 
             }
             catch (SQLException ex) {

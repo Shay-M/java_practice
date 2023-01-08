@@ -14,13 +14,13 @@ public final class CustomerDAOImpl implements CustomerDAO {
 
 
     @Override
-    public List<Customer> getCustomers() {
+    public List<Customer> getCustomers() { // need?
         throw new UnsupportedOperationException();
         // return null;
     }
 
     @Override
-    public String getCustomerName(final int accountNumber) {
+    public String getCustomerName(final int accountNumber) { // remove
         return m_sqlDBConnection.getCustomerNameFromSql(accountNumber);
 
     }
@@ -29,6 +29,12 @@ public final class CustomerDAOImpl implements CustomerDAO {
     public Customer getCustomer(final int accountNumber) {
 
         return m_sqlDBConnection.getCustomer(accountNumber);
+    }
+
+    @Override
+    public List<Contact> getContact(final String userName) { // remove
+
+        return m_sqlDBConnection.getContacts(userName);
     }
 
 

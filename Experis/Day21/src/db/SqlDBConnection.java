@@ -56,10 +56,44 @@ public final class SqlDBConnection implements AutoCloseable {
             throw new SQLErrorException(ex);
         }
     }
-// preparedStatement = m_connection.prepareCall("{call AddTask(?, ?)} ");
-    private List<Contact> getContacts(final int contactId) {
-        final String sqlQuery = "{select * from v_get_contact;}";
+
+    public final List<Contact> getContacts(final String userName) { //todo: final int accountNumber
+        //final String sqlQuery = "{select * from v_get_contact;}";
+        final String sqlQuery = "CALL sp_get_contact(?);";
         try {
+            preparedStatement = m_connection.prepareCall(sqlQuery);
+            final int countQuietenMarks = sqlQuery.replaceAll("[^?]", "").length();
+            int index = 0;
+            preparedStatement.setString(++index, userName);// todo accountNumber
+            assert index == countQuietenMarks;
+
+            final ResultSet result = preparedStatement.executeQuery();
+            final List<Contact> contactsUserFromSql = new ArrayList<>();
+            final int numberFieldForAssert = Contact.class.getTypeParameters().length;
+            while (result.next()) {
+                index = 0;
+                final String nameFromSql = result.getString(++index);
+                final String emailFromSql = result.getString(++index);
+                final int phoneNumberFromSql = result.getInt(++index);
+                final String phoneTypeFromSql = result.getString(++index);
+                assert index == numberFieldForAssert;
+
+                final Contact contactBySql = new Contact(nameFromSql, emailFromSql, phoneNumberFromSql, phoneTypeFromSql);
+                contactsUserFromSql.add(contactBySql);
+            }
+            return contactsUserFromSql;
+
+        }
+        catch (SQLException ex) {
+            m_logger.log(Level.INFO, "getMessage: " + ex.getMessage() +"\n" + ex.getSQLState());
+            throw new SQLErrorException(ex);
+        }
+
+
+
+
+
+       /* try {
             preparedStatement = m_connection.prepareStatement(sqlQuery);
             final ResultSet result = preparedStatement.executeQuery();
             final List<Contact> contactsUserFromSql = new ArrayList<>();
@@ -80,7 +114,9 @@ public final class SqlDBConnection implements AutoCloseable {
         catch (SQLException ex) {
             m_logger.log(Level.INFO, "getMessage: " + ex.getMessage());
             throw new SQLErrorException(ex);
-        }
+        }*/
+
+
     }
 
     public Customer getCustomer(final int accountNumber) {
