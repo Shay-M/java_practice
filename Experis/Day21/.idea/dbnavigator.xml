@@ -12,26 +12,45 @@
     <loaded-nodes />
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
-    <connection id="5ba68694-1695-404e-9268-f80cc634af4a">
-      <console name="mySQL Connection" type="STANDARD" schema="tododb" session="Main"><![CDATA[SELECT * FROM tododb.task;]]></console>
+    <connection id="440f5198-0298-48aa-bda7-603fdb9c7a67">
+      <console name="Connection" type="STANDARD" schema="SecondDigitalBankTest" session="Main"><![CDATA[--select Name
+--from contact c
+--join acount a on c.`ContactId` = a.`AcountType_category_id`
+--and a.`AccountNumber` = 1000;
+
+
+--select c.Name, Email, Number, pt.name
+--from contact c
+--join phonenumber p on c.`ContactId` = p.`Contact_ContactId`
+--join phonetype pt on pt.category_id = p.`PhoneType_category_id`
+
+
+select * from v_get_contact;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
-    <last-used-providers />
+    <last-used-providers>
+      <object-type object-type="TABLE" editor-provider="DATA" />
+    </last-used-providers>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files />
+    <open-files>
+      <object connection-id="440f5198-0298-48aa-bda7-603fdb9c7a67" object-ref="schemas/seconddigitalbanktest/tables/phonenumber" />
+      <object connection-id="440f5198-0298-48aa-bda7-603fdb9c7a67" object-ref="schemas/seconddigitalbanktest/tables/customer" />
+      <object connection-id="440f5198-0298-48aa-bda7-603fdb9c7a67" object-ref="schemas/seconddigitalbanktest/tables/contact" />
+    </open-files>
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
-    <filter-actions connection-id="5ba68694-1695-404e-9268-f80cc634af4a" dataset="tododb.task" active-filter-id="EMPTY_FILTER" />
-    <filter-actions connection-id="5ba68694-1695-404e-9268-f80cc634af4a" dataset="tododb.todolist" active-filter-id="EMPTY_FILTER" />
-    <filter-actions connection-id="5ba68694-1695-404e-9268-f80cc634af4a" dataset="tododb.user" active-filter-id="EMPTY_FILTER" />
-    <filter-actions connection-id="5ba68694-1695-404e-9268-f80cc634af4a" dataset="second_digital_bank.contact" active-filter-id="EMPTY_FILTER" />
-    <filter-actions connection-id="5ba68694-1695-404e-9268-f80cc634af4a" dataset="tests.users" active-filter-id="EMPTY_FILTER" />
-    <filter-actions connection-id="5ba68694-1695-404e-9268-f80cc634af4a" dataset="tests.todolist" active-filter-id="EMPTY_FILTER" />
-    <filter-actions connection-id="5ba68694-1695-404e-9268-f80cc634af4a" dataset="second_digital_bank.acounts" active-filter-id="EMPTY_FILTER" />
-    <filter-actions connection-id="5ba68694-1695-404e-9268-f80cc634af4a" dataset="tododb.users" active-filter-id="EMPTY_FILTER" />
-    <filter-actions connection-id="5ba68694-1695-404e-9268-f80cc634af4a" dataset="tests.task" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="440f5198-0298-48aa-bda7-603fdb9c7a67" dataset="seconddigitalbanktest.customer" active-filter-id="EMPTY_FILTER">
+      <filter id="e160c359-ce9b-4c82-8498-4454ee824d54" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND">
+        <condition column="CustomerNumber" operator="=" value="" active="true" />
+      </filter>
+    </filter-actions>
+    <filter-actions connection-id="440f5198-0298-48aa-bda7-603fdb9c7a67" dataset="seconddigitalbanktest.craditratingtype" active-filter-id="" />
+    <filter-actions connection-id="440f5198-0298-48aa-bda7-603fdb9c7a67" dataset="seconddigitalbanktest.contact" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="440f5198-0298-48aa-bda7-603fdb9c7a67" dataset="seconddigitalbanktest.phonenumber" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="440f5198-0298-48aa-bda7-603fdb9c7a67" dataset="seconddigitalbanktest.customertype" active-filter-id="" />
+    <filter-actions connection-id="440f5198-0298-48aa-bda7-603fdb9c7a67" dataset="seconddigitalbanktest.acount" active-filter-id="EMPTY_FILTER" />
   </component>
   <component name="DBNavigator.Project.ExecutionManager">
     <retain-sticky-names value="false" />
@@ -42,9 +61,9 @@
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
-      <connection id="5ba68694-1695-404e-9268-f80cc634af4a" active="true" signed="true">
+      <connection id="440f5198-0298-48aa-bda7-603fdb9c7a67" active="true" signed="true">
         <database>
-          <name value="mySQL Connection" />
+          <name value="Connection" />
           <description value="" />
           <database-type value="MYSQL" />
           <config-type value="BASIC" />
@@ -55,7 +74,7 @@
           <url-type value="DATABASE" />
           <host value="localhost" />
           <port value="3306" />
-          <database value="tododb" />
+          <database value="SecondDigitalBankTest" />
           <type value="USER_PASSWORD" />
           <user value="root" />
           <deprecated-pwd value="MTIzNDU2" />
@@ -502,9 +521,9 @@
     </ddl-file-settings>
     <general-settings>
       <regional-settings>
-        <date-format value="MEDIUM" />
+        <date-format value="LONG" />
         <number-format value="UNGROUPED" />
-        <locale value="SYSTEM_DEFAULT" />
+        <locale value="en" />
         <use-custom-formats value="false" />
       </regional-settings>
       <environment>
