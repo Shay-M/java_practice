@@ -4,13 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c1323d62-dc53-430d-90e0-41c21b21c3ee" name="Changes" comment="new proj bank">
-      <change afterPath="$PROJECT_DIR$/../Day12/.idea/dbnavigator.xml" afterDir="false" />
+    <list default="true" id="c1323d62-dc53-430d-90e0-41c21b21c3ee" name="Changes" comment="ADD -ea FOR assert tests">
+      <change afterPath="$PROJECT_DIR$/../Day14/.idea/Day14.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Day14/.idea/dbnavigator.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Day14/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Day14/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Day14/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Day14/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Day14/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Day18/.idea/dbnavigator.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/webaction/WebAction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../‏‏Day13/.idea/dbnavigator.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Day14/MyFirstWebServer" beforeDir="false" afterPath="$PROJECT_DIR$/../Day14/MyFirstWebServer" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Day14/todo-application/todo-application.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../Day14/todo-application/todo-application.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/db/CustomerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/db/CustomerDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/db/CustomerDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/db/CustomerDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/db/SqlDBConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/db/SqlDBConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Day21.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Day21.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Day21/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DigitalBank.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,25 +48,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Program Files (x86)/MySQL/Connector J 8.0/mysql-connector-java-8.0.24.jar&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Downloaded.Files.Path.Enabled": "false",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "last_opened_file_path": "C:/Users/shay/IntelliJ/java_practice/Experis/super_simple_web_server.jar",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "inlay.hints"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="model" />
@@ -71,12 +81,13 @@
       <recent name="db" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="webaction" />
       <recent name="db" />
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Main" />
+    <configuration name="DigitalBank" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="DigitalBank" />
       <module name="Day21" />
       <option name="VM_PARAMETERS" value="-ea" />
       <method v="2">
@@ -85,7 +96,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.DigitalBank" />
       </list>
     </recent_temporary>
   </component>
@@ -112,23 +123,27 @@
       <option name="project" value="LOCAL‎" />
       <updated>1673213565742</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL‎-00003" summary="ADD -ea FOR assert tests">
+      <created>1673271849882</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL‎-00003" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1673271849882</updated>
+    </task>
+    <task id="LOCAL‎-00004" summary="ADD -ea FOR assert tests">
+      <created>1673271867564</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL‎-00004" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1673271867564</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="new proj bank" />
-    <option name="LAST_COMMIT_MESSAGE" value="new proj bank" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/db/SqlDBConnection.java</url>
-          <line>65</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="ADD -ea FOR assert tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="ADD -ea FOR assert tests" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
