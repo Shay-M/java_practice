@@ -1,8 +1,8 @@
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public final class NormalWay {
-    private static final Logger logger = Logger.getLogger(NormalWay.class.getCanonicalName());
+public final class BadWay {
+    private static final Logger logger = Logger.getLogger(BadWay.class.getCanonicalName());
     final static int MAX_NUMBER = 40;
     final static int THE_NUMBER = 1;
 
