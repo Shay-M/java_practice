@@ -5,15 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c1323d62-dc53-430d-90e0-41c21b21c3ee" name="Changes" comment="new proj bank">
-      <change afterPath="$PROJECT_DIR$/../Day22/src/States/Boom.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Day22/src/States/Kaboom.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Day22/src/States/Normal.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Day22/src/States/Pow.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Day12/.idea/dbnavigator.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/db/CustomerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/db/CustomerDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/db/CustomerDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/db/CustomerDAOImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/db/SqlDBConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/db/SqlDBConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Contact.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Contact.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Customer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,6 +118,17 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="new proj bank" />
     <option name="LAST_COMMIT_MESSAGE" value="new proj bank" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/db/SqlDBConnection.java</url>
+          <line>65</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -16,7 +16,6 @@ public final class SqlDBConnection implements AutoCloseable {
 
 
     // private final static int DUPLICATE_SQL_ERROR_NUMBER = 1062;
-    private PreparedStatement preparedStatement;
     private Connection m_connection;
     private Logger m_logger;
 
@@ -57,31 +56,29 @@ public final class SqlDBConnection implements AutoCloseable {
         }
     }*/
 
-    public final List<Contact> getContacts(final String userName) { //todo: final int accountNumber
+    public final List<Contact> getContacts(final String userName) { //todo: final int accountNumber...
         final String sqlQuery = "CALL sp_get_contact(?);";
-        try {
-            preparedStatement = m_connection.prepareCall(sqlQuery); //
+        try (PreparedStatement preparedStatement = m_connection.prepareCall(sqlQuery)) {
             final int countQuietenMarks = sqlQuery.replaceAll("[^?]", "").length();
             int index = 0;
-            preparedStatement.setString(++index, userName);// todo accountNumber
+            preparedStatement.setString(++index, userName);  // ...todo accountNumber
             assert index == countQuietenMarks;
+            // final int numberFieldForAssert = Contact.class.getEnclosingConstructor().getParameterCount();
+            try (final ResultSet result = preparedStatement.executeQuery()) {
+                final List<Contact> contactsUserFromSql = new ArrayList<>();
+                while (result.next()) {
+                    index = 0;
+                    final String nameFromSql = result.getString(++index);
+                    final String emailFromSql = result.getString(++index);
+                    final int phoneNumberFromSql = result.getInt(++index);
+                    final String phoneTypeFromSql = result.getString(++index);
+                    assert index == 4; // TODO
 
-            final ResultSet result = preparedStatement.executeQuery(); //
-            final List<Contact> contactsUserFromSql = new ArrayList<>();
-            final int numberFieldForAssert = Contact.class.getTypeParameters().length;
-            while (result.next()) {
-                index = 0;
-                final String nameFromSql = result.getString(++index);
-                final String emailFromSql = result.getString(++index);
-                final int phoneNumberFromSql = result.getInt(++index);
-                final String phoneTypeFromSql = result.getString(++index);
-                assert index == numberFieldForAssert;
-
-                final Contact contactBySql = new Contact(nameFromSql, emailFromSql, phoneNumberFromSql, phoneTypeFromSql);
-                contactsUserFromSql.add(contactBySql);
+                    final Contact contactBySql = new Contact(nameFromSql, emailFromSql, phoneNumberFromSql, phoneTypeFromSql);
+                    contactsUserFromSql.add(contactBySql);
+                }
+                return contactsUserFromSql;
             }
-            return contactsUserFromSql;
-
         }
         catch (SQLException ex) {
             m_logger.log(Level.INFO, "getMessage: " + ex.getMessage() + "\n" + ex.getSQLState());
@@ -110,7 +107,7 @@ public final class SqlDBConnection implements AutoCloseable {
             m_logger.log(Level.INFO, "getMessage: " + ex.getMessage());
             throw new SQLErrorException(ex);
         }*/
-        
+
     }
 
     public Customer getCustomer(final int accountNumber) {
@@ -132,12 +129,12 @@ public final class SqlDBConnection implements AutoCloseable {
 
     @Override
     public void close() throws Exception {
-        try {
+       /* try {
             preparedStatement.close();
         }
         catch (SQLException e) {
             throw new SQLException("close failed. " + e);
-        }
+        }*/
 
     }
 }

@@ -8,8 +8,6 @@ import java.util.List;
 public interface CustomerDAO {
     List<Customer> getCustomers();
 
-    String getCustomerName(final int accountNumber);
-
     Customer getCustomer(final int accountNumber);
 
     List<Contact> getContact(final String userName);

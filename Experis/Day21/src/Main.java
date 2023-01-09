@@ -13,7 +13,11 @@ import static java.util.logging.Logger.getLogger;
 
 public class Main {
     private static final Logger m_logger = getLogger(Main.class.getCanonicalName());
-    private static final String ROOT_URL = "jdbc:mysql://localhost/";
+
+
+
+
+    private static final String ROOT_SQL_URL = "jdbc:mysql://localhost/";
     private final static String SQL_USER = "root";
     private final static String DB_NAME = "SecondDigitalBankTest";
     private final static Optional<String> SQL_PASSWORD = DataBaseSqlPassword.getPassword(m_logger);
@@ -22,7 +26,7 @@ public class Main {
 
     public static void main(final String[] args) {
         if (SQL_PASSWORD.isPresent()) {
-            try (Connection connection = DriverManager.getConnection(ROOT_URL + DB_NAME, SQL_USER, SQL_PASSWORD.get())) {
+            try (Connection connection = DriverManager.getConnection(ROOT_SQL_URL + DB_NAME, SQL_USER, SQL_PASSWORD.get())) {
                 SqlDBConnection sqlDBConnection = new SqlDBConnection(connection, m_logger);
                 CustomerDAOImpl workerDao = new CustomerDAOImpl(sqlDBConnection);
 
