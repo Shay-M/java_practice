@@ -1,30 +1,34 @@
 package webaction;
 
 import db.CustomerDAO;
-// import pagegen.BasicParts;
 import model.Contact;
 import super_simple_web_server.SuperSimpleWebServer.Request;
+import webaction.States.EventsState;
+import webaction.States.NormalMode;
 
-import java.time.DateTimeException;
-import java.util.Arrays;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Map;
+
 
 public class ShowCustomerInfo implements WebAction {
 
     @Override
     public String doAction(final Request request, final String untrust_remainingUriParams, final CustomerDAO customerDAO) {
         String page = "<H2>Digital Bank</H2>";
-        final List<Contact> userContacts = customerDAO.getContact("yosi");
-
-        for (Contact contact : userContacts) {
-            page += "<br>" + "Name: " + contact.getName();
-            page += "<br>" + "Email: " + contact.getEmail();
-            page += "<br>" + "PhoneNumber: " + contact.getPhoneNumber();
-            page += "<br>" + "PhoneType: " + contact.getPhoneType();
-            page += "<br>";
+        final LocalDateTime localDateTime = LocalDateTime.now();
+        page += "" + localDateTime.format(DateTimeFormatter.ISO_OFFSET_DATE);
+        // check if we need dark mode
+        if (localDateTime.getHour() > LocalTime.of(18, 0, 0).getHour()) {
+            page += "<body style='background-color:powderblue;'>";
         }
+        final List<Contact> userContacts = customerDAO.getContact("yosi");
+        EventsState eventsState = NormalMode.INSTANCE; //  EventsState eventsState = new NormalMode();
+        page += eventsState.printStatus(localDateTime, userContacts);
+
         return page;
     }
+
 }
 

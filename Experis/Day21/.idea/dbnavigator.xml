@@ -26,7 +26,14 @@
 
 -- select * from v_get_contact;
 
-CALL sp_get_contact("yosi");]]></console>
+-- CALL sp_get_contact("yosi");
+
+SELECT c.Name, Email, Number, pt.name AS `type`
+FROM   contact c
+JOIN  phonenumber p ON c.`ContactId` = p.`Contact_ContactId`
+AND c.`Name` = 'yosi'
+JOIN phonetype pt ON pt.category_id = p.`PhoneType_category_id`
+JOIN customer cus ON cus.]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
