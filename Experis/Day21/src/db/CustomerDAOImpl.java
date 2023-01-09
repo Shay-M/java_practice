@@ -21,7 +21,7 @@ public final class CustomerDAOImpl implements CustomerDAO {
 
     @Override
     public String getCustomerName(final int accountNumber) { // remove
-        return m_sqlDBConnection.getCustomerNameFromSql(accountNumber);
+        // return m_sqlDBConnection.getCustomerNameFromSql(accountNumber);
 
     }
 

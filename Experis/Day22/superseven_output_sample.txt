@@ -1,0 +1,58 @@
+1) Start at "normal state".
+2) If the number divides by 7 and we are at normal state, change to "boom state"
+3) Else if the number divides by 7 and we are at a state that is not the normal state, change to normal state
+
+.
+.
+.
+x) If we are at normal state - print the number
+x+1) If we are at boom state - print the number + BOOM
+.
+.
+.
+
+
+> superseven 100
+1
+2
+3
+4
+5
+6
+7 BOOM
+8 BOOM
+9 BOOM
+10 BOOM
+11 BOOM
+12 BOOM
+13 BOOM
+14
+15
+16
+17 POW!
+18 POW!
+19 POW!
+20 POW!
+21
+22
+23
+24
+25
+26
+27 POW!
+28
+29
+30
+31
+32
+33
+34
+35 BOOM
+36 BOOM
+37 KABOOM!
+38 KABOOM!
+39 KABOOM!
+40 KABOOM!
+41 KABOOM!
+42
+43...

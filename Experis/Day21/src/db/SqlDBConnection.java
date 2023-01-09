@@ -27,7 +27,7 @@ public final class SqlDBConnection implements AutoCloseable {
         logger.log(Level.INFO, "connection: " + connection.toString());
     }
 
-    public String getCustomerNameFromSql(final int accountNumber) {
+/*    public String getCustomerNameFromSql(final int accountNumber) {
         final String sqlQuery = "select Name\n" +
                 "from contact c\n" +
                 "join acount a on c.`ContactId` = a.`AcountType_category_id`\n" +
@@ -55,19 +55,18 @@ public final class SqlDBConnection implements AutoCloseable {
             m_logger.log(Level.INFO, "getMessage: " + ex.getMessage());
             throw new SQLErrorException(ex);
         }
-    }
+    }*/
 
     public final List<Contact> getContacts(final String userName) { //todo: final int accountNumber
-        //final String sqlQuery = "{select * from v_get_contact;}";
         final String sqlQuery = "CALL sp_get_contact(?);";
         try {
-            preparedStatement = m_connection.prepareCall(sqlQuery);
+            preparedStatement = m_connection.prepareCall(sqlQuery); //
             final int countQuietenMarks = sqlQuery.replaceAll("[^?]", "").length();
             int index = 0;
             preparedStatement.setString(++index, userName);// todo accountNumber
             assert index == countQuietenMarks;
 
-            final ResultSet result = preparedStatement.executeQuery();
+            final ResultSet result = preparedStatement.executeQuery(); //
             final List<Contact> contactsUserFromSql = new ArrayList<>();
             final int numberFieldForAssert = Contact.class.getTypeParameters().length;
             while (result.next()) {
@@ -85,13 +84,9 @@ public final class SqlDBConnection implements AutoCloseable {
 
         }
         catch (SQLException ex) {
-            m_logger.log(Level.INFO, "getMessage: " + ex.getMessage() +"\n" + ex.getSQLState());
+            m_logger.log(Level.INFO, "getMessage: " + ex.getMessage() + "\n" + ex.getSQLState());
             throw new SQLErrorException(ex);
         }
-
-
-
-
 
        /* try {
             preparedStatement = m_connection.prepareStatement(sqlQuery);
@@ -115,8 +110,7 @@ public final class SqlDBConnection implements AutoCloseable {
             m_logger.log(Level.INFO, "getMessage: " + ex.getMessage());
             throw new SQLErrorException(ex);
         }*/
-
-
+        
     }
 
     public Customer getCustomer(final int accountNumber) {

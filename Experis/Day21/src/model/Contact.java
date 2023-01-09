@@ -6,14 +6,26 @@ public final class Contact {
     private int m_phoneNumber;
     private String m_phoneType;
 
-    // private final Map<String, Integer> m_phoneNumbersMap;
+    public int getM_phoneNumber() {
+        return m_phoneNumber;
+    }
 
+    public void setM_phoneNumber(final int m_phoneNumber) {
+        this.m_phoneNumber = m_phoneNumber;
+    }
+
+    public String getM_phoneType() {
+        return m_phoneType;
+    }
+
+    public void setM_phoneType(final String m_phoneType) {
+        this.m_phoneType = m_phoneType;
+    }
 
     public Contact(final String m_name, final String m_email, final int mPhoneNumber, final String mPhoneType) {
         this.m_name = m_name;
         this.m_email = m_email;
         m_phoneNumber = mPhoneNumber;
-
         m_phoneType = mPhoneType;
     }
 
