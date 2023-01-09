@@ -2,17 +2,16 @@ package db;
 
 import model.Contact;
 import model.Customer;
-import model.PhoneType;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public final class SqlDBConnection implements AutoCloseable {
+
+
 
 
     // private final static int DUPLICATE_SQL_ERROR_NUMBER = 1062;
@@ -24,6 +23,10 @@ public final class SqlDBConnection implements AutoCloseable {
         m_logger = logger;
         assert m_connection != null;
         logger.log(Level.INFO, "connection: " + connection.toString());
+    }
+
+    public Connection getTheConnection() {
+        return m_connection;
     }
 
 /*    public String getCustomerNameFromSql(final int accountNumber) {
