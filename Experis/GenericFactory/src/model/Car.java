@@ -4,14 +4,12 @@ import model.engines.Engine;
 import model.wheels.Wheel;
 
 public final class Car {
-
     private final String m_name;
     private final String m_color;
     private final int m_nmmOfDoors;
 
     private final Wheel m_wheel;
     private final Engine m_engine;
-
 
     public Car(final String name, final String color, final int numOfDoors, final Wheel wheel, final Engine engine) {
         this.m_name = name;

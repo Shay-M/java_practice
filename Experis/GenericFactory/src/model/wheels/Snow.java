@@ -1,4 +1,4 @@
 package model.wheels;
 
-public class Snow implements Wheel {
+public final class Snow implements Wheel {
 }

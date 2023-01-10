@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class GenericFactoryDesign {
+public final class GenericFactoryDesign {
     private static final Logger m_logger = Logger.getLogger(GenericFactoryDesign.class.getCanonicalName());
     private static final int CAR_INDEX_LINE = 0;
     private static final int NAME_OBJ = 0;
@@ -37,7 +37,7 @@ public class GenericFactoryDesign {
         final Car car = new Car(
                 listOfCarsObj.get(CAR_INDEX_LINE)[NAME_OBJ],
                 listOfCarsObj.get(CAR_INDEX_LINE)[COLOR_OBJ],
-                Integer.valueOf(listOfCarsObj.get(CAR_INDEX_LINE)[NUM_DOORS]),
+                Integer.parseInt(listOfCarsObj.get(CAR_INDEX_LINE)[NUM_DOORS]),
                 new OffRoad(), // wheel.get()
                 engine
         );
@@ -55,6 +55,5 @@ public class GenericFactoryDesign {
 
         return enginesGenericFactory;
     }
-
 
 }

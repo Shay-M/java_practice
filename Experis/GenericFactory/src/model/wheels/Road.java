@@ -1,4 +1,4 @@
 package model.wheels;
 
-public class Road implements Wheel {
+public final class Road implements Wheel {
 }

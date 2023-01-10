@@ -1,4 +1,4 @@
 package model.wheels;
 
-public class OffRoad implements Wheel {
+public final class OffRoad implements Wheel {
 }
