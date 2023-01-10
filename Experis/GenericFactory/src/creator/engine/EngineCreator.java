@@ -1,6 +1,6 @@
-package creator;
+package creator.engine;
 
-import engines.Engine;
+import model.engines.Engine;
 // Creator Base
 
 public interface EngineCreator {

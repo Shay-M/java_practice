@@ -1,7 +1,7 @@
-package creator;
+package creator.engine;
 
-import engines.Electric;
-import engines.Engine;
+import model.engines.Electric;
+import model.engines.Engine;
 
 public class CreatorElectricEngine implements EngineCreator {
 

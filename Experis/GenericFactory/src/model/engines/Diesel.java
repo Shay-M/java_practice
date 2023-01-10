@@ -1,4 +1,4 @@
-package engines;
+package model.engines;
 
 public class Diesel implements Engine {
 
