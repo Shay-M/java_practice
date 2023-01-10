@@ -4,19 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c1323d62-dc53-430d-90e0-41c21b21c3ee" name="Changes" comment="fix web">
-      <change afterPath="$PROJECT_DIR$/src/webaction/States/EventsState.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/webaction/States/HolidayState.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/webaction/States/Holidays.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/webaction/States/NormalMode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/webaction/States/SabatMode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/webaction/ShowCustomerInfoTest.java" afterDir="false" />
+    <list default="true" id="c1323d62-dc53-430d-90e0-41c21b21c3ee" name="Changes" comment="update wep &#10;add user page">
       <change beforePath="$PROJECT_DIR$/../Day14/MyFirstWebServer" beforeDir="false" afterPath="$PROJECT_DIR$/../Day14/MyFirstWebServer" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Day21/webaction/ShowCustomerInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Day21/webaction/ShowCustomerInfo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/db/SqlDBConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/db/SqlDBConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/webaction/ShowCustomerInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/webaction/ShowCustomerInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rec2.mwb" beforeDir="false" afterPath="$PROJECT_DIR$/rec2.mwb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rec2.mwb.bak" beforeDir="false" afterPath="$PROJECT_DIR$/rec2.mwb.bak" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,25 +38,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Downloaded.Files.Path.Enabled": "false",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "last_opened_file_path": "C:/Users/shay/IntelliJ/java_practice/Experis/super_simple_web_server.jar",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "inlay.hints"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/shay/IntelliJ/java_practice/Experis/super_simple_web_server.jar&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="webaction.States" />
@@ -152,7 +145,14 @@
       <option name="project" value="LOCAL‎" />
       <updated>1673276618301</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL‎-00007" summary="update wep &#10;add user page">
+      <created>1673297928617</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL‎-00007" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1673297928617</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -160,7 +160,8 @@
     <MESSAGE value="ADD -ea FOR assert tests" />
     <MESSAGE value="add web" />
     <MESSAGE value="fix web" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix web" />
+    <MESSAGE value="update wep &#10;add user page" />
+    <option name="LAST_COMMIT_MESSAGE" value="update wep &#10;add user page" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
