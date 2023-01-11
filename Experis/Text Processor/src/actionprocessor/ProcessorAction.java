@@ -3,6 +3,6 @@ package actionprocessor;
 
 import bundle.TextProcessBundle;
 
-public interface ProssessorAction {
+public interface ProcessorAction {
     String doAction(final TextProcessBundle textProcessBundle);
 }
