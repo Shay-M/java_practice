@@ -1,9 +1,11 @@
 package argsparse;
 
+import actionprocessor.ProcessorAction;
+
 import java.util.List;
 
 public interface parseArgs {
 
-    List<String> parse(final String[] args);
+    List<ProcessorAction> parse(final String[] args);
 
 }

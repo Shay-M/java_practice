@@ -2,21 +2,33 @@ package argsparse;
 
 import actionprocessor.ProcessorAction;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class CommandsParse implements parseArgs {
+public class CommandsParse { // implements parseArgs
 
-    public CommandsParse(final List<Map.Entry<String, ProcessorAction>> commandsAction) {
+    private HashMap<String, ProcessorAction> m_commandsAction;
+
+    public CommandsParse(final HashMap<String, ProcessorAction> commandsAction) {
+        m_commandsAction = commandsAction;
     }
 
-    @Override
-    public List<String> parse(final String[] args) {
-        final List<String> commands; //  = Arrays.stream(args).toList();
-        return null;
+    //@Override
+    public List<ProcessorAction> parse(final String[] args) {
+        final List<String> untrsArrayArgsList = Arrays.stream(args).toList();
 
-        // commands.add()
+        final List<ProcessorAction> commandsFromArgs = new ArrayList<>();
 
+        for (String arg : untrsArrayArgsList) {
+            if (m_commandsAction.containsKey(arg)) {
+                commandsFromArgs.add(m_commandsAction.get(arg));
+            }
+            else {
+                break;
+            }
+        }
+        return commandsFromArgs;
     }
 }

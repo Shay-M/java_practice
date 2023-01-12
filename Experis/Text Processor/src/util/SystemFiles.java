@@ -21,7 +21,7 @@ public final class SystemFiles {
     }
 
 
-    public final List<String> readFile(final Path pathInput) {
+    public static final List<String> readFile(final Path pathInput) {
         try {
             List<String> lines = Files.readAllLines(pathInput);
             return lines;
@@ -46,7 +46,7 @@ public final class SystemFiles {
 
     }
 
-    public void writeTextToFile(final Path filePathWriter, final String line) {
+    public static void writeTextToFile(final Path filePathWriter, final String line) {
         try (BufferedWriter writer = Files.newBufferedWriter(filePathWriter, StandardCharsets.UTF_8)) {
             writer.write(line);
         }

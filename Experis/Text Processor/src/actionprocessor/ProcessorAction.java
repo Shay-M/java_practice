@@ -1,8 +1,9 @@
 package actionprocessor;
 
 
-import bundle.TextProcessBundle;
+import bundle.in.InputBundle;
+import bundle.out.OutputBundle;
 
 public interface ProcessorAction {
-    String doAction(final TextProcessBundle textProcessBundle);
+    void doAction(final InputBundle inputBundle, final OutputBundle outputBundle);
 }
