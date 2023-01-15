@@ -7,6 +7,7 @@ import model.engines.Engine;
 import model.wheels.OffRoad;
 import util.ClassFromFileText;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,6 +34,7 @@ public final class GenericFactoryDesign {
 
         final String[] enginePrats = listOfCarsObj.get(ENGINE_INDEX_LINE);
         final Engine engine = enginesGenericFactory.create(enginePrats[ENGINE_TYPE]);
+
 
         final Car car = new Car(
                 listOfCarsObj.get(CAR_INDEX_LINE)[NAME_OBJ],

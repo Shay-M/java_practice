@@ -1,6 +1,6 @@
 package shapes;
 
-public final class Rectangle implements Shape {
+public class Rectangle implements Shape {
 
     private final double m_width;
     private final double m_high;

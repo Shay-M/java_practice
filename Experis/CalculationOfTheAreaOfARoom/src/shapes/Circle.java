@@ -1,9 +1,15 @@
 package shapes;
 
-public class Circle implements Shape{
+public class Circle implements Shape {
+
+    private final double m_radius;
+
+    public Circle(final double radius) {
+        m_radius = radius;
+    }
+
     @Override
     public double calculateSize() {
-        throw new UnsupportedOperationException();
-        // return 0;
+        return (m_radius * m_radius) * Math.PI;
     }
 }
