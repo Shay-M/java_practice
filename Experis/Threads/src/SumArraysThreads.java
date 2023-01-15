@@ -3,7 +3,6 @@ import java.util.Arrays;
 
 public class SumArraysThreads {
     public static void main(final String[] args) {
-
         final int[] array = createRandomIntegerArray(1_000_000);
 
         final int sumNormal = sumArray(array);
@@ -11,7 +10,7 @@ public class SumArraysThreads {
 
         final int sumThreads = sumArrayWithTwoThreads(array);
         System.out.println("sum Threads:" + sumThreads);
-    }
+     }
 
     private static int sumArray(final int[] array) {
         int sumArray = 0;
@@ -23,12 +22,14 @@ public class SumArraysThreads {
     }
 
     private static int sumArrayWithTwoThreads(final int[] array) {
-        return sumArrayWithTwoThreads(array, 2); // to create default
+        return sumArrayWithTwoThreads(array, 2); // << to create default
     }
 
-    private static int sumArrayWithTwoThreads(final int[] array, int threads) {
+    private static int sumArrayWithTwoThreads(final int[] array, final int threads) {
         final int arrayLength = array.length;
         final int[] partial = {0, 0};
+
+        //todo use in array of threads
 
         final Thread thread1 = new Thread(() -> {
             int s = 0;
