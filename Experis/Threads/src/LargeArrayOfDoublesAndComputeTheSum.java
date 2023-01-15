@@ -40,25 +40,26 @@ public class LargeArrayOfDoublesAndComputeTheSum {
     }
 
     private static double sumArrayWithThreads(final double[] array, final int numberOfThreads) {
-        final int arrayLength = array.length;
         final double[] partial = new double[numberOfThreads];
         // final List<Thread> threads = new ArrayList<Thread>();
+        final int arrayLength = array.length;
         final var threads = new ArrayList<Thread>();
+        final int segmentSize = array.length / numberOfThreads;
 
-        for (int j = 0; j < numberOfThreads / 2; ++j) {
+        for (int j = 0; j < numberOfThreads; ++j) {
+            int start = segmentSize * j;
+            int end = segmentSize * (j + 1);
+            if (j == numberOfThreads - 1) {
+                end = arrayLength;
+            }
+            final int endForThread = end;
+            final int threadId = j;
             threads.add(new Thread(() -> {
                 double s = 0;
-                for (int i = 0; i < arrayLength / numberOfThreads; ++i) {
+                for (int i = start; i < endForThread; ++i) {
                     s += array[i];
                 }
-                partial[0] = s;
-            }));
-            threads.add(new Thread(() -> {
-                double s = 0;
-                for (int i = arrayLength / numberOfThreads; i < arrayLength; ++i) {
-                    s += array[i];
-                }
-                partial[1] = s;
+                partial[threadId] = s;
             }));
         }
 

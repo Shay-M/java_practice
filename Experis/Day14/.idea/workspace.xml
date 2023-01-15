@@ -1,33 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="732a933e-b8c5-499b-84f5-76135f8cecf7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Day18/.idea/dbnavigator.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../‏‏Day13/.idea/dbnavigator.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyFirstWebServer" beforeDir="false" afterPath="$PROJECT_DIR$/MyFirstWebServer" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyFirstWebServer/MyFirstWebServer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/MyFirstWebServer/MyFirstWebServer.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/todo-application/todo-application.iml" beforeDir="false" afterPath="$PROJECT_DIR$/todo-application/todo-application.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Day21/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Day21/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Day21/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Day21/src/Main.java" afterDir="false" />
-    </list>
+    <list default="true" id="732a933e-b8c5-499b-84f5-76135f8cecf7" name="Changes" comment="update" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2K5lDfIEznqH3Lgckj0rjKWVfNN" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/shay/IntelliJ/java_practice/Experis/Day14"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/shay/IntelliJ/java_practice/Experis/Day14&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -37,6 +31,18 @@
       <option name="presentableId" value="Default" />
       <updated>1673272206891</updated>
     </task>
+    <task id="LOCAL‎-00001" summary="update">
+      <created>1673798053339</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL‎-00001" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1673798053339</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="update" />
+    <option name="LAST_COMMIT_MESSAGE" value="update" />
   </component>
 </project>
