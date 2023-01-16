@@ -28,15 +28,15 @@ width: width of the frame, default to 900
 height: height of the frame, default to 800
 */
 
-public class LifeWithThreads {
-    public static final String TYPE_FILE = ".pbm";
-    public static final String DEFAULT_OUTPUT_FOLDER = "output";
-    public static final String DEFAULT_FILE_NAME = "generation_";
+public final class LifeWithThreads {
+    private static final String TYPE_FILE = ".pbm";
+    private static final String DEFAULT_OUTPUT_FOLDER = "output";
+    private static final String DEFAULT_FILE_NAME = "generation_";
     private static final int DEFAULT_ITERATIONS = 20;
     private static final int DEFAULT_THREADS = 2;
     private static final int DEFAULT_WIDTH = 900;
     private static final int DEFAULT_HEIGHT = 800;
-    private static final double INITIAL_POPULATION = 0.1;
+    private static final double INITIAL_POPULATION = 0.2;
     private static final int[][] NEIGHBOR_WINDOW = {
             {-1, -1},
             {-1, 0},
@@ -46,46 +46,75 @@ public class LifeWithThreads {
             {1, -1},
             {1, 0},
             {1, 1}};
-    private static int m_iterations;
-    private static int m_numThreads;
-    private static int m_width;
-    private static int m_height;
-    private static Path m_filePath;
-    private static String m_fileName;
-    private static boolean[][] m_currentGeneration;
-    private static boolean[][] m_nextGeneration;
+
+    private final Path m_filePath;
+    private final int m_width;
+    private final int m_height;
+    private final int m_iterations;
+    private final int m_numThreads;
+    private final String m_fileName;
+    private final boolean[][] m_currentGeneration;
+    private final boolean[][] m_nextGeneration;
+
+    public StringBuilder getForTest() {
+        return forTest;
+    }
+
+    private StringBuilder forTest = new StringBuilder();
 
     public static void main(final String[] args) {
-        // LifeWithThreads life = new LifeWithThreads();
+        int index = 0;
+        var filePath = Path.of(args[index++]);
+        var iterations = Integer.parseInt(args[index++]);
+        var numThreads = Integer.parseInt(args[index++]);
+        var width = Integer.parseInt(args[index++]);
+        var height = Integer.parseInt(args[index++]);
+        assert args.length == index;
 
-        parseArguments(args);
-        m_fileName = !m_filePath.getFileName().toString().isEmpty() ? m_filePath.getFileName().toString() : DEFAULT_FILE_NAME;
-        createTheOutputDirectory();
+        final LifeWithThreads lifeGame = new LifeWithThreads(filePath, width, height, iterations, numThreads);
+        lifeGame.Start();
+    }
+
+    public LifeWithThreads() {
+        this.m_filePath = Path.of(DEFAULT_OUTPUT_FOLDER);
+        this.m_width = DEFAULT_WIDTH;
+        this.m_height = DEFAULT_HEIGHT;
+        this.m_iterations = DEFAULT_ITERATIONS;
+        this.m_numThreads = DEFAULT_THREADS;
         m_currentGeneration = new boolean[m_width][m_height];
         m_nextGeneration = new boolean[m_width][m_height];
+
+        m_fileName = !m_filePath.getFileName().toString().isEmpty() ? m_filePath.getFileName().toString() : DEFAULT_FILE_NAME;
+    }
+
+
+    // java Life 'movie/frame' '100' '4'  '200' '200'
+    // java Life '200'
+    public LifeWithThreads(final Path m_filePath, final int m_width, final int m_height, final int m_iterations, final int m_numThreads) {
+        this.m_filePath = m_filePath;
+        this.m_width = m_width;
+        this.m_height = m_height;
+        this.m_iterations = m_iterations;
+        this.m_numThreads = m_numThreads;
+        m_currentGeneration = new boolean[m_width][m_height];
+        m_nextGeneration = new boolean[m_width][m_height];
+
+        m_fileName = !m_filePath.getFileName().toString().isEmpty() ? m_filePath.getFileName().toString() : DEFAULT_FILE_NAME;
+    }
+
+    private final void Start(){
+        createTheOutputDirectory();
         initializeFirstGeneration();
         simulateIterationsGenerations();
     }
 
-    private static void parseArguments(final String[] args) {
-        // java Life 'movie/frame' '100' '4'  '200' '200'
-        // java Life '200'
-        int index = 0;
-        m_filePath = Path.of(args.length > 0 ? args[index++] : DEFAULT_OUTPUT_FOLDER);
-        m_iterations = args.length > 1 ? Integer.parseInt(args[index++]) : DEFAULT_ITERATIONS;
-        m_numThreads = args.length > 2 ? Integer.parseInt(args[index++]) : DEFAULT_THREADS;
-        m_width = args.length > 3 ? Integer.parseInt(args[index++]) : DEFAULT_WIDTH;
-        m_height = args.length > 4 ? Integer.parseInt(args[index++]) : DEFAULT_HEIGHT;
-        assert args.length == index;
-    }
-
-    private static void createTheOutputDirectory() {
+    private void createTheOutputDirectory() {
         // java Life movie/frame 100 4  200 200
         final Path outputDir = m_filePath;
         if (!Files.exists(outputDir)) {
             try {
                 // Files.createDirectory(outputDir.getParent());
-                Files.createDirectories(outputDir); // ask
+                Files.createDirectories(outputDir);
             }
             catch (IOException ex) {
                 throw new CreateFolderException(ex);
@@ -93,7 +122,7 @@ public class LifeWithThreads {
         }
     }
 
-    private static void initializeFirstGeneration() {
+    private void initializeFirstGeneration() {
         final SecureRandom secureRandom = new SecureRandom();
         for (int row = 0; row < m_width; row++) {
             for (int col = 0; col < m_height; col++) {
@@ -102,7 +131,7 @@ public class LifeWithThreads {
         }
     }
 
-    private static void simulateIterationsGenerations() {
+    private void simulateIterationsGenerations() {
         for (int generationNumber = 0; generationNumber < m_iterations; generationNumber++) {
             simulateOneGeneration();
             saveCurrentGenerationToFile(generationNumber);
@@ -116,9 +145,8 @@ public class LifeWithThreads {
     Any live cell with two or three live neighbours lives on to the next generation.
     Any live cell with more than three live neighbours dies, as if by overpopulation.
     */
-    private static void simulateOneGeneration() {
+    private void simulateOneGeneration() {
         final int sizeGridThread = m_width / m_numThreads;
-        final var threads = new ArrayList<Thread>();
         final var cyclicBarrier = new CyclicBarrier(m_numThreads);
 
 //        int startLocation = 0;
@@ -136,7 +164,7 @@ public class LifeWithThreads {
         }
     }
 
-    private static void simulateGrid(final int startRow, final int endRow, final CyclicBarrier cyclicBarrier) throws BrokenBarrierException, InterruptedException {
+    private void simulateGrid(final int startRow, final int endRow, final CyclicBarrier cyclicBarrier) {
         for (int row = startRow; row < endRow; row++) {
             for (int col = 0; col < m_height; col++) {
                 int numNeighbors = countLiveNeighbors(row, col);
@@ -150,16 +178,16 @@ public class LifeWithThreads {
                 }
             }
         }
-        // wait for all threads to finish this part
-//        try {
+        // wait all threads to finish
+        try {
             cyclicBarrier.await();
-//        }
-//        catch (InterruptedException  | BrokenBarrierException ex) {
-//            System.out.println("");
-//        }
+        }
+        catch (InterruptedException | BrokenBarrierException ex) {
+            throw new CyclicBarrierException(ex);
+        }
     }
 
-    private static int countLiveNeighbors(final int row, final int col) {
+    private int countLiveNeighbors(final int row, final int col) {
         int count = 0;
        /* {-1, -1},
         {-1, 0},
@@ -183,14 +211,14 @@ public class LifeWithThreads {
         return count;
     }
 
-    private static void copyNextGenerationToCurrent() {
+    private void copyNextGenerationToCurrent() {
         for (int row = 0; row < m_width; row++) {
             System.arraycopy(m_nextGeneration[row], 0, m_currentGeneration[row], 0, m_height);
         }
     }
 
     // https://stackoverflow.com/questions/30490471/how-do-i-save-a-bufferedimage-to-a-pgm-file
-    private static void saveCurrentGenerationToFile(final int generation) {
+    private void saveCurrentGenerationToFile(final int generation) {
         final StringBuilder stringBuilder = new StringBuilder();
 
         // write the PBM header
@@ -204,15 +232,10 @@ public class LifeWithThreads {
             }
             stringBuilder.append("\n");
         }
+        forTest = stringBuilder;
 
         final Path outputFile = Paths.get(m_filePath.toString(),
                 m_fileName + generation + TYPE_FILE);
-//        try {
-//            Files.createFile(outputFile);
-//        }
-//        catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
         try {
             Files.write(outputFile, stringBuilder.toString().getBytes());
         }
@@ -220,6 +243,4 @@ public class LifeWithThreads {
             throw new WriteToFileException(ex);
         }
     }
-
-
 }
