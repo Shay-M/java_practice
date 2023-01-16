@@ -1,6 +1,8 @@
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.function.BiFunction;
+import java.util.function.Predicate;
 
 public class FulfillACertainCondition {
 
@@ -17,67 +19,32 @@ public class FulfillACertainCondition {
     a. compute product of all none zero numbers.*/
 
     public static void main(final String[] args) {
-//        final double[] array = createRandomDoublerArray(1_000_000);
-//
-//        Condition positiveCondition = (e) -> {
-//            return e >= 0;
-//        };
-//        Computation computationMultipler = (n1, n2) -> {
-//            return n1 * n2;
-//        };
-//
-//        final double sumThreads = sumArrayWithCondition(array, positiveCondition);
-//        System.out.println("sum Threads:" + sumThreads);
     }
 
-    public static double sumArrayWithCondition(final double[] array, final Condition condition) {
-        return sumArrayWithCondition(array, condition, 2); // << to create default
+    public static double[] createRandomDoublerArray(final int arrayLength) {
+        final SecureRandom secureRandom = new SecureRandom();
+        final double[] array = new double[arrayLength];
+        for (int i = 0; i < arrayLength; i++) {
+            array[i] = secureRandom.nextDouble();
+        }
+
+        return array;
     }
 
-/*    public static double sumArrayWithCondition(final double[] array, final Condition condition, final int numberOfThreads) {
-        final int arrayLength = array.length;
-        final double[] partial = new double[numberOfThreads];
-        // final List<Thread> threads = new ArrayList<Thread>();
-        final var threads = new ArrayList<Thread>();
+    public static double sumArrayWithCondition(final double[] array, final Predicate<Double> condition) {
+        final double sumArray = Arrays.stream(array, 0, array.length)
+                .parallel()
+                .filter((num) -> condition.test(num))
+                .sum();
 
-        for (int j = 0; j < numberOfThreads / 2; ++j) { // run on number of thread need
+        return sumArray;
+    }
 
-            threads.add(new Thread(() -> {
-                double s = 0;
-                for (int i = 0; i < arrayLength / numberOfThreads; ++i) {
-                    if (condition.check(array[i])) {
-                        s += array[i];
-                    }
-                }
-                partial[0] = s;
-            }));
+    public static double sumArrayWithConditionWithThreads(final double[] array, final Predicate<Double> condition) {
+        return sumArrayWithConditionWithThreads(array, condition, 2); // << to create default
+    }
 
-            threads.add(new Thread(() -> {
-                double s = 0;
-                for (int i = arrayLength / numberOfThreads; i < arrayLength; ++i) {
-                    if (condition.check(array[i])) {
-                        s += array[i];
-                    }
-                }
-                partial[1] = s;
-            }));
-        }
-
-        for (Thread thread : threads) {
-            thread.start();
-            try {
-                thread.join();
-            }
-            catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-        final double totalSum = Arrays.stream(partial).sum();
-        return totalSum;
-    }*/
-
-    public static double sumArrayWithCondition(final double[] array, final Condition condition, final int numberOfThreads) {
+    public static double sumArrayWithConditionWithThreads(final double[] array, final Predicate<Double> condition, final int numberOfThreads) {
         final double[] partial = new double[numberOfThreads];
         // final List<Thread> threads = new ArrayList<Thread>();
         final int arrayLength = array.length;
@@ -95,7 +62,8 @@ public class FulfillACertainCondition {
             threads.add(new Thread(() -> {
                 double s = 0;
                 for (int i = start; i < endForThread; ++i) {
-                    if (condition.check(array[i])) {
+//                    if (condition.check(array[i])) {
+                    if (condition.test(array[i])) {
                         s += array[i];
                     }
                 }
@@ -115,27 +83,25 @@ public class FulfillACertainCondition {
 
         final double totalSum = Arrays.stream(partial).sum();
         return totalSum;
-
-
     }
 
-
-    public static double[] createRandomDoublerArray(final int arrayLength) {
-        final SecureRandom secureRandom = new SecureRandom();
-        final double[] array = new double[arrayLength];
-        for (int i = 0; i < arrayLength; i++) {
-            array[i] = secureRandom.nextDouble();
+    public static double computationThatFulfilACondition(final double[] array, final Predicate<Double> condition, final Computation computation) {
+        double s = 0;
+        for (double num : array) {
+            if (condition.test(num)) {
+                s = computation.computation(num, s);
+            }
         }
 
-        return array;
+        return s;
     }
 
-    public static double computationThatFulfilACondition(final double[] array, final Condition condition, final Computation computation) {
-        return computationThatFulfilACondition(array, condition, computation, 2);
+    public static double computationThatFulfilAConditionWithThreads(final double[] array, final Predicate<Double> condition, final Computation computation) {
+        return computationThatFulfilAConditionWithThreads(array, condition, computation, 2);
 
     }
 
-    public static double computationThatFulfilACondition(final double[] array, final Condition condition, final Computation computation, final int numberOfThreads) {
+    public static double computationThatFulfilAConditionWithThreads(final double[] array, final Predicate<Double> condition, final Computation computation, final int numberOfThreads) {
         final double[] partial = new double[numberOfThreads];
         // final List<Thread> threads = new ArrayList<Thread>();
         final int arrayLength = array.length;
@@ -153,7 +119,7 @@ public class FulfillACertainCondition {
             threads.add(new Thread(() -> {
                 double s = 0;
                 for (int i = start; i < endForThread; ++i) {
-                    if (condition.check(array[i])) {
+                    if (condition.test(array[i])) {
                         s = computation.computation(array[i], s);
                     }
                 }
@@ -176,3 +142,4 @@ public class FulfillACertainCondition {
     }
 }
 
+//https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/util/function/package-summary.html

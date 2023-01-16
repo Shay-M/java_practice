@@ -1,6 +1,5 @@
 import java.security.SecureRandom;
-import java.util.Arrays;
-
+// 1
 public class SumArraysThreads {
     public static void main(final String[] args) {
         final int[] array = createRandomIntegerArray(1_000_000);
@@ -70,3 +69,4 @@ public class SumArraysThreads {
         return array;
     }
 }
+

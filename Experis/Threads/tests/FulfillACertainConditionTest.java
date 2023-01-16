@@ -3,22 +3,26 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.function.Predicate;
 
 class FulfillACertainConditionTest {
     private final static double EPSILON = 0.000001d;
 
     private final static double[] EngineeringSeriesArray = new double[1_000_000];
-    private final static double[] onlyPositiveArray = {1.8, 2, 3, 4.2};
+    private final static double[] onlyPositiveArray = {1.8, 2, 3, 4.2, 0};
     private final static double[] positiveAndNegativeArray = {-1, 2, 3};
 
-    private final static Condition noCondition = (e) -> {
+    private final static Predicate<Double> noCondition = (e) -> {
         return true;
     };
-    private final static Condition positiveCondition = (e) -> {
+    private final static Predicate<Double> positiveCondition = (e) -> {
         return e >= 0;
     };
-    private final static Condition EvenToLongCondition = (e) -> {
-        return ((long) e) % 2 == 0;
+    private final static Predicate<Double> evenToLongCondition = (e) -> {
+        return ((long) e.doubleValue()) % 2 == 0; // doubleValue to convert to primitive double value.
+    };
+    private final static Predicate<Double> noneZeroNumbersCondition = (e) -> {
+        return e != 0;
     };
 
     private final static Computation computationMultiple = (n1, mulSum) -> {
@@ -35,11 +39,10 @@ class FulfillACertainConditionTest {
         }
     }
 
-
     @Test
     void positiveConditionSumTest() {
         final double sum = FulfillACertainCondition
-                .sumArrayWithCondition(
+                .sumArrayWithConditionWithThreads(
                         EngineeringSeriesArray,
                         positiveCondition);
 
@@ -52,9 +55,9 @@ class FulfillACertainConditionTest {
     @Test
     void evenIfTruncatedToLongConditionSumTest() { //  2 + 4.2
         final double sum = FulfillACertainCondition
-                .sumArrayWithCondition(
+                .sumArrayWithConditionWithThreads(
                         onlyPositiveArray,
-                        EvenToLongCondition);
+                        evenToLongCondition);
 
         final double actual = Arrays.stream(onlyPositiveArray)
                 .filter(i -> ((long) i) % 2 == 0)
@@ -67,12 +70,31 @@ class FulfillACertainConditionTest {
     @Test
     void positiveConditionMulComputationTest() {
         final double mul = FulfillACertainCondition
-                .computationThatFulfilACondition(
+                .computationThatFulfilAConditionWithThreads(
                         positiveAndNegativeArray,
                         noCondition,
                         computationMultiple);
 
-        Assertions.assertEquals(5, mul);
+        Assertions.assertEquals(5, mul, EPSILON);
+
+
+    }
+
+    @Test
+    void mulComputationZeroNumbersConditionTest() {
+        final double mul = FulfillACertainCondition
+                .computationThatFulfilAConditionWithThreads(
+                        onlyPositiveArray,
+                        noneZeroNumbersCondition,
+                        computationMultiple);
+
+        final double actual = Arrays.stream(onlyPositiveArray)
+                .filter(i -> ((long) i) % 2 == 0)
+                .sum();
+
+        Assertions.assertEquals(5, mul, EPSILON);
+
+
     }
 
 
