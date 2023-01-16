@@ -5,6 +5,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 
 /*
@@ -54,6 +56,8 @@ public class LifeWithThreads {
     private static boolean[][] m_nextGeneration;
 
     public static void main(final String[] args) {
+        // LifeWithThreads life = new LifeWithThreads();
+
         parseArguments(args);
         m_fileName = !m_filePath.getFileName().toString().isEmpty() ? m_filePath.getFileName().toString() : DEFAULT_FILE_NAME;
         createTheOutputDirectory();
@@ -106,31 +110,53 @@ public class LifeWithThreads {
         }
     }
 
+
     /*
     Any live cell with fewer than two live neighbours dies, as if by underpopulation.
     Any live cell with two or three live neighbours lives on to the next generation.
     Any live cell with more than three live neighbours dies, as if by overpopulation.
     */
     private static void simulateOneGeneration() {
-        final int rowsPerThread = m_width / m_numThreads;
-        final var barrier = new CyclicBarrier(m_numThreads);
+        final int sizeGridThread = m_width / m_numThreads;
+        final var threads = new ArrayList<Thread>();
+        final var cyclicBarrier = new CyclicBarrier(m_numThreads);
 
-        for (int row = 0; row < m_width; row++) {
+//        int startLocation = 0;
+//        int endLocation = 0;
+//        for (int i = 0; i < m_numThreads; ++i) {
+//            endLocation += sizeGridThread;
+//            if (i == m_numThreads - 1) {
+//                endLocation = m_width;
+//            }
+
+        for (int i = 0; i < m_numThreads; ++i) {
+            int startRow = i * sizeGridThread;
+            int endRow = startRow + sizeGridThread - 1;
+            new Thread(() -> simulateGrid(startRow, endRow, cyclicBarrier)).start();
+        }
+    }
+
+    private static void simulateGrid(final int startRow, final int endRow, final CyclicBarrier cyclicBarrier) throws BrokenBarrierException, InterruptedException {
+        for (int row = startRow; row < endRow; row++) {
             for (int col = 0; col < m_height; col++) {
                 int numNeighbors = countLiveNeighbors(row, col);
-
-                // Live cell
                 if (m_currentGeneration[row][col]) {
-                    // Any live cell with two or three live neighbours survives.
+                    // Any 'live' cell with two or three live neighbours survives.
                     m_nextGeneration[row][col] = numNeighbors == 2 || numNeighbors == 3;
                 }
-                // Dead cell
                 else {
-                    // Any dead cell with three live neighbours becomes a live cell.
+                    // Any 'dead' cell with three live neighbours becomes a live cell.
                     m_nextGeneration[row][col] = numNeighbors == 3;
                 }
             }
         }
+        // wait for all threads to finish this part
+//        try {
+            cyclicBarrier.await();
+//        }
+//        catch (InterruptedException  | BrokenBarrierException ex) {
+//            System.out.println("");
+//        }
     }
 
     private static int countLiveNeighbors(final int row, final int col) {
