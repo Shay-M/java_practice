@@ -70,7 +70,7 @@ class FulfillACertainConditionTest {
     @Test
     void positiveConditionMulComputationTest() {
         final double mul = FulfillACertainCondition
-                .computationThatFulfilAConditionWithThreads(
+                .computationConditionWithThreads(
                         positiveAndNegativeArray,
                         noCondition,
                         computationMultiple);
@@ -83,7 +83,7 @@ class FulfillACertainConditionTest {
     @Test
     void mulComputationZeroNumbersConditionTest() {
         final double mul = FulfillACertainCondition
-                .computationThatFulfilAConditionWithThreads(
+                .computationConditionWithThreads(
                         onlyPositiveArray,
                         noneZeroNumbersCondition,
                         computationMultiple);

@@ -1,7 +1,6 @@
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.function.BiFunction;
 import java.util.function.Predicate;
 
 public class FulfillACertainCondition {
@@ -49,25 +48,25 @@ public class FulfillACertainCondition {
         // final List<Thread> threads = new ArrayList<Thread>();
         final int arrayLength = array.length;
         final var threads = new ArrayList<Thread>();
-        final int segmentSize = array.length / numberOfThreads;
 
+        final int segmentSize = array.length / numberOfThreads;
         for (int j = 0; j < numberOfThreads; ++j) {
             int start = segmentSize * j;
             int end = segmentSize * (j + 1);
             if (j == numberOfThreads - 1) {
                 end = arrayLength;
             }
+
             final int endForThread = end;
             final int threadId = j;
             threads.add(new Thread(() -> {
-                double s = 0;
-                for (int i = start; i < endForThread; ++i) {
-//                    if (condition.check(array[i])) {
+                double sumFromPartials = 0;
+                for (int i = start; i < endForThread; ++i) { // was: if (condition.check(array[i])) {
                     if (condition.test(array[i])) {
-                        s += array[i];
+                        sumFromPartials += array[i];
                     }
                 }
-                partial[threadId] = s;
+                partial[threadId] = sumFromPartials;
             }));
         }
 
@@ -96,34 +95,34 @@ public class FulfillACertainCondition {
         return s;
     }
 
-    public static double computationThatFulfilAConditionWithThreads(final double[] array, final Predicate<Double> condition, final Computation computation) {
-        return computationThatFulfilAConditionWithThreads(array, condition, computation, 2);
-
+    public static double computationConditionWithThreads(final double[] array, final Predicate<Double> condition, final Computation computation) {
+        return computationConditionWithThreads(array, condition, computation, 2);
     }
 
-    public static double computationThatFulfilAConditionWithThreads(final double[] array, final Predicate<Double> condition, final Computation computation, final int numberOfThreads) {
+    public static double computationConditionWithThreads(final double[] array, final Predicate<Double> condition, final Computation computation, final int numberOfThreads) {
         final double[] partial = new double[numberOfThreads];
         // final List<Thread> threads = new ArrayList<Thread>();
         final int arrayLength = array.length;
         final var threads = new ArrayList<Thread>();
-        final int segmentSize = array.length / numberOfThreads;
 
+        final int segmentSize = array.length / numberOfThreads;
         for (int j = 0; j < numberOfThreads; ++j) {
             int start = segmentSize * j;
             int end = segmentSize * (j + 1);
             if (j == numberOfThreads - 1) {
                 end = arrayLength;
             }
+
             final int endForThread = end;
             final int threadId = j;
             threads.add(new Thread(() -> {
-                double s = 0;
+                double computationResult = 0;
                 for (int i = start; i < endForThread; ++i) {
                     if (condition.test(array[i])) {
-                        s = computation.computation(array[i], s);
+                        computationResult = computation.computation(array[i], computationResult);
                     }
                 }
-                partial[threadId] = s;
+                partial[threadId] = computationResult;
             }));
         }
 
