@@ -1,10 +1,9 @@
 package gameoflife;
 
-import gameoflife.files.SaveFiles;
+import gameoflife.files.FrameWriter;
 import gameoflife.model.Grid;
 
 import java.nio.file.Path;
-import java.security.SecureRandom;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 import java.util.logging.Level;
@@ -39,37 +38,17 @@ public final class LifeT {
     private static final int DEFAULT_WIDTH = 900;
     private static final int DEFAULT_HEIGHT = 800;
     private static final double INITIAL_POPULATION = 0.2;
-    private static final int[][] NEIGHBOR_WINDOW = {
-            {-1, -1},
-            {-1, 0},
-            {-1, 1},
-            {0, -1},
-            {0, 1},
-            {1, -1},
-            {1, 0},
-            {1, 1}};
 
     private final Path m_filePath;
     private final int m_width;
     private final int m_height;
     private final int m_iterations;
     private final int m_numThreads;
-    private final String m_fileName;
-//    private final boolean[][] m_currentGeneration;
-//    private final boolean[][] m_nextGeneration;
 
-    private final Grid m_currentGeneration;
-    private final Grid m_nextGeneration;
-
-    private SaveFiles m_files;
-
-
-    private StringBuilder forTest = new StringBuilder();
-
-    public StringBuilder getForTest() {
-        return forTest;
-    }
-
+    private String m_fileName;
+    private Grid<Boolean> m_currentGeneration;
+    private Grid<Boolean> m_nextGeneration;
+    private FrameWriter m_files;
 
     public static void main(final String[] args) {
         int index = 0;
@@ -100,56 +79,40 @@ public final class LifeT {
         this.m_height = DEFAULT_HEIGHT;
         this.m_iterations = DEFAULT_ITERATIONS;
         this.m_numThreads = DEFAULT_THREADS;
-
-//        m_currentGeneration = new boolean[m_width][m_height];
-//        m_nextGeneration = new boolean[m_width][m_height];
-        m_currentGeneration = new Grid(m_width, m_height);
-        m_nextGeneration = new Grid(m_width, m_height);
-
-        m_fileName = !m_filePath.getFileName().toString().isEmpty() ? m_filePath.getFileName().toString() : DEFAULT_FILE_NAME;
     }
 
-
-    // java Life 'movie/frame' '100' '4'  '200' '200'
-    // java Life '200'
     public LifeT(final Path m_filePath, final int m_width, final int m_height, final int m_iterations, final int m_numThreads) {
         this.m_filePath = m_filePath;
         this.m_width = m_width;
         this.m_height = m_height;
         this.m_iterations = m_iterations;
         this.m_numThreads = m_numThreads;
-        m_currentGeneration = new boolean[m_width][m_height];
-        m_nextGeneration = new boolean[m_width][m_height];
-
-        m_fileName = !m_filePath.getFileName().toString().isEmpty() ? m_filePath.getFileName().toString() : DEFAULT_FILE_NAME;
     }
 
-    private final void start() {
-        m_files = new SaveFiles(m_filePath);
-
+    private void start() {
+        m_files = new FrameWriter(m_filePath);
         m_files.createTheOutputDirectory();
 
-        initializeFirstGeneration();
+        m_currentGeneration = new Grid<Boolean>(m_height, m_width);
+        m_currentGeneration.initializeFirstGeneration(INITIAL_POPULATION);
+        m_nextGeneration = new Grid<Boolean>(m_height, m_width);
+
+        m_fileName = !m_filePath.getFileName().toString().isEmpty() ? m_filePath.getFileName().toString() : DEFAULT_FILE_NAME;
+
         simulateIterationsGenerations();
     }
 
-    private void initializeFirstGeneration() {
-        final SecureRandom secureRandom = new SecureRandom();
-        for (int row = 0; row < m_width; row++) {
-            for (int col = 0; col < m_height; col++) {
-                m_currentGeneration[row][col] = secureRandom.nextDouble() < INITIAL_POPULATION;
-            }
-        }
-    }
-
     private void simulateIterationsGenerations() {
-        for (int generationNumber = 0; generationNumber < m_iterations; generationNumber++) {
+        for (int generationNumber = 0; generationNumber < m_iterations; ++generationNumber) {
             simulateOneGeneration();
-            m_files.saveCurrentGenerationToFile(generationNumber, m_height, m_width, m_currentGeneration, TYPE_FILE, m_fileName);
-            copyNextGenerationToCurrent();
+            m_files.saveCurrentGenerationToFile(generationNumber, m_currentGeneration, TYPE_FILE, m_fileName);
+
+            // copyNextGenerationToCurrent();
+            var temp = m_currentGeneration;
+            m_currentGeneration = m_nextGeneration;
+            m_nextGeneration = temp;
         }
     }
-
 
     /*
     Any live cell with fewer than two live neighbours dies, as if by underpopulation.
@@ -159,14 +122,6 @@ public final class LifeT {
     private void simulateOneGeneration() {
         final int sizeGridThread = m_width / m_numThreads;
         final var cyclicBarrier = new CyclicBarrier(m_numThreads);
-
-//        int startLocation = 0;
-//        int endLocation = 0;
-//        for (int i = 0; i < m_numThreads; ++i) {
-//            endLocation += sizeGridThread;
-//            if (i == m_numThreads - 1) {
-//                endLocation = m_width;
-//            }
 
         for (int i = 0; i < m_numThreads; ++i) {
             int startRow = i * sizeGridThread;
@@ -178,14 +133,14 @@ public final class LifeT {
     private void simulateGrid(final int startRow, final int endRow, final CyclicBarrier cyclicBarrier) {
         for (int row = startRow; row < endRow; row++) {
             for (int col = 0; col < m_height; col++) {
-                int numNeighbors = countLiveNeighbors(row, col);
-                if (m_currentGeneration[row][col]) {
+                int numNeighbors = m_currentGeneration.countLiveNeighbors(row, col);
+                if (m_currentGeneration.get(row, col)) {
                     // Any 'live' cell with two or three live neighbours survives.
-                    m_nextGeneration[row][col] = numNeighbors == 2 || numNeighbors == 3;
+                    m_nextGeneration.set(row, col, numNeighbors == 2 || numNeighbors == 3);
                 }
                 else {
                     // Any 'dead' cell with three live neighbours becomes a live cell.
-                    m_nextGeneration[row][col] = numNeighbors == 3;
+                    m_nextGeneration.set(row, col, numNeighbors == 3);
                 }
             }
         }
@@ -198,34 +153,10 @@ public final class LifeT {
         }
     }
 
-    private int countLiveNeighbors(final int row, final int col) {
-        int count = 0;
-       /* {-1, -1},
-        {-1, 0},
-        {-1, 1},
-        {0, -1},
-        {0, 1},
-        {1, -1},
-        {1, 0},
-        {1, 1}};*/
-        for (int[] offset : NEIGHBOR_WINDOW) {
-            int neighborRow = row + offset[0];
-            int neighborCol = col + offset[1];
-
-            if (neighborRow >= 0 && neighborRow < m_width && // outside 'width' bound of the grid
-                    neighborCol >= 0 && neighborCol < m_height && // outside 'height' bound of the grid
-                    m_currentGeneration[neighborRow][neighborCol]) // now position is alive?
-            {
-                ++count;
-            }
-        }
-        return count;
-    }
-
-    private void copyNextGenerationToCurrent() {
-        for (int row = 0; row < m_width; row++) {
-            System.arraycopy(m_nextGeneration[row], 0, m_currentGeneration[row], 0, m_height);
-        }
-    }
+//    private void copyNextGenerationToCurrent() {
+//        for (int row = 0; row < m_width; ++row) {
+//            System.arraycopy(m_nextGeneration.getRow(row), 0, m_currentGeneration.getRow(row), 0, m_height);
+//        }
+//    }
 
 }
