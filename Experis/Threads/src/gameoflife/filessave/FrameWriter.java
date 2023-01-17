@@ -18,6 +18,8 @@ public class FrameWriter {
     private final String m_fileName;
     private final String m_typeFile;
 
+    private int generation = 0;
+
     public FrameWriter(final Path filePath, final String typeFile) {
         m_filePath = filePath;
         m_typeFile = typeFile;
@@ -38,11 +40,12 @@ public class FrameWriter {
         }
     }
 
-    public final void saveCurrentGenerationToFile(final int generation, final Grid<Boolean> currentGeneration) {
+    public final void saveCurrentGenerationToFile(final Grid<Boolean> currentGeneration) {
         var height = currentGeneration.getHeight();
         var width = currentGeneration.getWidth();
         final StringBuilder stringBuilder = new StringBuilder(height * width * 2 + 30);
         // we use this height * width * 2 + 30 tho not create new capacity
+
 
         // write the PBM header
         stringBuilder.append(P_1 + NEW_LINE);
@@ -56,7 +59,7 @@ public class FrameWriter {
             stringBuilder.append(NEW_LINE);
         }
         final Path outputFile = Paths.get(m_filePath.toString(),
-                m_fileName + generation + m_typeFile);
+                m_fileName + (generation++) + m_typeFile);
         try {
             Files.write(outputFile, stringBuilder.toString().getBytes());
         }

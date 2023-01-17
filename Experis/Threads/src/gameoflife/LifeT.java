@@ -64,23 +64,36 @@ public final class LifeT {
         simulateIterationsGenerations();
     }
 
-    private void simulateIterationsGenerations() {
-        for (int generationNumber = 0; generationNumber < m_iterations; ++generationNumber) {
-            simulateFrameGeneration();
-            m_frameWriter.saveCurrentGenerationToFile(generationNumber, m_currentGenerationGrid);
 
-            // copyNextGenerationToCurrent();
+    private void simulateIterationsGenerations() {
+        // https://www.javatpoint.com/java-cyclicbarrier
+        final var threads = createThreads();
+
+        //for (int generationNumber = 0; generationNumber < m_iterations; ++generationNumber) {
+        simulateFrameGeneration(threads);
+
+        // save to file
+        // m_frameWriter.saveCurrentGenerationToFile(generationNumber, m_currentGenerationGrid);
+
+        // copyNextGenerationToCurrent();
+//        var temp = m_currentGenerationGrid;
+//        m_currentGenerationGrid = m_nextGenerationGrid;
+//        m_nextGenerationGrid = temp;
+        // }
+    }
+
+    private ArrayList<Thread> createThreads() {
+        final var threads = new ArrayList<Thread>();
+        final int sizeGridThread = m_width / m_numThreads;
+
+        final var cyclicBarrier = new CyclicBarrier(m_numThreads, () -> {
+            m_frameWriter.saveCurrentGenerationToFile(m_currentGenerationGrid);
+
             var temp = m_currentGenerationGrid;
             m_currentGenerationGrid = m_nextGenerationGrid;
             m_nextGenerationGrid = temp;
-        }
-    }
+        });
 
-    private void simulateFrameGeneration() {
-        //  Executor  << not to use
-        final var threads = new ArrayList<Thread>();
-        final int sizeGridThread = m_width / m_numThreads;
-        final var cyclicBarrier = new CyclicBarrier(m_numThreads);
 
         for (int i = 0; i < m_numThreads; ++i) {
             final int startRow = i * sizeGridThread;
@@ -92,32 +105,45 @@ public final class LifeT {
             else {
                 endRow = startRow + sizeGridThread;
             }
-            // new Thread(() -> simulateSegmentOfGrid(startRow, endRow, cyclicBarrier)).start(); // todo not good!!
             final var thread = new Thread(() -> simulateSegmentOfGrid(startRow, endRow, cyclicBarrier));
             threads.add(thread);
             thread.start();
         }
+        return threads;
+    }
 
-//       for (Thread thread : threads) {
-//            thread.join();
-//        }
+
+    private void simulateFrameGeneration(final ArrayList<Thread> threads) {
+        for (Thread thread : threads) {
+            try {
+                thread.join();
+            }
+            catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     // m_gameRules
     private void simulateSegmentOfGrid(final int startRow, final int endRow, final CyclicBarrier cyclicBarrier) {
-        for (int row = startRow; row < endRow; row++) {
-            for (int col = 0; col < m_height; col++) {
-                // do it var , it obj?
-                final Boolean isLive = m_gameRules.nextStage(row, col, m_currentGenerationGrid);
-                m_nextGenerationGrid.set(row, col, isLive);
+        for (int generationNumber = 0; generationNumber < m_iterations; ++generationNumber) {
+
+            for (int row = startRow; row < endRow; row++) {
+                for (int col = 0; col < m_height; col++) {
+                    // do it var , it obj?
+                    final Boolean isLive = m_gameRules.nextStage(row, col, m_currentGenerationGrid);
+                    m_nextGenerationGrid.set(row, col, isLive);
+                }
             }
-        }
-        try {
-            // wait all threads to finish
-            cyclicBarrier.await();
-        }
-        catch (InterruptedException | BrokenBarrierException ex) {
-            throw new CyclicBarrierException(ex);
+
+
+            try {
+                // wait all threads to finish
+                cyclicBarrier.await();
+            }
+            catch (InterruptedException | BrokenBarrierException ex) {
+                throw new CyclicBarrierException(ex);
+            }
         }
     }
 
