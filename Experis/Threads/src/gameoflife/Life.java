@@ -1,7 +1,7 @@
 package gameoflife;
 
-import gameoflife.files.CreateFolderException;
-import gameoflife.files.WriteToFileException;
+import gameoflife.filessave.CreateFolderException;
+import gameoflife.filessave.WriteToFileException;
 
 import java.io.IOException;
 import java.nio.file.Files;

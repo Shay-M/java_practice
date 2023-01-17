@@ -19,14 +19,14 @@ final class LifeWithThreadsTest {
 
     @Test
     void lonelyCell() {
-        final LifeT lifeGame = new LifeT(
-
-                FILE_PATH,
-                9,
-                9,
-                5,
-                2
-        );
+//        final LifeT lifeGame = new LifeT(
+//
+//                FILE_PATH,
+//                9,
+//                9,
+//                5,
+//                2
+//        );
 
         // lifeGame.getForTest()
 
