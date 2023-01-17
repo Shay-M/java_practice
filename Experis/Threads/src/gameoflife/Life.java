@@ -1,5 +1,8 @@
 package gameoflife;
 
+import gameoflife.files.CreateFolderException;
+import gameoflife.files.WriteToFileException;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;

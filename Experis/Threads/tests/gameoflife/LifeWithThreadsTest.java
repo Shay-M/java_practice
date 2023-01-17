@@ -19,7 +19,7 @@ final class LifeWithThreadsTest {
 
     @Test
     void lonelyCell() {
-        final LifeWithThreads lifeGame = new LifeWithThreads(
+        final LifeT lifeGame = new LifeT(
 
                 FILE_PATH,
                 9,
