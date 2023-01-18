@@ -40,7 +40,6 @@ public final class LifeT {
     private final FrameWriter m_frameWriter;
     private final GameRules<Boolean> m_gameRules;
 
-
     public LifeT(final GameRules<Boolean> gameRules, final FrameWriter frameWriter, final int width, final int height, final int iterations, final int numThreads, final double initialPopulation) {
         m_gameRules = gameRules;
         m_frameWriter = frameWriter;
@@ -64,36 +63,24 @@ public final class LifeT {
         simulateIterationsGenerations();
     }
 
-
+    // https://www.javatpoint.com/java-cyclicbarrier
     private void simulateIterationsGenerations() {
-        // https://www.javatpoint.com/java-cyclicbarrier
         final var threads = createThreads();
 
-        //for (int generationNumber = 0; generationNumber < m_iterations; ++generationNumber) {
         simulateFrameGeneration(threads);
 
-        // save to file
-        // m_frameWriter.saveCurrentGenerationToFile(generationNumber, m_currentGenerationGrid);
-
-        // copyNextGenerationToCurrent();
-//        var temp = m_currentGenerationGrid;
-//        m_currentGenerationGrid = m_nextGenerationGrid;
-//        m_nextGenerationGrid = temp;
-        // }
     }
 
     private ArrayList<Thread> createThreads() {
-        final var threads = new ArrayList<Thread>();
+        final var threads = new ArrayList<Thread>(m_numThreads);
         final int sizeGridThread = m_width / m_numThreads;
 
         final var cyclicBarrier = new CyclicBarrier(m_numThreads, () -> {
             m_frameWriter.saveCurrentGenerationToFile(m_currentGenerationGrid);
-
             var temp = m_currentGenerationGrid;
             m_currentGenerationGrid = m_nextGenerationGrid;
             m_nextGenerationGrid = temp;
         });
-
 
         for (int i = 0; i < m_numThreads; ++i) {
             final int startRow = i * sizeGridThread;
@@ -135,8 +122,6 @@ public final class LifeT {
                     m_nextGenerationGrid.set(row, col, isLive);
                 }
             }
-
-
             try {
                 // wait all threads to finish
                 cyclicBarrier.await();
