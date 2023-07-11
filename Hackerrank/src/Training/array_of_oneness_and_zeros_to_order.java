@@ -4,7 +4,7 @@ public class array_of_oneness_and_zeros_to_order {
 
     public static void main(String a[]) {
 
-        int arr[] = {1, 0, 0, 1, 1, 0, 1, 1, 0};
+        int arr[] = {1, 0, 0, 1, 1, 0, 1, 1, 0}; // 1 | 0
         System.out.println(" " + arr.length);
 
         int left = 0, right = arr.length - 1;
