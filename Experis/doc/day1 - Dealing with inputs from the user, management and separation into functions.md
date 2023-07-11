@@ -1,4 +1,9 @@
 # Day 1
+Dealing with inputs from the user, management and separation into functions
+
+* javac fileName.java - compile
+* java fileName - run application
+
 
 ## untrust_
 ```java
@@ -129,7 +134,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Locale;
 
-public final class RockpaperScissorsGame {
+public final class RockPaperScissorsGame {
 private static final String ROCK = "r";
 private static final String PAPER = "p";
 private static final String SCISSORS = "s";
@@ -144,7 +149,6 @@ private static final String SCISSORS = "s";
             player1Choose = playerInput(logger , 1);
          } catch (IllegalArgumentException ex) {
             logger.log(Level.INFO,ex.getMessage());
-            // player1Choose = playerInput(logger , 1);
          }
         
         logger.log(Level.INFO, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
@@ -154,12 +158,11 @@ private static final String SCISSORS = "s";
          } catch (IllegalArgumentException ex) {
             logger.log(Level.INFO,ex.getMessage());
             return;
-            // player2Choose = playerInput(logger , 2);
          }
                 
         gameEnds( player1Choose,  player2Choose);
-        
     }
+    
     
     private static String playerInput(final Logger logger, int playerNum) throws IllegalArgumentException{
         logger.log(Level.INFO, "player" + playerNum + ": Please choose (r)ock ,(p)aper,(s)cissors");
@@ -170,16 +173,16 @@ private static final String SCISSORS = "s";
         }
         final String playerChoose = untrust_playerChoose;
         
-        c playerChoose;
+        return playerChoose;
     }
     
-
+    
     private static boolean validationInputIsRPS(String untrust_char) {
         return ! ( ROCK.equals(untrust_char) || PAPER.equals(untrust_char) || SCISSORS.equals(untrust_char) );
     }
 
+    
     private static boolean checkerPlayer1Won(String player1Choose, String player2Choose) {
-        
         if (player1Choose.equals(ROCK)) {
                 return player2Choose.equals(SCISSORS);
             } else if (player1Choose.equals(PAPER)) {
@@ -188,6 +191,7 @@ private static final String SCISSORS = "s";
                 return player2Choose.equals(PAPER);
         }
     }
+    
     
     private static void gameEnds(String player1Choose, String player2Choose) {
         final Logger logger = Logger.getLogger(RockpaperScissorsGame.class.getCanonicalName());
